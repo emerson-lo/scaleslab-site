@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scales Lab Architects — Los Angeles</title>
+<meta name="description" content="Scales Lab Architects is a design studio in Los Angeles working on housing, mixed-use, commercial, hospitality, healthcare and institutional projects.">
+<meta property="og:title" content="Scales Lab Architects — Los Angeles">
+<meta property="og:description" content="Scales Lab Architects is a design studio in Los Angeles working on housing, mixed-use, commercial, hospitality, healthcare and institutional projects.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:rgba(0,0,0,0.85)}a:hover{color:#000000}
+input,select,textarea,button{font:inherit}
+
+
+@keyframes slafade{0%{opacity:0;visibility:visible}2.857%{opacity:1}6.667%{opacity:1}9.524%{opacity:0;visibility:hidden}100%{opacity:0;visibility:hidden}}
+@media (max-width: 700px){
+  header, main, section, footer > div { padding-left: 20px !important; padding-right: 20px !important; }
+  #contact-form { grid-template-columns: 1fr !important; }
+  #contact-form > * { grid-column: auto !important; }
+  #contact > div > div:last-child { padding-top: 24px !important; }
+  .sla-menu { padding: 24px 20px !important; }
+  header > div:last-child { gap: 14px !important; font-size: 14px !important; }
+  header svg[width="120"] { width: 88px !important; height: auto !important; }
+  header:has(button[aria-label="Open menu"]) > div:last-child { display: none !important; }
+  header { align-items: center !important; }
+  header .sla-menu-btn { display: flex !important; }
+}
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div style="position: relative; font-family: 'Helvetica Neue', Helvetica, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-weight: 400; color: rgba(0,0,0,0.85); background: #FFFFFF; min-height: 100vh">
+
+  <!-- HEADER: keeps the hamburger + SLA. mark, adds two quiet text links -->
+  <header style="max-width: 1360px; margin: 0 auto; padding: 28px 40px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+    <div style="display: flex; align-items: center; gap: 24px">
+      <button type="button" class="sla-menu-btn" aria-label="Open menu" data-action="open-menu" style="width: 44px; height: 44px; border: 0; background: transparent; padding: 0; cursor: pointer; display: none; align-items: center; justify-content: center">
+        <svg width="26" height="18" viewBox="0 0 26 18" aria-hidden="true"><path d="M0 1h26M0 9h26M0 17h26" stroke="#000000" stroke-opacity="0.85" stroke-width="1.6" fill="none"/></svg>
+      </button>
+      <a href="#top" aria-label="Scales Lab Architects, home" style="text-decoration: none; display: flex"><svg width="120" height="59.4" viewBox="-6 -6 404 200" role="img" aria-label="Scales Lab Architects"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text x="196" y="182" text-anchor="middle" textLength="392" lengthAdjust="spacing" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="300" font-size="40" fill="#6B6B6B">scale(s) lab architects</text></svg></a>
+    </div>
+    <div style="display: flex; gap: 28px; font-size: 15px; line-height: 1; padding-bottom: 1px">
+      <a href="#services" style="text-decoration: none">Services</a>
+      <a href="#work" style="text-decoration: none">Work</a>
+      <a href="#about" style="text-decoration: none">About</a>
+      <a href="#contact-form" data-action="close-menu" style="text-decoration: none">Contact</a>
+    </div>
+  </header>
+
+  <!-- MENU OVERLAY: same dark translucent overlay as the current site -->
+  <div id="sla-menu" class="sla-menu" hidden role="dialog" aria-label="Site menu" style="position: fixed; inset: 0; overflow: auto; z-index: 10; background: rgba(34,34,34,0.94); color: #FFFFFF; padding: 28px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px">
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <svg width="64" height="22.9" viewBox="0 0 392 140" role="img" aria-label="SLA"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button type="button" aria-label="Close menu" data-action="close-menu" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center">
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 2l16 16M18 2L2 18" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="1.6"/></svg>
+        </button>
+      </div>
+      <nav aria-label="Main" style="display: flex; flex-direction: column; gap: 10px; font-size: 40px; line-height: 1.2">
+        <a href="#work" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">Work</a>
+        <a href="#services" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">Services</a>
+        <a href="#about" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">About</a>
+        <a href="#contact-form" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">Contact</a>
+      </nav>
+      <div style="display: flex; gap: 24px; font-size: 15px; color: rgba(255,255,255,0.7)">
+        <span>970 N. Broadway, Suite 107, Los Angeles</span><span>(213) 537-0910</span>
+      </div>
+    </div>
+
+  <!-- SLIDESHOW: the site's signature -->
+  <section id="top" aria-label="Featured projects, rotating every 7 seconds" style="max-width: 1360px; margin: 0 auto; padding: 0 40px">
+    <div style="position: relative; aspect-ratio: 16 / 8; background: #E6E6E5; overflow: hidden">
+      <a href="pico-fairfax-mixed-use.html" aria-label="Pico Fairfax Mixed-use, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="0"><img src="images/pico-fairfax-mixed-use-corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="arcadia-medical-offices.html" aria-label="Arcadia Medical Offices, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="1"><img loading="lazy" decoding="async" src="images/arcadia-medical-offices-west-elevation-at-dusk.jpg" alt="Arcadia Medical Offices, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="block-az.html" aria-label="Block AZ, Azusa" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="2"><img loading="lazy" decoding="async" src="images/block-az-corner-plaza-on-azusa-avenue.jpg" alt="Block AZ, Azusa" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="holiday-inn.html" aria-label="Holiday Inn, Mobile, Alabama" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="3"><img loading="lazy" decoding="async" src="images/holiday-inn-reception-lobby.jpg" alt="Holiday Inn, Mobile, Alabama" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="d-g-mixed-use.html" aria-label="D &amp; G Mixed-use" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="4"><img loading="lazy" decoding="async" src="images/d-g-mixed-use-corner-view-at-the-intersection.jpg" alt="D &amp; G Mixed-use" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="logos-evangelical-seminary-building-a.html" aria-label="Logos Evangelical Seminary, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="5"><img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-a-at-dusk.jpg" alt="Logos Evangelical Seminary, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="duarte-road-medical-building.html" aria-label="Duarte Road Medical Building, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="6"><img loading="lazy" decoding="async" src="images/duarte-road-medical-building-corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="petersen-international.html" aria-label="Petersen International, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="7"><img loading="lazy" decoding="async" src="images/petersen-international-conference-room.jpg" alt="Petersen International, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="new-terrace.html" aria-label="New Terrace, roof deck" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="8"><img loading="lazy" decoding="async" src="images/new-terrace-rooftop-terrace.jpg" alt="New Terrace, roof deck" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="prospect-villa.html" aria-label="Prospect Villa, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="9"><img loading="lazy" decoding="async" src="images/prospect-villa-aerial-view-with-terraced-residences.jpg" alt="Prospect Villa, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="strathmore-place.html" aria-label="Strathmore Place, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="10"><img loading="lazy" decoding="async" src="images/strathmore-place-street-view.jpg" alt="Strathmore Place, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="arroyo-verde-shopping-center.html" aria-label="Arroyo Verde Shopping Center, Oceanside" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="11"><img loading="lazy" decoding="async" src="images/arroyo-verde-shopping-center-pedestrian-plaza-and-storefront.jpg" alt="Arroyo Verde Shopping Center, Oceanside" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="furniture-showroom.html" aria-label="Furniture Showroom, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="12"><img loading="lazy" decoding="async" src="images/furniture-showroom-showroom-with-orange-counter.jpg" alt="Furniture Showroom, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="logos-evangelical-seminary-building-d.html" aria-label="Logos Evangelical Seminary, Building D, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="13"><img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-d-entry-corner-at-dusk.jpg" alt="Logos Evangelical Seminary, Building D, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="rye-canyon-medical-center.html" aria-label="Rye Canyon Medical Center, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="14"><img loading="lazy" decoding="async" src="images/rye-canyon-medical-center-main-facade.jpg" alt="Rye Canyon Medical Center, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <button type="button" aria-label="Previous project" data-action="prev" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); width: 56px; height: 56px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center">
+        <svg width="16" height="32" viewBox="0 0 16 32" aria-hidden="true"><path d="M15 1L1 16l14 15" stroke="#FFFFFF" stroke-width="1.6" fill="none"/></svg>
+      </button>
+      <button type="button" aria-label="Next project" data-action="next" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 56px; height: 56px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center">
+        <svg width="16" height="32" viewBox="0 0 16 32" aria-hidden="true"><path d="M1 1l14 15L1 31" stroke="#FFFFFF" stroke-width="1.6" fill="none"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- WORK: masonry columns; each image at its own proportions, uncropped -->
+  <section id="work" style="max-width: 1360px; margin: 0 auto; padding: 96px 40px 140px; display: flex; flex-direction: column; gap: 40px">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 20px; border-top: 1px solid #E6E6E6; padding-top: 20px">
+      <h2 style="margin: 0; font-size: 15px; font-weight: 400">Work</h2>
+      <div role="group" aria-label="Filter projects by type" style="display: flex; flex-wrap: wrap; gap: 4px 22px; font-size: 15px">
+                <button type="button" data-filter="All" aria-pressed="true" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">All</button>
+        <button type="button" data-filter="Housing" aria-pressed="false" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">Housing</button>
+        <button type="button" data-filter="Commercial" aria-pressed="false" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">Commercial</button>
+        <button type="button" data-filter="Hospitality" aria-pressed="false" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">Hospitality</button>
+        <button type="button" data-filter="Healthcare" aria-pressed="false" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">Healthcare</button>
+        <button type="button" data-filter="Institutional" aria-pressed="false" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">Institutional</button>
+      </div>
+    </div>
+    <div style="columns: 3 300px; column-gap: 16px">
+      <a href="logos-evangelical-seminary-building-a.html" aria-label="Logos Evangelical Seminary, Building A" data-type="Institutional" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-ceiling-detail.jpg" alt="Logos Evangelical Seminary, Building A" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="arcadia-medical-offices.html" aria-label="Arcadia Medical Offices" data-type="Healthcare" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/arcadia-medical-offices-north-elevation.jpg" alt="Arcadia Medical Offices" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="holiday-inn.html" aria-label="Holiday Inn" data-type="Hospitality" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/holiday-inn-reception-lobby.jpg" alt="Holiday Inn" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="pico-fairfax-mixed-use.html" aria-label="Pico Fairfax Mixed-use" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/pico-fairfax-mixed-use-corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="strathmore-place.html" aria-label="Strathmore Place" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/strathmore-place-street-view.jpg" alt="Strathmore Place" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="robinson-3x3.html" aria-label="Robinson 3×3" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/robinson-3-3-street-view-with-separate-entries-and-landscape.jpg" alt="Robinson 3×3" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="rye-canyon-medical-center.html" aria-label="Rye Canyon Medical Center" data-type="Healthcare" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/rye-canyon-medical-center-facade-detail.jpg" alt="Rye Canyon Medical Center" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="prospect-villa.html" aria-label="Prospect Villa" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/prospect-villa-aerial-view-with-terraced-residences.jpg" alt="Prospect Villa" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="cooffice.html" aria-label="CoOffice" data-type="Commercial" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/cooffice-lighting-detail.jpg" alt="CoOffice" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="duarte-road-medical-building.html" aria-label="Duarte Road Medical Building" data-type="Healthcare" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/duarte-road-medical-building-corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="furniture-showroom.html" aria-label="Furniture Showroom" data-type="Commercial" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/furniture-showroom-showroom-with-orange-counter.jpg" alt="Furniture Showroom" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="d-g-mixed-use.html" aria-label="D &amp; G Mixed-use" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/d-g-mixed-use-street-elevation-with-ground-floor-shops.jpg" alt="D &amp; G Mixed-use" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="new-terrace.html" aria-label="New Terrace" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/new-terrace-rooftop-terrace.jpg" alt="New Terrace" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="block-az.html" aria-label="Block AZ" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/block-az-aerial-view-with-plaza-and-parking-structure.jpg" alt="Block AZ" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="petersen-international.html" aria-label="Petersen International" data-type="Commercial" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/petersen-international-conference-room.jpg" alt="Petersen International" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="logos-evangelical-seminary-building-d.html" aria-label="Logos Evangelical Seminary, Building D" data-type="Institutional" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-d-aerial-view-of-the-cam.jpg" alt="Logos Evangelical Seminary, Building D" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="arroyo-verde-shopping-center.html" aria-label="Arroyo Verde Shopping Center" data-type="Commercial" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/arroyo-verde-shopping-center-aerial-view-of-the-center.jpg" alt="Arroyo Verde Shopping Center" style="display: block; width: 100%; height: auto">
+      </a>
+      <a href="best-western-plus.html" aria-label="Best Western Plus" data-type="Hospitality" data-hide-all="1" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
+        <img loading="lazy" decoding="async" src="images/best-western-plus-entry-at-dusk.jpg" alt="Best Western Plus" style="display: block; width: 100%; height: auto">
+      </a>
+    </div>
+  </section>
+
+  <!-- SERVICES: core services in four columns; existing facilities (landlord and tenant representation) below -->
+  <section id="services" style="max-width: 1360px; margin: 0 auto; padding: 0 40px 140px; display: flex; flex-direction: column; gap: 40px">
+    <div style="border-top: 1px solid #E6E6E6; padding-top: 20px"><h2 style="margin: 0; font-size: 15px; font-weight: 400">Services</h2></div>
+    <div style="display: flex; flex-wrap: wrap; gap: 24px 64px">
+      <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Architecture</h3>
+      </div>
+      <div style="flex: 3 1 640px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 28px 32px">
+        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
+          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Housing</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Multifamily<br>Mixed-use<br>Single-family residences<br>Small lot subdivisions<br>Townhomes<br>ADUs and pre-approved plans</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
+          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Commercial</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Shopping centers<br>Street retail<br>Entertainment<br>Office buildings<br>Coworking<br>Office renovations</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
+          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Industrial</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Industrial buildings<br>Showrooms</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
+          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Hospitality</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Hotels<br>Hotel renovations<br>Restaurants</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
+          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Healthcare</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Medical office buildings<br>Medical centers</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
+          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Institutional</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Educational<br>Religious</p>
+        </div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; border-top: 1px solid #E6E6E6; padding-top: 32px; margin-top: 16px">
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Planning &amp; Approvals</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Entitlement<br>Master planning<br>Feasibility studies<br>Programming and space planning<br>Conceptual and schematic design<br>Density bonus strategies</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Delivery</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Construction documents<br>Bidding assistance<br>Permit processing<br>Equipment layout and utilities<br>ADA accessibility<br>Construction administration<br>Design-build with our construction partner</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Presentation &amp; Brand</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">RFP / RFQ design presentations<br>3D modeling and animation<br>Branding<br>Environmental graphics<br>Sign programs</p>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 32px 64px; border-top: 1px solid #E6E6E6; padding-top: 32px; margin-top: 16px">
+      <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Existing Facilities</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">We help property owners and tenants get more from the buildings they already have: added value and better performance.</p>
+        <button type="button" aria-expanded="false" aria-controls="existing-facilities" data-action="toggle-fac" style="align-self: flex-start; min-height: 44px; padding: 0; border: 0; background: transparent; color: rgba(0,0,0,0.85); font-size: 15px; text-decoration: underline; text-underline-offset: 6px; cursor: pointer">View services +</button>
+      </div>
+      <div id="existing-facilities" hidden style="flex: 3 1 640px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <h4 style="margin: 0; font-size: 18px; font-weight: 400; color: rgba(0,0,0,0.85)">Landlord Representation</h4>
+          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6B6B6B; font-style: italic">For owners and property managers</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Tenant design review<br>Design and signage criteria manuals<br>Restaurant patio and blade sign criteria<br>Center graphics and banner programs<br>Sign programs<br>Vanilla shell design and documentation<br>Space cuts and reconfiguration<br>Lease outline documents<br>Specialty retail coordination<br>Temporary tenant design and coordination</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <h4 style="margin: 0; font-size: 18px; font-weight: 400; color: rgba(0,0,0,0.85)">Landlord Property Improvements</h4>
+          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6B6B6B; font-style: italic">Upgrades that keep a center competitive</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Storefront design and implementation<br>Building upgrades and in-fills<br>Cart and kiosk design<br>Wall shop design and implementation<br>Lighting enhancements<br>Color and finish upgrades</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <h4 style="margin: 0; font-size: 18px; font-weight: 400; color: rgba(0,0,0,0.85)">Tenant Representation</h4>
+          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6B6B6B; font-style: italic">For retailers, offices and medical tenants</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Tenant improvement design and permitting<br>Coordination with landlord and center criteria<br>Storefront and signage to center standards<br>Toilet room upgrades<br>ADA upgrades</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT: philosophy, team and image strip -->
+  <section id="about" style="max-width: 1360px; margin: 0 auto; padding: 0 40px 140px; display: flex; flex-direction: column; gap: 56px">
+    <div style="border-top: 1px solid #E6E6E6; padding-top: 20px"><h2 style="margin: 0; font-size: 15px; font-weight: 400">About</h2></div>
+    <div style="display: flex; flex-direction: column; gap: 22px; max-width: 980px">
+      <p style="margin: 0; font-size: clamp(22px, 2.3vw, 28px); line-height: 1.45; font-weight: 300; color: #6B6B6B">We engage the built environment from multiple angles and at every scale. We don’t start from a set aesthetic; we start from research and collaboration, and work toward solutions that are both pragmatic and elegant. Founded in 2015 and based in Los Angeles. Our clients are our partners: together we shape the program, the design direction and the plan for growth.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+      <img loading="lazy" decoding="async" src="images/rye-canyon-medical-center-interior-corridor.jpg" alt="Rye Canyon Medical Center, interior corridor" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
+      <img loading="lazy" decoding="async" src="images/arcadia-medical-offices-northeast-balcony.jpg" alt="Arcadia Medical Offices, northeast balcony" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
+      <img loading="lazy" decoding="async" src="images/pico-fairfax-mixed-use-west-elevation.jpg" alt="Pico Fairfax Mixed-use, west elevation" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
+    </div>
+  </section>
+
+  <!-- CONTACT: the current centred composition, with an inquiry form added -->
+  <section id="contact" style="border-top: 1px solid #E6E6E6">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; align-items: center; gap: 72px">
+      <div style="width: 100%; max-width: 380px; display: flex; flex-direction: column; align-items: center; gap: 24px">
+        <img loading="lazy" decoding="async" src="images/silhouette-of-a-figure-filled-with-the-downtown-los-angeles-.jpg" alt="Silhouette of a figure filled with the downtown Los Angeles skyline" style="display: block; width: 100%; height: auto">
+        <address style="font-style: normal; text-align: center; font-size: 15px; line-height: 1.8; color: #6B6B6B">970 N. Broadway, Suite 107<br>Los Angeles, CA 90012<br><a href="https://www.google.com/maps/search/?api=1&amp;query=970+N+Broadway+Suite+107+Los+Angeles+CA+90012" target="_blank" rel="noopener" style="color: rgba(0,0,0,0.85)">View on Google Maps →</a><br><a href="tel:+12135370910" style="color: rgba(0,0,0,0.85)">t: (213) 537-0910</a><br><a href="mailto:info@scaleslab.com" style="color: rgba(0,0,0,0.85)">e: info@scaleslab.com</a></address>
+      </div>
+      <div style="width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: 40px">
+        <div style="display: flex; flex-direction: column; gap: 14px; text-align: center">
+          <h2 style="margin: 0; font-size: 28px; font-weight: 300; line-height: 1.2">Contact us</h2>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #6B6B6B">We’ll get back to you within two business days.</p>
+        </div>
+          <form id="contact-form" method="POST" action="https://formspree.io/f/xoedwyvw" aria-label="Project inquiry" style="scroll-margin-top: 120px; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 32px; font-size: 15px">
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Name<input type="text" name="name" required autocomplete="name" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Email<input type="email" name="email" required autocomplete="email" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">I am a<select name="role" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"><option>Property owner / landlord</option><option>Developer</option><option>Business owner / tenant</option><option>Healthcare provider</option><option>Institution / nonprofit</option><option>Homeowner</option><option>Other</option></select></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Site address or city<input type="text" name="site" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B; grid-column: span 2">About the project<textarea name="message" required rows="3" style="border: 0; border-bottom: 1px solid #BDBDBD; padding: 8px 0; font-size: 17px; resize: vertical; background: transparent; color: rgba(0,0,0,0.85)"></textarea></label>
+            <p hidden><label>Leave this empty<input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+        <input type="hidden" name="_subject" value="New inquiry from scaleslab.com">
+        <div style="grid-column: span 2; display: flex; justify-content: center; padding-top: 8px"><button type="submit" style="min-height: 48px; padding: 0 36px; border: 1px solid rgba(0,0,0,0.85); background: transparent; color: rgba(0,0,0,0.85); font-size: 15px; cursor: pointer">Send</button></div>
+          </form>
+      </div>
+      <img loading="lazy" decoding="async" src="images/skyline.png" alt="" aria-hidden="true" style="display: block; width: 100%; height: auto; margin-top: -16px; margin-bottom: -1px">
+    </div>
+  </section>
+
+  <footer style="border-top: 1px solid #E6E6E6">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 28px 40px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: 14px; color: #6B6B6B">
+      <span style="display: flex; align-items: center; gap: 14px"><svg width="44" height="15.7" viewBox="0 0 392 140" role="img" aria-label="SLA"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Scales Lab Architects</span></span>
+      <div style="display: flex; gap: 22px">
+        <a href="https://www.instagram.com/scaleslab/" style="color: #6B6B6B">Instagram</a>
+        <a href="https://www.linkedin.com/company/scale-s-lab-architects" style="color: #6B6B6B">LinkedIn</a>
+        <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" style="color: #6B6B6B">Facebook</a>
+      </div>
+      <span>© 2026</span>
+    </div>
+  </footer>
+</div>
+<script>
+(function () {
+  // Slideshow: 7 s per slide, CSS cross-fade; random start; arrows step one slide.
+  var slides = document.querySelectorAll('[data-slide]');
+  var n = slides.length, k = Math.floor(Math.random() * n), shift = 0;
+  function place() {
+    for (var i = 0; i < slides.length; i++) {
+      var j = +slides[i].getAttribute('data-slide');
+      var d = (((j - k) * 7 - 3 - shift) % (n * 7) + n * 7) % (n * 7) - n * 7;
+      var s = slides[i].style;
+      s.animation = 'none'; void slides[i].offsetWidth;
+      s.animation = 'slafade ' + (n * 7) + 's ease-in-out ' + d + 's infinite both';
+    }
+  }
+  place();
+  // Work filters
+  var buttons = document.querySelectorAll('[data-filter]');
+  var tiles = document.querySelectorAll('#work [data-type]');
+  function filter(f) {
+    buttons.forEach(function (b) {
+      var on = b.getAttribute('data-filter') === f;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.style.color = on ? '#000000' : '#6B6B6B';
+      b.style.textDecoration = on ? 'underline' : 'none';
+      b.style.textUnderlineOffset = '6px';
+    });
+    tiles.forEach(function (t) { t.style.display = (f === 'All' ? !t.hasAttribute('data-hide-all') : t.getAttribute('data-type') === f) ? 'block' : 'none'; });
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { filter(b.getAttribute('data-filter')); }); });
+  filter('All');
+  // Menu + arrows
+  var menu = document.getElementById('sla-menu');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-action]');
+    if (!a) return;
+    var act = a.getAttribute('data-action');
+    if (act === 'open-menu') menu.hidden = false;
+    if (act === 'close-menu') menu.hidden = true;
+    if (act === 'toggle-fac') {
+      var box = document.getElementById('existing-facilities');
+      box.hidden = !box.hidden;
+      a.setAttribute('aria-expanded', box.hidden ? 'false' : 'true');
+      a.textContent = box.hidden ? 'View services +' : 'Hide services −';
+    }
+    if (act === 'prev') { shift -= 7; place(); }
+    if (act === 'next') { shift += 7; place(); }
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menu.hidden = true; });
+  // Formspree: send in the background, then show our own thank-you page
+  var form = document.getElementById('contact-form');
+  if (form && /formspree[.]io/.test(form.action)) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true; btn.textContent = 'Sending…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { if (!r.ok) throw new Error(); window.location.href = 'thanks.html'; })
+        .catch(function () {
+          btn.disabled = false; btn.textContent = 'Send';
+          var msg = document.getElementById('form-error');
+          if (!msg) { msg = document.createElement('p'); msg.id = 'form-error'; msg.setAttribute('role', 'alert');
+            msg.style.cssText = 'grid-column: 1 / -1; margin: 0; text-align: center; color: #B42318; font-size: 15px';
+            form.appendChild(msg); }
+          msg.textContent = 'Sorry, that didn’t go through. Please email info@scaleslab.com or call (213) 537-0910.';
+        });
+    });
+  }
+})();
+</script>
+</body>
+</html>
