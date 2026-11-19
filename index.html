@@ -94,6 +94,11 @@ img { max-width: 100%; }
         <svg width="16" height="32" viewBox="0 0 16 32" aria-hidden="true"><path d="M1 1l14 15L1 31" stroke="#FFFFFF" stroke-width="1.6" fill="none"/></svg>
       </button>
     </div>
+    <div style="display: flex; justify-content: flex-end; gap: 22px; padding-top: 12px; font-size: 14px">
+      <a href="https://www.instagram.com/scaleslab/" target="_blank" rel="noopener" style="color: #6B6B6B">Instagram</a>
+      <a href="https://www.linkedin.com/company/scale-s-lab-architects" target="_blank" rel="noopener" style="color: #6B6B6B">LinkedIn</a>
+      <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" target="_blank" rel="noopener" style="color: #6B6B6B">Facebook</a>
+    </div>
   </section>
 
   <!-- WORK: masonry columns; each image at its own proportions, uncropped -->
@@ -244,13 +249,13 @@ img { max-width: 100%; }
   <!-- ABOUT: philosophy, team and image strip -->
   <section id="about" style="max-width: 1360px; margin: 0 auto; padding: 0 40px 140px; display: flex; flex-direction: column; gap: 56px">
     <div style="border-top: 1px solid #E6E6E6; padding-top: 20px"><h2 style="margin: 0; font-size: 15px; font-weight: 400">About</h2></div>
-    <div style="display: flex; flex-direction: column; gap: 22px; max-width: 980px">
+    <div style="display: flex; flex-direction: column; gap: 22px">
       <p style="margin: 0; font-size: clamp(22px, 2.3vw, 28px); line-height: 1.45; font-weight: 300; color: #6B6B6B">We engage the built environment from multiple angles and at every scale. We don’t start from a set aesthetic; we start from research and collaboration, and work toward solutions that are both pragmatic and elegant. Founded in 2015 and based in Los Angeles. Our clients are our partners: together we shape the program, the design direction and the plan for growth.</p>
     </div>
     <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
-      <img loading="lazy" decoding="async" src="rye-canyon-medical-center-interior-corridor.jpg" alt="Rye Canyon Medical Center, interior corridor" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
-      <img loading="lazy" decoding="async" src="arcadia-medical-offices-northeast-balcony.jpg" alt="Arcadia Medical Offices, northeast balcony" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
-      <img loading="lazy" decoding="async" src="pico-fairfax-mixed-use-west-elevation.jpg" alt="Pico Fairfax Mixed-use, west elevation" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
+      <img loading="lazy" decoding="async" src="arcadia-medical-offices-west-elevation.jpg" data-about="a" alt="Arcadia Medical Offices, west elevation" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
+      <img loading="lazy" decoding="async" src="prospect-villa-corner-view.jpg" data-about="b" alt="Prospect Villa, corner view" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
+      <img loading="lazy" decoding="async" src="rye-canyon-medical-center-entry-canopy.jpg" data-about="c" alt="Rye Canyon Medical Center, entry canopy" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
     </div>
   </section>
 
@@ -264,12 +269,12 @@ img { max-width: 100%; }
       <div style="width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: 40px">
         <div style="display: flex; flex-direction: column; gap: 14px; text-align: center">
           <h2 style="margin: 0; font-size: 28px; font-weight: 300; line-height: 1.2">Contact us</h2>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #6B6B6B">We’ll get back to you within two business days.</p>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #6B6B6B">We look forward to hearing about your project.</p>
         </div>
           <form id="contact-form" method="POST" action="https://formspree.io/f/xoedwyvw" aria-label="Project inquiry" style="scroll-margin-top: 120px; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 32px; font-size: 15px">
             <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Name<input type="text" name="name" required autocomplete="name" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"></label>
             <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Email<input type="email" name="email" required autocomplete="email" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"></label>
-            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">I am a<select name="role" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"><option>Property owner / landlord</option><option>Developer</option><option>Business owner / tenant</option><option>Healthcare provider</option><option>Institution / nonprofit</option><option>Homeowner</option><option>Other</option></select></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">I am a<select name="role" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"><option value="" disabled selected>Select one</option><option>Property owner / landlord</option><option>Developer</option><option>Business owner / tenant</option><option>Healthcare provider</option><option>Institution / nonprofit</option><option>Homeowner</option><option>Other</option></select></label>
             <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Site address or city<input type="text" name="site" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"></label>
             <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B; grid-column: span 2">About the project<textarea name="message" required rows="3" style="border: 0; border-bottom: 1px solid #BDBDBD; padding: 8px 0; font-size: 17px; resize: vertical; background: transparent; color: rgba(0,0,0,0.85)"></textarea></label>
             <p hidden><label>Leave this empty<input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
@@ -283,12 +288,7 @@ img { max-width: 100%; }
 
   <footer style="border-top: 1px solid #E6E6E6">
     <div style="max-width: 1360px; margin: 0 auto; padding: 28px 40px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: 14px; color: #6B6B6B">
-      <span style="display: flex; align-items: center; gap: 14px"><svg width="44" height="15.7" viewBox="0 0 392 140" role="img" aria-label="SLA"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Scales Lab Architects</span></span>
-      <div style="display: flex; gap: 22px">
-        <a href="https://www.instagram.com/scaleslab/" style="color: #6B6B6B">Instagram</a>
-        <a href="https://www.linkedin.com/company/scale-s-lab-architects" style="color: #6B6B6B">LinkedIn</a>
-        <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" style="color: #6B6B6B">Facebook</a>
-      </div>
+      <span style="display: flex; align-items: center; gap: 14px"><svg width="44" height="15.7" viewBox="0 0 392 140" role="img" aria-label="SLA"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <span>© 2026</span>
     </div>
   </footer>
@@ -308,6 +308,28 @@ img { max-width: 100%; }
     }
   }
   place();
+  // About photos: three exterior/detail shots, changing once a day
+  var aboutPool = [{"src": "arcadia-medical-offices-west-elevation.jpg", "alt": "Arcadia Medical Offices, west elevation"}, {"src": "rye-canyon-medical-center-facade-detail.jpg", "alt": "Rye Canyon Medical Center, facade detail"}, {"src": "pico-fairfax-mixed-use-west-elevation.jpg", "alt": "Pico Fairfax Mixed-use, west elevation"}, {"src": "logos-evangelical-seminary-building-d-roof-terrace-and-glass.jpg", "alt": "Logos Evangelical Seminary, Building D, roof terrace and glass stair tower"}, {"src": "duarte-road-medical-building-rear-view-north-and-east-elevat.jpg", "alt": "Duarte Road Medical Building, north and east elevations"}, {"src": "strathmore-place-corner-view.jpg", "alt": "Strathmore Place, corner view"}, {"src": "prospect-villa-corner-view.jpg", "alt": "Prospect Villa, corner view"}, {"src": "new-terrace-corner-view.jpg", "alt": "New Terrace, corner view"}, {"src": "d-g-mixed-use-corner-view-from-across-the-street.jpg", "alt": "D & G Mixed-use, corner view"}, {"src": "cooffice-lighting-detail.jpg", "alt": "CoOffice, lighting detail"}, {"src": "robinson-3-3-stacked-homes-rising-behind-the-street-with-pri.jpg", "alt": "Robinson 3\u00d73, stacked homes with balconies and roof decks"}, {"src": "prospect-villa-corner-storefronts.jpg", "alt": "Prospect Villa, corner storefronts"}, {"src": "rye-canyon-medical-center-entry-canopy.jpg", "alt": "Rye Canyon Medical Center, entry canopy"}, {"src": "pico-fairfax-mixed-use-south-elevation.jpg", "alt": "Pico Fairfax Mixed-use, south elevation"}, {"src": "logos-evangelical-seminary-building-d-elevated-view-with-ter.jpg", "alt": "Logos Evangelical Seminary, Building D, terrace and exterior stair"}, {"src": "arcadia-medical-offices-wood-cladding-detail.jpg", "alt": "Arcadia Medical Offices, wood cladding detail"}, {"src": "arcadia-medical-offices-northeast-balcony.jpg", "alt": "Arcadia Medical Offices, northeast balcony"}, {"src": "arcadia-medical-offices-east-elevation-at-dusk.jpg", "alt": "Arcadia Medical Offices, east elevation at dusk"}];
+  if (aboutPool.length) {
+    var day = Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 86400000);
+    var base = (day * 5) % aboutPool.length;
+    ['a', 'b', 'c'].forEach(function (k, i) {
+      var img = document.querySelector('[data-about="' + k + '"]');
+      var p = aboutPool[(base + i * 6) % aboutPool.length];
+      if (img && img.getAttribute('src') !== p.src) { img.src = p.src; img.alt = p.alt; }
+    });
+  }
+  // Work grid: same projects, shuffled into a new order once a day
+  (function () {
+    var grid = document.querySelector('#work [data-type]');
+    grid = grid && grid.parentNode;
+    if (!grid) return;
+    var seed = Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 86400000);
+    function rnd() { seed = (seed + 0x6D2B79F5) | 0; var t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+    var items = Array.prototype.slice.call(grid.children);
+    for (var i = items.length - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)); var tmp = items[i]; items[i] = items[j]; items[j] = tmp; }
+    items.forEach(function (el) { grid.appendChild(el); });
+  })();
   // Work filters
   var buttons = document.querySelectorAll('[data-filter]');
   var tiles = document.querySelectorAll('#work [data-type]');
