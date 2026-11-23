@@ -9,46 +9,255 @@
 <meta property="og:title" content="Scales Lab Architects — Los Angeles">
 <meta property="og:description" content="Scales Lab Architects is a design studio in Los Angeles working on housing, mixed-use, commercial, hospitality, healthcare and institutional projects.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#FFFFFF}
+body{margin:0;background:#FFFFFF;font-family:'Helvetica Neue',Helvetica,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
 a{color:rgba(0,0,0,0.85)}a:hover{color:#000000}
 input,select,textarea,button{font:inherit}
+
+/* Contact form fields: proper bordered boxes. Styling lives here rather than
+   inline on each field, so there is nothing to fight with !important. */
+#contact-form input,#contact-form select,#contact-form textarea{
+  width:100%;box-sizing:border-box;min-height:46px;padding:11px 13px;
+  border:1px solid #BDBDBD;border-radius:0;background:#FFFFFF;
+  font-size:17px;color:rgba(0,0,0,0.85);caret-color:#000000
+}
+#contact-form textarea{min-height:132px;line-height:1.6;resize:vertical}
+/* Focus: darken the box and thicken it with an inset ring, which avoids the
+   1px layout shift a wider border would cause. */
+#contact-form input:focus,#contact-form select:focus,#contact-form textarea:focus{
+  outline:none;border-color:#000000;box-shadow:inset 0 0 0 1px #000000
+}
+#contact-form label:focus-within{color:#000000!important}
+
+/* Send button: Scales Lab red on hover/focus. The button is styled inline,
+   so these need !important to win. */
+#contact-form button[type="submit"]{transition:background-color .18s ease,border-color .18s ease,color .18s ease}
+#contact-form button[type="submit"]:hover,#contact-form button[type="submit"]:focus-visible{background:#E2382F!important;border-color:#E2382F!important;color:#FFFFFF!important}
+
+/* Contact block: icon-led address, phone, email and social links. */
+.sla-contact a{text-decoration:none}
+.sla-contact a:hover{text-decoration:underline}
+/* Social icon links, used in both the contact block and the header nav.
+   Declared after .sla-contact so it wins the equal-specificity :hover tie. */
+.sla-social a{transition:opacity .18s ease}
+.sla-social a:hover{text-decoration:none;opacity:.6}
+
+/* Back-to-top: fixed bottom-right, revealed once the page has scrolled.
+   Rounded square echoes the rounded joins of the SLA mark. */
+.sla-top{position:fixed;right:30px;bottom:30px;z-index:8;display:inline-flex;flex-direction:column;align-items:center;gap:7px;
+  color:#6B6B6B;text-decoration:none;font-size:11px;letter-spacing:.14em;line-height:1;
+  opacity:0;visibility:hidden;transform:translateY(8px);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s ease}
+.sla-top.is-visible{opacity:1;visibility:visible;transform:none}
+.sla-top span{display:block;width:26px;height:26px;border:1.6px solid #E2382F;border-radius:6px;transition:background-color .18s ease}
+.sla-top:hover{color:#E2382F}
+.sla-top:hover span{background:#E2382F}
+@media (max-width: 700px){ .sla-top{right:18px;bottom:18px} }
+
+
+/* SERVICES — all scoped under .svc. Accent is the Scales Lab red. The type
+   stack is inherited from the page rather than loading a webfont, so the
+   section sits with the rest of the site instead of looking imported. */
+/* Tokens live on :root so Work and About can use the same block classes
+   without being inside .svc. --svc-line matches the site's existing hairline. */
+:root{
+  --font-display:'Instrument Serif','Times New Roman',Times,serif;
+  --svc-accent:#E2382F;
+  --svc-ink:#1F1F1C;
+  --svc-muted:#55554F;
+  --svc-subtle:#6B6B64;
+  --svc-line:#E6E6E6;
+  --svc-bg:#FFFFFF;
+}
+.svc{color:var(--svc-ink);background:var(--svc-bg);padding:112px 40px 128px}
+.svc *,.svc *::before,.svc *::after{box-sizing:border-box}
+.svc__inner{max-width:1360px;margin:0 auto;display:flex;flex-direction:column;gap:120px}
+.svc__eyebrow{margin:0;font-family:'Helvetica Neue',Helvetica,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--svc-accent)}
+/* Stacked: eyebrow, then a full-width title, then the description beneath it. */
+.svc__intro{display:flex;flex-direction:column;gap:22px}
+.svc__intro-head{display:flex;flex-direction:column;gap:18px}
+.svc__title{margin:0;font-family:var(--font-display);font-size:clamp(38px,5.2vw,64px);line-height:1.04;font-weight:400;letter-spacing:-.01em;text-wrap:balance}
+.svc__lede{margin:0;font-size:19px;line-height:1.6;color:var(--svc-muted);text-wrap:pretty}
+.svc__block{display:flex;flex-direction:column;gap:40px}
+.svc__block-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px;border-bottom:1px solid var(--svc-line);padding-bottom:20px}
+.svc__block-title{margin:0;font-size:28px;font-weight:500;letter-spacing:-.01em}
+.svc__block-meta{margin:0;font-size:17px;color:var(--svc-subtle)}
+.svc__cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width: 1000px){ .svc__cards{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width: 620px){ .svc__cards{grid-template-columns:1fr} }
+.svc__card{background:#FFFFFF;border:1px solid var(--svc-line);padding:28px;display:flex;flex-direction:column;gap:14px;min-height:150px}
+.svc__card-head{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.svc__card-name{display:flex;align-items:center;gap:10px;margin:0;font-size:19px;font-weight:500}
+
+.svc__card-items{margin:0;font-size:15px;line-height:1.65;color:var(--svc-muted)}
+.svc__dot{color:var(--svc-accent)}
+/* Secondary half of a heading, set in grey against the darker first half. */
+.svc__quiet{color:var(--svc-subtle)}
+
+/* HERO CLAIM: the one sentence a first-time visitor should leave with.
+   Sits directly under the slideshow, above the fold, and doubles as the
+   page's h1 — the homepage had no h1 before. */
+/* One line, set to span the column, with the CTA parked at the right end.
+   The size is in cqw so the type tracks the container and the line keeps
+   filling the width instead of breaking. */
+.hero-claim{container-type:inline-size;max-width:1360px;margin:0 auto;padding:46px 40px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:40px}
+.hero-claim__line{margin:0;white-space:nowrap;font-family:var(--font-display);font-size:clamp(20px,3.5cqw,52px);
+  line-height:1.1;font-weight:400;letter-spacing:-.01em;color:var(--svc-ink)}
+/* The CTA uses the same button language as the Services and Send buttons:
+   a 1px ink outline, 6px corners, and a fill to Scales Lab red on hover.
+   A small red dot closes the label and swells on hover. */
+.hero-claim__link{flex:none;display:inline-flex;align-items:center;gap:12px;min-height:46px;
+  padding:0 22px;border:1px solid var(--svc-ink);border-radius:6px;color:var(--svc-ink);
+  font-size:15px;font-weight:500;letter-spacing:.01em;text-decoration:none;white-space:nowrap;
+  transition:background-color .18s ease,border-color .18s ease,color .18s ease}
+.hero-claim__dot{display:block;width:7px;height:7px;border-radius:50%;background:var(--svc-accent);
+  transition:transform .25s cubic-bezier(.22,.61,.36,1),background-color .18s ease}
+.hero-claim__link:hover,.hero-claim__link:focus-visible{background:var(--svc-accent);
+  border-color:var(--svc-accent);color:#FFFFFF}
+.hero-claim__link:hover .hero-claim__dot,
+.hero-claim__link:focus-visible .hero-claim__dot{background:#FFFFFF;transform:scale(1.5)}
+@media (prefers-reduced-motion:reduce){
+  .hero-claim__dot{transition:background-color .18s ease}
+  .hero-claim__link:hover .hero-claim__dot,
+  .hero-claim__link:focus-visible .hero-claim__dot{transform:none}
+}
+@media (max-width:860px){
+  .hero-claim{flex-wrap:wrap;gap:10px 24px;padding-top:30px}
+  .hero-claim__line{white-space:normal;font-size:clamp(28px,7vw,40px);text-wrap:balance}
+}
+.svc__phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px}
+.svc__phase{display:flex;flex-direction:column;gap:18px}
+.svc__phase-num{font-size:14px;font-weight:500;color:var(--svc-accent)}
+.svc__phase-name{margin:0;font-size:22px;font-weight:500}
+.svc__phase-lede{margin:0;font-size:15px;line-height:1.6;color:var(--svc-muted)}
+.svc__list{margin:8px 0 0;padding:0;list-style:none;border-top:1px solid var(--svc-line)}
+.svc__list li{font-size:15px;padding:11px 0;border-bottom:1px solid var(--svc-line);color:#33332F}
+.svc__facwrap{display:flex;flex-direction:column;gap:28px}
+/* Outlined rather than filled, so it sits on the page's white background. */
+.svc__banner{background:transparent;color:var(--svc-ink);border:1px solid var(--svc-line);padding:clamp(32px,5vw,56px);display:flex;flex-wrap:wrap;gap:32px 64px;align-items:center;justify-content:space-between}
+.svc__banner-text{flex:1 1 480px;display:flex;flex-direction:column;gap:14px}
+.svc__banner-title{margin:0;font-family:var(--font-display);font-size:clamp(34px,3.6vw,46px);line-height:1.1;font-weight:400;letter-spacing:-.01em}
+.svc__banner-lede{margin:0;font-size:17px;line-height:1.6;color:var(--svc-muted)}
+.svc__cta{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 26px;border:1px solid var(--svc-ink);border-radius:6px;background:transparent;color:var(--svc-ink);font:inherit;font-size:15px;font-weight:500;text-decoration:none;cursor:pointer;transition:background-color .18s ease,border-color .18s ease,color .18s ease}
+.svc__cta:hover,.svc__cta:focus-visible{background:var(--svc-accent);border-color:var(--svc-accent);color:#FFFFFF}
+.svc__fac{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;background:#FFFFFF;border:1px solid var(--svc-line);padding:clamp(24px,3vw,36px)}
+.svc__fac-name{margin:0;font-size:18px;font-weight:500}
+.svc__fac-note{margin:0;font-size:14px;line-height:1.6;color:var(--svc-subtle);font-style:italic}
+.svc__fac-items{margin:0;font-size:15px;line-height:1.65;color:var(--svc-muted)}
+.svc__fac > div{display:flex;flex-direction:column;gap:10px}
+
+/* Outline skyline: a sibling of the sections, not inside a padded container,
+   so it runs the full width of the viewport. */
+
+/* ABOUT — reuses the shared tokens and the .svc__eyebrow / .svc__title
+   treatment so its header matches the services section. */
+.about{padding:0 40px 140px}
+.about *,.about *::before,.about *::after{box-sizing:border-box}
+.about__inner{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px 80px;align-items:start}
+/* Left: text blocks stacked, each separated from the last by a hairline. */
+.about__col{display:flex;flex-direction:column;gap:32px}
+.about__blk{display:flex;flex-direction:column;gap:18px}
+.about__blk + .about__blk{border-top:1px solid var(--svc-line);padding-top:32px}
+.about__title{margin:0;font-family:var(--font-display);font-size:clamp(32px,3.7vw,46px);line-height:1.1;font-weight:400;letter-spacing:-.01em;text-wrap:balance}
+.about__lead{margin:0;font-size:19px;line-height:1.6;color:#33332F}
+.about__text{margin:0;font-size:17px;line-height:1.65;color:var(--svc-muted)}
+.about__facts{margin:0;display:flex;flex-wrap:wrap;gap:24px 64px}
+.about__fact{display:flex;flex-direction:column;gap:10px}
+.about__fact dt{font-size:13px;color:var(--svc-subtle)}
+.about__fact dd{margin:0;font-size:clamp(22px,2.4vw,28px);font-weight:500;letter-spacing:-.01em}
+/* Right: bento grid — one wide tile over two squares. Heights are explicit
+   because object-fit only crops against a constrained height, and these
+   photos rotate daily from a pool with mixed aspect ratios. */
+.about__bento{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.about__bento img{display:block;width:100%;object-fit:cover}
+.about__bento img:nth-child(1){grid-column:1 / -1;height:clamp(240px,25vw,350px)}
+.about__bento img:nth-child(2),.about__bento img:nth-child(3){height:clamp(180px,18vw,256px)}
+@media (max-width: 860px){ .about__inner{grid-template-columns:1fr;gap:48px} }
+
+/* IMAGE DEPTH: a soft two-layer shadow on the Work grid and About photos,
+   deepening with a small lift on hover. Two layers (a tight contact shadow
+   plus a wide, faint one) read as lighter than a single heavy blur.
+   Applied to the <img>, not the card links, because the Work filter toggles
+   the links' display inline. */
+#work a[data-type] img,
+.about__bento img{
+  box-shadow:0 1px 2px rgba(0,0,0,.08),0 6px 18px rgba(0,0,0,.09);
+  transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s cubic-bezier(.22,.61,.36,1);
+}
+@media (hover:hover){
+  #work a[data-type]:hover img,
+  #work a[data-type]:focus-visible img,
+  .about__bento img:hover{
+    transform:translateY(-4px);
+    box-shadow:0 2px 4px rgba(0,0,0,.10),0 14px 32px rgba(0,0,0,.16);
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  #work a[data-type] img,.about__bento img{transition:box-shadow .01ms}
+  #work a[data-type]:hover img,#work a[data-type]:focus-visible img,.about__bento img:hover{transform:none}
+}
+@media (max-width: 700px){
+  .svc{padding-top:72px;padding-bottom:88px}
+  .svc__inner{gap:80px}
+  .svc__phases{gap:40px}
+}
+
+/* Silhouette: the crown of the head is clipped flat by the top image edge.
+   Fade it out so it dissolves into the page white instead of ending on a cut.
+   Eased stops rather than one linear ramp, to avoid a visible banding line. */
+.sla-silhouette{
+  -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.22) 3%,rgba(0,0,0,0.62) 7%,rgba(0,0,0,0.88) 10%,#000 14%,#000 84%,rgba(0,0,0,0.88) 89%,rgba(0,0,0,0.58) 93%,rgba(0,0,0,0.2) 97%,rgba(0,0,0,0) 100%);
+          mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.22) 3%,rgba(0,0,0,0.62) 7%,rgba(0,0,0,0.88) 10%,#000 14%,#000 84%,rgba(0,0,0,0.88) 89%,rgba(0,0,0,0.58) 93%,rgba(0,0,0,0.2) 97%,rgba(0,0,0,0) 100%);
+}
 
 
 @keyframes slafade{0%{opacity:0;visibility:visible}2.857%{opacity:1}6.667%{opacity:1}9.524%{opacity:0;visibility:hidden}100%{opacity:0;visibility:hidden}}
 @media (max-width: 700px){
-  header, main, section, footer > div { padding-left: 20px !important; padding-right: 20px !important; }
+  header > div, main, section, footer > div { padding-left: 20px !important; padding-right: 20px !important; }
   #contact-form { grid-template-columns: 1fr !important; }
   #contact-form > * { grid-column: auto !important; }
-  #contact > div > div:last-child { padding-top: 24px !important; }
+  #contact > div { grid-template-columns: 1fr !important; gap: 48px !important; padding: 64px 20px 0 !important; }
   .sla-menu { padding: 24px 20px !important; }
-  header > div:last-child { gap: 14px !important; font-size: 14px !important; }
+  header nav[aria-label="Primary"] { gap: 14px !important; font-size: 14px !important; }
   header svg[width="120"] { width: 88px !important; height: auto !important; }
-  header:has(button[aria-label="Open menu"]) > div:last-child { display: none !important; }
-  header { align-items: center !important; }
+  header:has(button[aria-label="Open menu"]) nav[aria-label="Primary"] { display: none !important; }
   header .sla-menu-btn { display: flex !important; }
 }
 img { max-width: 100%; }
 [hidden] { display: none !important; }
+
+/* Sticky header: keep in-page anchor targets clear of the bar. */
+#top,#work,#services,#about,#contact{scroll-margin-top:104px}
 </style>
 </head>
 <body>
-<div style="position: relative; font-family: 'Helvetica Neue', Helvetica, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-weight: 400; color: rgba(0,0,0,0.85); background: #FFFFFF; min-height: 100vh">
+<div style="position: relative; font-weight: 400; color: rgba(0,0,0,0.85); background: #FFFFFF; min-height: 100vh">
 
-  <!-- HEADER: keeps the hamburger + SLA. mark, adds two quiet text links -->
-  <header style="max-width: 1360px; margin: 0 auto; padding: 28px 40px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+  <!-- HEADER: sticky bar. Hamburger + SLA mark left, nav centred against the logo. -->
+  <header style="position: sticky; top: 0; z-index: 9; background: #FFFFFF; border-bottom: 1px solid #E6E6E6">
+   <div style="max-width: 1360px; margin: 0 auto; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
     <div style="display: flex; align-items: center; gap: 24px">
       <button type="button" class="sla-menu-btn" aria-label="Open menu" data-action="open-menu" style="width: 44px; height: 44px; border: 0; background: transparent; padding: 0; cursor: pointer; display: none; align-items: center; justify-content: center">
         <svg width="26" height="18" viewBox="0 0 26 18" aria-hidden="true"><path d="M0 1h26M0 9h26M0 17h26" stroke="#000000" stroke-opacity="0.85" stroke-width="1.6" fill="none"/></svg>
       </button>
       <a href="#top" aria-label="Scales Lab Architects, home" style="text-decoration: none; display: flex"><svg width="120" height="59.4" viewBox="-6 -6 404 200" role="img" aria-label="Scales Lab Architects"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text x="196" y="182" text-anchor="middle" textLength="392" lengthAdjust="spacing" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="300" font-size="40" fill="#6B6B6B">scale(s) lab architects</text></svg></a>
     </div>
-    <div style="display: flex; gap: 28px; font-size: 15px; line-height: 1; padding-bottom: 1px">
+    <nav aria-label="Primary" style="display: flex; align-items: center; gap: 28px; font-size: 15px; line-height: 1">
       <a href="#services" style="text-decoration: none">Services</a>
       <a href="#work" style="text-decoration: none">Work</a>
       <a href="#about" style="text-decoration: none">About</a>
       <a href="#contact-form" data-action="close-menu" style="text-decoration: none">Contact</a>
-    </div>
+      <span class="sla-social" style="display: flex; align-items: center; gap: 22px">
+        <a href="https://www.instagram.com/scaleslab/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Instagram" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.linkedin.com/company/scale-s-lab-architects" target="_blank" rel="noopener" aria-label="Scales Lab Architects on LinkedIn" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Facebook" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      </span>
+    </nav>
+   </div>
   </header>
 
   <!-- MENU OVERLAY: same dark translucent overlay as the current site -->
@@ -73,21 +282,21 @@ img { max-width: 100%; }
   <!-- SLIDESHOW: the site's signature -->
   <section id="top" aria-label="Featured projects, rotating every 7 seconds" style="max-width: 1360px; margin: 0 auto; padding: 0 40px">
     <div style="position: relative; aspect-ratio: 16 / 8; background: #E6E6E5; overflow: hidden">
-      <a href="pico-fairfax-mixed-use.html" aria-label="Pico Fairfax Mixed-use, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="0"><img src="pico-fairfax-mixed-use-corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="arcadia-medical-offices.html" aria-label="Arcadia Medical Offices, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="1"><img loading="lazy" decoding="async" src="arcadia-medical-offices-west-elevation-at-dusk.jpg" alt="Arcadia Medical Offices, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="block-az.html" aria-label="Block AZ, Azusa" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="2"><img loading="lazy" decoding="async" src="block-az-corner-plaza-on-azusa-avenue.jpg" alt="Block AZ, Azusa" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="holiday-inn.html" aria-label="Holiday Inn, Mobile, Alabama" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="3"><img loading="lazy" decoding="async" src="holiday-inn-reception-lobby.jpg" alt="Holiday Inn, Mobile, Alabama" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="d-g-mixed-use.html" aria-label="D &amp; G Mixed-use" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="4"><img loading="lazy" decoding="async" src="d-g-mixed-use-corner-view-at-the-intersection.jpg" alt="D &amp; G Mixed-use" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="logos-evangelical-seminary-building-a.html" aria-label="Logos Evangelical Seminary, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="5"><img loading="lazy" decoding="async" src="logos-evangelical-seminary-building-a-at-dusk.jpg" alt="Logos Evangelical Seminary, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="duarte-road-medical-building.html" aria-label="Duarte Road Medical Building, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="6"><img loading="lazy" decoding="async" src="duarte-road-medical-building-corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="petersen-international.html" aria-label="Petersen International, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="7"><img loading="lazy" decoding="async" src="petersen-international-conference-room.jpg" alt="Petersen International, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="new-terrace.html" aria-label="New Terrace, roof deck" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="8"><img loading="lazy" decoding="async" src="new-terrace-rooftop-terrace.jpg" alt="New Terrace, roof deck" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="prospect-villa.html" aria-label="Prospect Villa, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="9"><img loading="lazy" decoding="async" src="prospect-villa-aerial-view-with-terraced-residences.jpg" alt="Prospect Villa, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="strathmore-place.html" aria-label="Strathmore Place, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="10"><img loading="lazy" decoding="async" src="strathmore-place-street-view.jpg" alt="Strathmore Place, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="arroyo-verde-shopping-center.html" aria-label="Arroyo Verde Shopping Center, Oceanside" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="11"><img loading="lazy" decoding="async" src="arroyo-verde-shopping-center-pedestrian-plaza-and-storefront.jpg" alt="Arroyo Verde Shopping Center, Oceanside" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="furniture-showroom.html" aria-label="Furniture Showroom, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="12"><img loading="lazy" decoding="async" src="furniture-showroom-showroom-with-orange-counter.jpg" alt="Furniture Showroom, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="logos-evangelical-seminary-building-d.html" aria-label="Logos Evangelical Seminary, Building D, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="13"><img loading="lazy" decoding="async" src="logos-evangelical-seminary-building-d-entry-corner-at-dusk.jpg" alt="Logos Evangelical Seminary, Building D, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="rye-canyon-medical-center.html" aria-label="Rye Canyon Medical Center, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="14"><img loading="lazy" decoding="async" src="rye-canyon-medical-center-main-facade.jpg" alt="Rye Canyon Medical Center, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="pico-fairfax-mixed-use.html" aria-label="Pico Fairfax Mixed-use, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="0"><img src="images/pico-fairfax-mixed-use/corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="arcadia-medical-offices.html" aria-label="Arcadia Medical Offices, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="1"><img loading="lazy" decoding="async" src="images/arcadia-medical-offices/west-elevation-at-dusk.jpg" alt="Arcadia Medical Offices, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="block-az.html" aria-label="Block AZ, Azusa" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="2"><img loading="lazy" decoding="async" src="images/block-az/corner-plaza-on-azusa-avenue.jpg" alt="Block AZ, Azusa" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="holiday-inn.html" aria-label="Holiday Inn, Mobile, Alabama" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="3"><img loading="lazy" decoding="async" src="images/holiday-inn/reception-lobby.jpg" alt="Holiday Inn, Mobile, Alabama" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="d-g-mixed-use.html" aria-label="D &amp; G Mixed-use" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="4"><img loading="lazy" decoding="async" src="images/d-g-mixed-use/corner-view-at-the-intersection.jpg" alt="D &amp; G Mixed-use" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="logos-evangelical-seminary-building-a.html" aria-label="Logos Evangelical Seminary, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="5"><img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-a/at-dusk.jpg" alt="Logos Evangelical Seminary, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="duarte-road-medical-building.html" aria-label="Duarte Road Medical Building, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="6"><img loading="lazy" decoding="async" src="images/duarte-road-medical-building/corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="petersen-international.html" aria-label="Petersen International, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="7"><img loading="lazy" decoding="async" src="images/petersen-international/conference-room.jpg" alt="Petersen International, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="new-terrace.html" aria-label="New Terrace, roof deck" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="8"><img loading="lazy" decoding="async" src="images/new-terrace/rooftop-terrace.jpg" alt="New Terrace, roof deck" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="prospect-villa.html" aria-label="Prospect Villa, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="9"><img loading="lazy" decoding="async" src="images/prospect-villa/aerial-view-with-terraced-residences.jpg" alt="Prospect Villa, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="strathmore-place.html" aria-label="Strathmore Place, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="10"><img loading="lazy" decoding="async" src="images/strathmore-place/street-view.jpg" alt="Strathmore Place, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="arroyo-verde-shopping-center.html" aria-label="Arroyo Verde Shopping Center, Oceanside" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="11"><img loading="lazy" decoding="async" src="images/arroyo-verde-shopping-center/pedestrian-plaza-and-storefronts.jpg" alt="Arroyo Verde Shopping Center, Oceanside" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="furniture-showroom.html" aria-label="Furniture Showroom, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="12"><img loading="lazy" decoding="async" src="images/furniture-showroom/showroom-with-orange-counter.jpg" alt="Furniture Showroom, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="logos-evangelical-seminary-building-d.html" aria-label="Logos Evangelical Seminary, Building D, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="13"><img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-d/entry-corner-at-dusk.jpg" alt="Logos Evangelical Seminary, Building D, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="rye-canyon-medical-center.html" aria-label="Rye Canyon Medical Center, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="14"><img loading="lazy" decoding="async" src="images/rye-canyon-medical-center/main-facade.jpg" alt="Rye Canyon Medical Center, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
       <button type="button" aria-label="Previous project" data-action="prev" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); width: 56px; height: 56px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center">
         <svg width="16" height="32" viewBox="0 0 16 32" aria-hidden="true"><path d="M15 1L1 16l14 15" stroke="#FFFFFF" stroke-width="1.6" fill="none"/></svg>
       </button>
@@ -95,18 +304,19 @@ img { max-width: 100%; }
         <svg width="16" height="32" viewBox="0 0 16 32" aria-hidden="true"><path d="M1 1l14 15L1 31" stroke="#FFFFFF" stroke-width="1.6" fill="none"/></svg>
       </button>
     </div>
-    <div style="display: flex; justify-content: flex-end; gap: 22px; padding-top: 12px; font-size: 14px">
-      <a href="https://www.instagram.com/scaleslab/" target="_blank" rel="noopener" style="color: #6B6B6B">Instagram</a>
-      <a href="https://www.linkedin.com/company/scale-s-lab-architects" target="_blank" rel="noopener" style="color: #6B6B6B">LinkedIn</a>
-      <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" target="_blank" rel="noopener" style="color: #6B6B6B">Facebook</a>
-    </div>
+  </section>
+
+  <!-- HERO CLAIM: what the practice is, stated before anything else -->
+  <section class="hero-claim" aria-label="What Scales Lab Architects does">
+    <h1 class="hero-claim__line">Architecture, approvals, and delivery <span class="svc__quiet">under one roof.</span></h1>
+    <a class="hero-claim__link" href="#services">How we work<span class="hero-claim__dot" aria-hidden="true"></span></a>
   </section>
 
   <!-- WORK: masonry columns; each image at its own proportions, uncropped -->
   <section id="work" style="max-width: 1360px; margin: 0 auto; padding: 96px 40px 140px; display: flex; flex-direction: column; gap: 40px">
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 20px; border-top: 1px solid #E6E6E6; padding-top: 20px">
-      <h2 style="margin: 0; font-size: 15px; font-weight: 400">Work</h2>
-      <div role="group" aria-label="Filter projects by type" style="display: flex; flex-wrap: wrap; gap: 4px 22px; font-size: 15px">
+    <div class="svc__block-head">
+      <h2 class="svc__eyebrow">Work</h2>
+      <div role="group" aria-label="Filter projects by type" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 22px; font-size: 17px">
                 <button type="button" data-filter="All" aria-pressed="true" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">All</button>
         <button type="button" data-filter="Housing" aria-pressed="false" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">Housing</button>
         <button type="button" data-filter="Commercial" aria-pressed="false" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">Commercial</button>
@@ -117,173 +327,290 @@ img { max-width: 100%; }
     </div>
     <div style="columns: 3 300px; column-gap: 16px">
       <a href="logos-evangelical-seminary-building-a.html" aria-label="Logos Evangelical Seminary, Building A" data-type="Institutional" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="logos-evangelical-seminary-ceiling-detail.jpg" alt="Logos Evangelical Seminary, Building A" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-a/ceiling-detail.jpg" alt="Logos Evangelical Seminary, Building A" style="display: block; width: 100%; height: auto">
       </a>
       <a href="arcadia-medical-offices.html" aria-label="Arcadia Medical Offices" data-type="Healthcare" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="arcadia-medical-offices-north-elevation.jpg" alt="Arcadia Medical Offices" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/arcadia-medical-offices/north-elevation.jpg" alt="Arcadia Medical Offices" style="display: block; width: 100%; height: auto">
       </a>
       <a href="holiday-inn.html" aria-label="Holiday Inn" data-type="Hospitality" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="holiday-inn-reception-lobby.jpg" alt="Holiday Inn" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/holiday-inn/reception-lobby.jpg" alt="Holiday Inn" style="display: block; width: 100%; height: auto">
       </a>
       <a href="pico-fairfax-mixed-use.html" aria-label="Pico Fairfax Mixed-use" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="pico-fairfax-mixed-use-corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/pico-fairfax-mixed-use/corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use" style="display: block; width: 100%; height: auto">
       </a>
       <a href="strathmore-place.html" aria-label="Strathmore Place" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="strathmore-place-street-view.jpg" alt="Strathmore Place" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/strathmore-place/street-view.jpg" alt="Strathmore Place" style="display: block; width: 100%; height: auto">
       </a>
       <a href="robinson-3x3.html" aria-label="Robinson 3×3" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="robinson-3-3-street-view-with-separate-entries-and-landscape.jpg" alt="Robinson 3×3" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/robinson-3x3/street-view-with-separate-entries-and-landscaped-frontage.jpg" alt="Robinson 3×3" style="display: block; width: 100%; height: auto">
       </a>
       <a href="rye-canyon-medical-center.html" aria-label="Rye Canyon Medical Center" data-type="Healthcare" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="rye-canyon-medical-center-facade-detail.jpg" alt="Rye Canyon Medical Center" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/rye-canyon-medical-center/facade-detail.jpg" alt="Rye Canyon Medical Center" style="display: block; width: 100%; height: auto">
       </a>
       <a href="prospect-villa.html" aria-label="Prospect Villa" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="prospect-villa-aerial-view-with-terraced-residences.jpg" alt="Prospect Villa" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/prospect-villa/aerial-view-with-terraced-residences.jpg" alt="Prospect Villa" style="display: block; width: 100%; height: auto">
       </a>
       <a href="cooffice.html" aria-label="CoOffice" data-type="Commercial" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="cooffice-lighting-detail.jpg" alt="CoOffice" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/cooffice/lighting-detail.jpg" alt="CoOffice" style="display: block; width: 100%; height: auto">
       </a>
       <a href="duarte-road-medical-building.html" aria-label="Duarte Road Medical Building" data-type="Healthcare" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="duarte-road-medical-building-corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/duarte-road-medical-building/corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building" style="display: block; width: 100%; height: auto">
       </a>
       <a href="furniture-showroom.html" aria-label="Furniture Showroom" data-type="Commercial" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="furniture-showroom-showroom-with-orange-counter.jpg" alt="Furniture Showroom" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/furniture-showroom/showroom-with-orange-counter.jpg" alt="Furniture Showroom" style="display: block; width: 100%; height: auto">
       </a>
       <a href="d-g-mixed-use.html" aria-label="D &amp; G Mixed-use" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="d-g-mixed-use-street-elevation-with-ground-floor-shops.jpg" alt="D &amp; G Mixed-use" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/d-g-mixed-use/street-elevation-with-ground-floor-shops.jpg" alt="D &amp; G Mixed-use" style="display: block; width: 100%; height: auto">
       </a>
       <a href="new-terrace.html" aria-label="New Terrace" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="new-terrace-rooftop-terrace.jpg" alt="New Terrace" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/new-terrace/rooftop-terrace.jpg" alt="New Terrace" style="display: block; width: 100%; height: auto">
       </a>
       <a href="block-az.html" aria-label="Block AZ" data-type="Housing" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="block-az-aerial-view-with-plaza-and-parking-structure.jpg" alt="Block AZ" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/block-az/aerial-view-with-plaza-and-parking-structure.jpg" alt="Block AZ" style="display: block; width: 100%; height: auto">
       </a>
       <a href="petersen-international.html" aria-label="Petersen International" data-type="Commercial" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="petersen-international-conference-room.jpg" alt="Petersen International" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/petersen-international/conference-room.jpg" alt="Petersen International" style="display: block; width: 100%; height: auto">
       </a>
       <a href="logos-evangelical-seminary-building-d.html" aria-label="Logos Evangelical Seminary, Building D" data-type="Institutional" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="logos-evangelical-seminary-building-d-aerial-view-of-the-cam.jpg" alt="Logos Evangelical Seminary, Building D" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-d/aerial-view-of-the-campus.jpg" alt="Logos Evangelical Seminary, Building D" style="display: block; width: 100%; height: auto">
       </a>
       <a href="arroyo-verde-shopping-center.html" aria-label="Arroyo Verde Shopping Center" data-type="Commercial" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="arroyo-verde-shopping-center-aerial-view-of-the-center.jpg" alt="Arroyo Verde Shopping Center" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/arroyo-verde-shopping-center/aerial-view-of-the-center.jpg" alt="Arroyo Verde Shopping Center" style="display: block; width: 100%; height: auto">
       </a>
       <a href="best-western-plus.html" aria-label="Best Western Plus" data-type="Hospitality" data-hide-all="1" style="display: block; margin: 0 0 16px; break-inside: avoid; text-decoration: none">
-        <img loading="lazy" decoding="async" src="best-western-plus-entry-at-dusk.jpg" alt="Best Western Plus" style="display: block; width: 100%; height: auto">
+        <img loading="lazy" decoding="async" src="images/best-western-plus/entry-at-dusk.jpg" alt="Best Western Plus" style="display: block; width: 100%; height: auto">
       </a>
     </div>
   </section>
 
-  <!-- SERVICES: core services in four columns; existing facilities (landlord and tenant representation) below -->
-  <section id="services" style="max-width: 1360px; margin: 0 auto; padding: 0 40px 140px; display: flex; flex-direction: column; gap: 40px">
-    <div style="border-top: 1px solid #E6E6E6; padding-top: 20px"><h2 style="margin: 0; font-size: 15px; font-weight: 400">Services</h2></div>
-    <div style="display: flex; flex-wrap: wrap; gap: 24px 64px">
-      <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Architecture</h3>
+  <!-- SERVICES: sectors, delivery phases and existing facilities -->
+  <section class="svc" id="services" aria-labelledby="svc-title">
+    <div class="svc__inner">
+
+      <header class="svc__intro">
+        <div class="svc__intro-head">
+          <p class="svc__eyebrow">Services</p>
+          <h2 class="svc__title" id="svc-title">What we design, <span class="svc__quiet">and how we get it built.</span></h2>
+        </div>
+        <p class="svc__lede">We take projects from the first feasibility study through permits and construction, across six building types.</p>
+      </header>
+
+      <!-- Architecture -->
+      <div class="svc__block">
+        <div class="svc__block-head">
+          <h3 class="svc__block-title">Architecture</h3>
+          <p class="svc__block-meta">6 sectors</p>
+        </div>
+        <div class="svc__cards">
+
+          <article class="svc__card">
+            <div class="svc__card-head">
+              <h4 class="svc__card-name">
+                Housing
+              </h4>
+            </div>
+            <p class="svc__card-items">Multifamily <span class="svc__dot">·</span> Mixed-use <span class="svc__dot">·</span> Single-family residences <span class="svc__dot">·</span> Small lot subdivisions <span class="svc__dot">·</span> Townhomes <span class="svc__dot">·</span> ADUs and pre-approved plans</p>
+          </article>
+
+          <article class="svc__card">
+            <div class="svc__card-head">
+              <h4 class="svc__card-name">
+                Commercial
+              </h4>
+            </div>
+            <p class="svc__card-items">Shopping centers <span class="svc__dot">·</span> Street retail <span class="svc__dot">·</span> Entertainment <span class="svc__dot">·</span> Office buildings <span class="svc__dot">·</span> Coworking <span class="svc__dot">·</span> Office renovations</p>
+          </article>
+
+          <article class="svc__card">
+            <div class="svc__card-head">
+              <h4 class="svc__card-name">
+                Hospitality
+              </h4>
+            </div>
+            <p class="svc__card-items">Hotels <span class="svc__dot">·</span> Hotel renovations <span class="svc__dot">·</span> Restaurants</p>
+          </article>
+
+          <article class="svc__card">
+            <div class="svc__card-head">
+              <h4 class="svc__card-name">
+                Industrial
+              </h4>
+            </div>
+            <p class="svc__card-items">Industrial buildings <span class="svc__dot">·</span> Showrooms</p>
+          </article>
+
+          <article class="svc__card">
+            <div class="svc__card-head">
+              <h4 class="svc__card-name">
+                Healthcare
+              </h4>
+            </div>
+            <p class="svc__card-items">Medical office buildings <span class="svc__dot">·</span> Medical centers</p>
+          </article>
+
+          <article class="svc__card">
+            <div class="svc__card-head">
+              <h4 class="svc__card-name">
+                Institutional
+              </h4>
+            </div>
+            <p class="svc__card-items">Educational <span class="svc__dot">·</span> Religious</p>
+          </article>
+
+        </div>
       </div>
-      <div style="flex: 3 1 640px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 28px 32px">
-        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
-          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Housing</h4>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Multifamily<br>Mixed-use<br>Single-family residences<br>Small lot subdivisions<br>Townhomes<br>ADUs and pre-approved plans</p>
+
+      <!-- Phases -->
+      <div class="svc__block">
+        <div class="svc__block-head">
+          <h3 class="svc__block-title">The Process</h3>
+          <p class="svc__block-meta">3 phases</p>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
-          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Commercial</h4>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Shopping centers<br>Street retail<br>Entertainment<br>Office buildings<br>Coworking<br>Office renovations</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
-          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Industrial</h4>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Industrial buildings<br>Showrooms</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
-          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Hospitality</h4>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Hotels<br>Hotel renovations<br>Restaurants</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
-          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Healthcare</h4>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Medical office buildings<br>Medical centers</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E6E6E6; padding-top: 14px">
-          <h4 style="margin: 0; font-size: 17px; font-weight: 400; color: rgba(0,0,0,0.85)">Institutional</h4>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Educational<br>Religious</p>
-        </div>
-      </div>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; border-top: 1px solid #E6E6E6; padding-top: 32px; margin-top: 16px">
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Planning &amp; Approvals</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Entitlement<br>Master planning<br>Feasibility studies<br>Programming and space planning<br>Conceptual and schematic design<br>Density bonus strategies</p>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Delivery</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Construction documents<br>Bidding assistance<br>Permit processing<br>Equipment layout and utilities<br>ADA accessibility<br>Construction administration<br>Design-build with our construction partner</p>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Presentation &amp; Brand</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">RFP / RFQ design presentations<br>3D modeling and animation<br>Branding<br>Environmental graphics<br>Sign programs</p>
-      </div>
-    </div>
-    <div style="display: flex; flex-wrap: wrap; gap: 32px 64px; border-top: 1px solid #E6E6E6; padding-top: 32px; margin-top: 16px">
-      <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-        <h3 style="margin: 0; font-size: 22px; font-weight: 400">Existing Facilities</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">We help property owners and tenants get more from the buildings they already have: added value and better performance.</p>
-        <button type="button" aria-expanded="false" aria-controls="existing-facilities" data-action="toggle-fac" style="align-self: flex-start; min-height: 44px; padding: 0; border: 0; background: transparent; color: rgba(0,0,0,0.85); font-size: 15px; text-decoration: underline; text-underline-offset: 6px; cursor: pointer">View services +</button>
-      </div>
-      <div id="existing-facilities" hidden style="flex: 3 1 640px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px">
-        <div style="display: flex; flex-direction: column; gap: 10px">
-          <h4 style="margin: 0; font-size: 18px; font-weight: 400; color: rgba(0,0,0,0.85)">Landlord Representation</h4>
-          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6B6B6B; font-style: italic">For owners and property managers</p>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Tenant design review<br>Design and signage criteria manuals<br>Restaurant patio and blade sign criteria<br>Center graphics and banner programs<br>Sign programs<br>Vanilla shell design and documentation<br>Space cuts and reconfiguration<br>Lease outline documents<br>Specialty retail coordination<br>Temporary tenant design and coordination</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px">
-          <h4 style="margin: 0; font-size: 18px; font-weight: 400; color: rgba(0,0,0,0.85)">Landlord Property Improvements</h4>
-          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6B6B6B; font-style: italic">Upgrades that keep a center competitive</p>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Storefront design and implementation<br>Building upgrades and in-fills<br>Cart and kiosk design<br>Wall shop design and implementation<br>Lighting enhancements<br>Color and finish upgrades</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px">
-          <h4 style="margin: 0; font-size: 18px; font-weight: 400; color: rgba(0,0,0,0.85)">Tenant Representation</h4>
-          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6B6B6B; font-style: italic">For retailers, offices and medical tenants</p>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #6B6B6B">Tenant improvement design and permitting<br>Coordination with landlord and center criteria<br>Storefront and signage to center standards<br>Toilet room upgrades<br>ADA upgrades</p>
+        <div class="svc__phases">
+
+          <div class="svc__phase">
+            <span class="svc__phase-num">01</span>
+            <h4 class="svc__phase-name">Planning &amp; Approvals</h4>
+            <p class="svc__phase-lede">Find out what you can build, then get it approved.</p>
+            <ul class="svc__list">
+              <li>Entitlement</li>
+              <li>Master planning</li>
+              <li>Feasibility studies</li>
+              <li>Programming and space planning</li>
+              <li>Conceptual and schematic design</li>
+              <li>Density bonus strategies</li>
+            </ul>
+          </div>
+
+          <div class="svc__phase">
+            <span class="svc__phase-num">02</span>
+            <h4 class="svc__phase-name">Delivery</h4>
+            <p class="svc__phase-lede">Drawings, permits and support through construction.</p>
+            <ul class="svc__list">
+              <li>Construction documents</li>
+              <li>Bidding assistance</li>
+              <li>Permit processing</li>
+              <li>Equipment layout and utilities</li>
+              <li>ADA accessibility</li>
+              <li>Construction administration</li>
+              <li>Design-build with our construction partner</li>
+            </ul>
+          </div>
+
+          <div class="svc__phase">
+            <span class="svc__phase-num">03</span>
+            <h4 class="svc__phase-name">Presentation &amp; Brand</h4>
+            <p class="svc__phase-lede">Visuals that win approvals, tenants and buyers.</p>
+            <ul class="svc__list">
+              <li>RFP / RFQ design presentations</li>
+              <li>3D modeling and animation</li>
+              <li>Branding</li>
+              <li>Environmental graphics</li>
+              <li>Sign programs</li>
+            </ul>
+          </div>
+
         </div>
       </div>
+
+      <!-- Existing facilities -->
+      <div class="svc__facwrap">
+        <div class="svc__banner">
+          <div class="svc__banner-text">
+            <p class="svc__eyebrow">Existing facilities</p>
+            <h3 class="svc__banner-title">Get more from the building you already have.</h3>
+            <p class="svc__banner-lede">We help property owners and tenants add value and improve performance without starting over.</p>
+          </div>
+          <button class="svc__cta" type="button" aria-expanded="false" aria-controls="existing-facilities" data-action="toggle-fac">View services +</button>
+        </div>
+        <div id="existing-facilities" hidden class="svc__fac">
+          <div>
+            <h4 class="svc__fac-name">Landlord Representation</h4>
+            <p class="svc__fac-note">For owners and property managers</p>
+            <p class="svc__fac-items">Tenant design review<br>Design and signage criteria manuals<br>Restaurant patio and blade sign criteria<br>Center graphics and banner programs<br>Sign programs<br>Vanilla shell design and documentation<br>Space cuts and reconfiguration<br>Lease outline documents<br>Specialty retail coordination<br>Temporary tenant design and coordination</p>
+          </div>
+          <div>
+            <h4 class="svc__fac-name">Landlord Property Improvements</h4>
+            <p class="svc__fac-note">Upgrades that keep a center competitive</p>
+            <p class="svc__fac-items">Storefront design and implementation<br>Building upgrades and in-fills<br>Cart and kiosk design<br>Wall shop design and implementation<br>Lighting enhancements<br>Color and finish upgrades</p>
+          </div>
+          <div>
+            <h4 class="svc__fac-name">Tenant Representation</h4>
+            <p class="svc__fac-note">For retailers, offices and medical tenants</p>
+            <p class="svc__fac-items">Tenant improvement design and permitting<br>Coordination with landlord and center criteria<br>Storefront and signage to center standards<br>Toilet room upgrades<br>ADA upgrades</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- ABOUT: philosophy, team and image strip -->
-  <section id="about" style="max-width: 1360px; margin: 0 auto; padding: 0 40px 140px; display: flex; flex-direction: column; gap: 56px">
-    <div style="border-top: 1px solid #E6E6E6; padding-top: 20px"><h2 style="margin: 0; font-size: 15px; font-weight: 400">About</h2></div>
-    <div style="display: flex; flex-direction: column; gap: 22px">
-      <p style="margin: 0; font-size: clamp(22px, 2.3vw, 28px); line-height: 1.45; font-weight: 300; color: #6B6B6B">We engage the built environment from multiple angles and at every scale. We don’t start from a set aesthetic; we start from research and collaboration, and work toward solutions that are both pragmatic and elegant. Founded in 2015 and based in Los Angeles. Our clients are our partners: together we shape the program, the design direction and the plan for growth.</p>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
-      <img loading="lazy" decoding="async" src="arcadia-medical-offices-west-elevation.jpg" data-about="a" alt="Arcadia Medical Offices, west elevation" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
-      <img loading="lazy" decoding="async" src="prospect-villa-corner-view.jpg" data-about="b" alt="Prospect Villa, corner view" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
-      <img loading="lazy" decoding="async" src="rye-canyon-medical-center-entry-canopy.jpg" data-about="c" alt="Rye Canyon Medical Center, entry canopy" style="display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover">
+  <!-- ABOUT: positioning, facts and a three-image gallery.
+       The data-about hooks drive the daily photo rotation in the script below. -->
+  <section class="about" id="about" aria-labelledby="about-title">
+    <div class="about__inner">
+
+      <div class="about__col">
+        <div class="about__blk">
+          <p class="svc__eyebrow">About</p>
+          <h2 class="about__title" id="about-title">We engage the built environment <span class="svc__quiet">from multiple angles and at every scale.</span></h2>
+        </div>
+        <div class="about__blk">
+          <p class="about__lead">We don’t start from a set aesthetic; we start from research and collaboration, and work toward solutions that are both pragmatic and elegant. Our clients are our partners: together we shape the program, the design direction and the plan for growth.</p>
+        </div>
+        <div class="about__blk">
+          <dl class="about__facts">
+            <div class="about__fact"><dt>Founded</dt><dd>2015</dd></div>
+            <div class="about__fact"><dt>Based in</dt><dd>Los Angeles</dd></div>
+            <div class="about__fact"><dt>Approach</dt><dd>Research-led</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="about__bento">
+        <img loading="lazy" decoding="async" src="images/arcadia-medical-offices/west-elevation.jpg" data-about="a" alt="Arcadia Medical Offices, west elevation">
+        <img loading="lazy" decoding="async" src="images/prospect-villa/corner-view.jpg" data-about="b" alt="Prospect Villa, corner view">
+        <img loading="lazy" decoding="async" src="images/rye-canyon-medical-center/entry-canopy.jpg" data-about="c" alt="Rye Canyon Medical Center, entry canopy">
+      </div>
+
     </div>
   </section>
 
   <!-- CONTACT: the current centred composition, with an inquiry form added -->
   <section id="contact" style="border-top: 1px solid #E6E6E6">
-    <div style="max-width: 1360px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; align-items: center; gap: 72px">
-      <div style="width: 100%; max-width: 380px; display: flex; flex-direction: column; align-items: center; gap: 24px">
-        <img loading="lazy" decoding="async" src="silhouette-of-a-figure-filled-with-the-downtown-los-angeles-.jpg" alt="Silhouette of a figure filled with the downtown Los Angeles skyline" style="display: block; width: 100%; height: auto">
-        <address style="font-style: normal; text-align: center; font-size: 15px; line-height: 1.8; color: #6B6B6B">970 N. Broadway, Suite 107<br>Los Angeles, CA 90012<br><a href="https://www.google.com/maps/search/?api=1&amp;query=970+N+Broadway+Suite+107+Los+Angeles+CA+90012" target="_blank" rel="noopener" style="color: rgba(0,0,0,0.85)">View on Google Maps →</a><br><a href="tel:+12135370910" style="color: rgba(0,0,0,0.85)">t: (213) 537-0910</a><br><a href="mailto:info@scaleslab.com" style="color: rgba(0,0,0,0.85)">e: info@scaleslab.com</a></address>
+    <div style="max-width: 1360px; margin: 0 auto; padding: 96px 40px 0; display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 72px 80px; align-items: start">
+      <div style="display: flex; flex-direction: column; gap: 24px">
+        <img loading="lazy" decoding="async" class="sla-silhouette" src="images/site/downtown-la-skyline-silhouette.jpg" alt="Silhouette of a figure filled with the downtown Los Angeles skyline" style="display: block; width: 100%; height: auto">
+        <address class="sla-contact" style="font-style: normal; text-align: left; font-size: 15px; line-height: 1.7; color: #6B6B6B; display: flex; align-items: stretch; gap: 26px">
+         <div style="display: flex; flex-direction: column; gap: 12px">
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=970+N+Broadway+Suite+107+Los+Angeles+CA+90012" target="_blank" rel="noopener" aria-label="970 N. Broadway, Suite 107, Los Angeles, CA 90012 — view on Google Maps" style="display: flex; align-items: flex-start; gap: 10px; color: rgba(0,0,0,0.85)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 5px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>970 N. Broadway, Suite 107<br>Los Angeles, CA 90012</span></a>
+          <a href="tel:+12135370910" aria-label="Call (213) 537-0910" style="display: flex; align-items: center; gap: 10px; color: rgba(0,0,0,0.85)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(213) 537-0910</a>
+          <a href="mailto:info@scaleslab.com" aria-label="Email info@scaleslab.com" style="display: flex; align-items: center; gap: 10px; color: rgba(0,0,0,0.85)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@scaleslab.com</a>
+         </div>
+         <div class="sla-social" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 26px; padding-left: 26px; border-left: 1px solid #E6E6E6">
+            <a href="https://www.instagram.com/scaleslab/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Instagram" style="display: flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://www.linkedin.com/company/scale-s-lab-architects" target="_blank" rel="noopener" aria-label="Scales Lab Architects on LinkedIn" style="display: flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Facebook" style="display: flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+         </div>
+        </address>
       </div>
-      <div style="width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: 40px">
-        <div style="display: flex; flex-direction: column; gap: 14px; text-align: center">
-          <h2 style="margin: 0; font-size: 28px; font-weight: 300; line-height: 1.2">Contact us</h2>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #6B6B6B">We look forward to hearing about your project.</p>
+      <div style="display: flex; flex-direction: column; gap: 40px">
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <h2 class="svc__eyebrow">Contact us</h2>
+          <h3 class="about__title">We look forward to <span class="svc__quiet">hearing about your project.</span></h3>
         </div>
           <form id="contact-form" method="POST" action="https://formspree.io/f/xoedwyvw" aria-label="Project inquiry" style="scroll-margin-top: 120px; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 32px; font-size: 15px">
-            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Name<input type="text" name="name" required autocomplete="name" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"></label>
-            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Email<input type="email" name="email" required autocomplete="email" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"></label>
-            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">I am a<select name="role" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"><option value="" disabled selected>Select one</option><option>Property owner / landlord</option><option>Developer</option><option>Business owner / tenant</option><option>Healthcare provider</option><option>Institution / nonprofit</option><option>Homeowner</option><option>Other</option></select></label>
-            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Site address or city<input type="text" name="site" style="min-height: 44px; border: 0; border-bottom: 1px solid #BDBDBD; padding: 0; font-size: 17px; background: transparent; color: rgba(0,0,0,0.85)"></label>
-            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B; grid-column: span 2">About the project<textarea name="message" required rows="3" style="border: 0; border-bottom: 1px solid #BDBDBD; padding: 8px 0; font-size: 17px; resize: vertical; background: transparent; color: rgba(0,0,0,0.85)"></textarea></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Name<input type="text" name="name" required autocomplete="name"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Email<input type="email" name="email" required autocomplete="email"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">I am a<select name="role"><option value="" disabled selected>Select one</option><option>Property owner / landlord</option><option>Developer</option><option>Business owner / tenant</option><option>Healthcare provider</option><option>Institution / nonprofit</option><option>Homeowner</option><option>Other</option></select></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Site address or city<input type="text" name="site"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B; grid-column: span 2">About the project<textarea name="message" required rows="3"></textarea></label>
             <p hidden><label>Leave this empty<input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
         <input type="hidden" name="_subject" value="New inquiry from scaleslab.com">
-        <div style="grid-column: span 2; display: flex; justify-content: center; padding-top: 8px"><button type="submit" style="min-height: 48px; padding: 0 36px; border: 1px solid rgba(0,0,0,0.85); background: transparent; color: rgba(0,0,0,0.85); font-size: 15px; cursor: pointer">Send</button></div>
+        <div style="grid-column: span 2; display: flex; justify-content: flex-start; padding-top: 8px"><button type="submit" style="min-height: 48px; padding: 0 36px; border: 1px solid rgba(0,0,0,0.85); background: transparent; color: rgba(0,0,0,0.85); font-size: 15px; cursor: pointer">Send</button></div>
           </form>
       </div>
-      <img loading="lazy" decoding="async" src="skyline.png" alt="" aria-hidden="true" style="display: block; width: 100%; height: auto; margin-top: -16px; margin-bottom: -1px">
+      <img class="sla-skyline" loading="lazy" decoding="async" src="images/site/skyline-outline.png" alt="" aria-hidden="true" style="display: block; grid-column: 1 / -1; justify-self: center; width: 48%; height: auto; margin-top: -16px; margin-bottom: -1px">
     </div>
   </section>
 
@@ -293,6 +620,8 @@ img { max-width: 100%; }
       <span>© 2026</span>
     </div>
   </footer>
+
+  <a href="#top" class="sla-top" data-action="to-top" aria-label="Back to top"><span aria-hidden="true"></span>TOP</a>
 </div>
 <script>
 (function () {
@@ -310,7 +639,7 @@ img { max-width: 100%; }
   }
   place();
   // About photos: three exterior/detail shots, changing once a day
-  var aboutPool = [{"src": "arcadia-medical-offices-west-elevation.jpg", "alt": "Arcadia Medical Offices, west elevation"}, {"src": "rye-canyon-medical-center-facade-detail.jpg", "alt": "Rye Canyon Medical Center, facade detail"}, {"src": "pico-fairfax-mixed-use-west-elevation.jpg", "alt": "Pico Fairfax Mixed-use, west elevation"}, {"src": "logos-evangelical-seminary-building-d-roof-terrace-and-glass.jpg", "alt": "Logos Evangelical Seminary, Building D, roof terrace and glass stair tower"}, {"src": "duarte-road-medical-building-rear-view-north-and-east-elevat.jpg", "alt": "Duarte Road Medical Building, north and east elevations"}, {"src": "strathmore-place-corner-view.jpg", "alt": "Strathmore Place, corner view"}, {"src": "prospect-villa-corner-view.jpg", "alt": "Prospect Villa, corner view"}, {"src": "new-terrace-corner-view.jpg", "alt": "New Terrace, corner view"}, {"src": "d-g-mixed-use-corner-view-from-across-the-street.jpg", "alt": "D & G Mixed-use, corner view"}, {"src": "cooffice-lighting-detail.jpg", "alt": "CoOffice, lighting detail"}, {"src": "robinson-3-3-stacked-homes-rising-behind-the-street-with-pri.jpg", "alt": "Robinson 3\u00d73, stacked homes with balconies and roof decks"}, {"src": "prospect-villa-corner-storefronts.jpg", "alt": "Prospect Villa, corner storefronts"}, {"src": "rye-canyon-medical-center-entry-canopy.jpg", "alt": "Rye Canyon Medical Center, entry canopy"}, {"src": "pico-fairfax-mixed-use-south-elevation.jpg", "alt": "Pico Fairfax Mixed-use, south elevation"}, {"src": "logos-evangelical-seminary-building-d-elevated-view-with-ter.jpg", "alt": "Logos Evangelical Seminary, Building D, terrace and exterior stair"}, {"src": "arcadia-medical-offices-wood-cladding-detail.jpg", "alt": "Arcadia Medical Offices, wood cladding detail"}, {"src": "arcadia-medical-offices-northeast-balcony.jpg", "alt": "Arcadia Medical Offices, northeast balcony"}, {"src": "arcadia-medical-offices-east-elevation-at-dusk.jpg", "alt": "Arcadia Medical Offices, east elevation at dusk"}];
+  var aboutPool = [{"src": "images/arcadia-medical-offices/west-elevation.jpg", "alt": "Arcadia Medical Offices, west elevation"}, {"src": "images/rye-canyon-medical-center/facade-detail.jpg", "alt": "Rye Canyon Medical Center, facade detail"}, {"src": "images/pico-fairfax-mixed-use/west-elevation.jpg", "alt": "Pico Fairfax Mixed-use, west elevation"}, {"src": "images/logos-evangelical-seminary-building-d/roof-terrace-and-glass-stair-tower.jpg", "alt": "Logos Evangelical Seminary, Building D, roof terrace and glass stair tower"}, {"src": "images/duarte-road-medical-building/rear-view-north-and-east-elevations.jpg", "alt": "Duarte Road Medical Building, north and east elevations"}, {"src": "images/strathmore-place/corner-view.jpg", "alt": "Strathmore Place, corner view"}, {"src": "images/prospect-villa/corner-view.jpg", "alt": "Prospect Villa, corner view"}, {"src": "images/new-terrace/corner-view.jpg", "alt": "New Terrace, corner view"}, {"src": "images/d-g-mixed-use/corner-view-from-across-the-street.jpg", "alt": "D & G Mixed-use, corner view"}, {"src": "images/cooffice/lighting-detail.jpg", "alt": "CoOffice, lighting detail"}, {"src": "images/robinson-3x3/stacked-homes-with-private-balconies-and-roof-decks.jpg", "alt": "Robinson 3\u00d73, stacked homes with balconies and roof decks"}, {"src": "images/prospect-villa/corner-storefronts.jpg", "alt": "Prospect Villa, corner storefronts"}, {"src": "images/rye-canyon-medical-center/entry-canopy.jpg", "alt": "Rye Canyon Medical Center, entry canopy"}, {"src": "images/pico-fairfax-mixed-use/south-elevation.jpg", "alt": "Pico Fairfax Mixed-use, south elevation"}, {"src": "images/logos-evangelical-seminary-building-d/elevated-view-with-terrace-and-exterior-stair.jpg", "alt": "Logos Evangelical Seminary, Building D, terrace and exterior stair"}, {"src": "images/arcadia-medical-offices/wood-cladding-detail.jpg", "alt": "Arcadia Medical Offices, wood cladding detail"}, {"src": "images/arcadia-medical-offices/northeast-balcony.jpg", "alt": "Arcadia Medical Offices, northeast balcony"}, {"src": "images/arcadia-medical-offices/east-elevation-at-dusk.jpg", "alt": "Arcadia Medical Offices, east elevation at dusk"}];
   if (aboutPool.length) {
     var day = Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 86400000);
     var base = (day * 5) % aboutPool.length;
@@ -360,9 +689,33 @@ img { max-width: 100%; }
       a.setAttribute('aria-expanded', box.hidden ? 'false' : 'true');
       a.textContent = box.hidden ? 'View services +' : 'Hide services −';
     }
+    if (act === 'to-top') {
+      e.preventDefault();
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    }
     if (act === 'prev') { shift -= 7; place(); }
     if (act === 'next') { shift += 7; place(); }
   });
+  // Back-to-top: show it only once the page has been scrolled.
+  var toTop = document.querySelector('.sla-top');
+  if (toTop) {
+    var stopAt = document.querySelector('.sla-skyline') || document.querySelector('footer');
+    var syncTop = function () {
+      toTop.classList.toggle('is-visible', window.pageYOffset > 200);
+      // Ride up so the "TOP" label stops just above the skyline instead of
+      // scrolling over it.
+      var rest = window.matchMedia('(max-width: 700px)').matches ? 18 : 30;
+      if (stopAt) {
+        var lift = window.innerHeight - stopAt.getBoundingClientRect().top + 14;
+        if (lift > rest) rest = lift;
+      }
+      toTop.style.bottom = rest + 'px';
+    };
+    window.addEventListener('scroll', syncTop, { passive: true });
+    window.addEventListener('resize', syncTop, { passive: true });
+    syncTop();
+  }
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menu.hidden = true; });
   // Formspree: send in the background, then show our own thank-you page
   var form = document.getElementById('contact-form');
@@ -383,6 +736,336 @@ img { max-width: 100%; }
         });
     });
   }
+})();
+</script>
+<!-- ============================================================
+     Case-study overlay (experiment)
+     Clicking a card in #work expands it in place instead of
+     navigating. Remove this block to go back to plain links.
+     ============================================================ -->
+<style>
+  .slac{position:fixed;inset:0;z-index:300}
+  .slac[hidden]{display:none}
+  .slac{--pad:clamp(16px,2.6vw,40px)}
+  /* No panel: the text and the picture sit straight on the blurred page.
+     The scrim is whiter than before so the text stays easy to read. */
+  .slac__scrim{position:absolute;inset:0;background:rgba(255,255,255,.84);
+    -webkit-backdrop-filter:blur(26px) saturate(115%);backdrop-filter:blur(26px) saturate(115%);
+    opacity:0;transition:opacity .4s ease}
+  .slac.is-open .slac__scrim{opacity:1}
+  /* Two fixed panes inside a window-sized frame: the text on the left never moves,
+     and only the photo column on the right scrolls. */
+  .slac__stage{position:absolute;inset:0;padding:var(--pad);overflow:hidden}
+  .slac__card{position:relative;width:min(1360px,100%);height:calc(100vh - 2 * var(--pad));
+    height:calc(100dvh - 2 * var(--pad));margin:0 auto;display:grid;
+    grid-template-columns:minmax(260px,360px) minmax(0,1fr);column-gap:clamp(24px,3.4vw,52px);
+    align-items:stretch;opacity:0;transition:opacity .3s ease}
+  .slac.is-open .slac__card{opacity:1}
+  /* Everything in the text column is sized in em from this one number, so the
+     script can shrink the whole column together until it fits without scrolling. */
+  .slac__info{font-size:15px;min-width:0;height:100%;overflow:auto;display:flex;
+    flex-direction:column;gap:1.45em}
+  .slac__eyebrow{margin:0;font-size:.733em;letter-spacing:.14em;text-transform:uppercase;color:#6B6B6B}
+  .slac__title{margin:0;font-family:var(--font-display);font-size:2.3em;font-weight:400;line-height:1.1}
+  .slac__dl{margin:0;display:flex;flex-direction:column}
+  /* A hairline above every row, and one closing the list. */
+  .slac__dl>div{display:flex;flex-direction:column;gap:.2em;padding:.85em 0;border-top:1px solid var(--svc-line)}
+  .slac__dl>div:last-child{border-bottom:1px solid var(--svc-line)}
+  .slac__dl dt{font-size:.733em;letter-spacing:.1em;text-transform:uppercase;color:#6B6B6B}
+  .slac__dl dd{margin:0}
+  .slac__copy{display:flex;flex-direction:column;gap:1.05em;margin-top:1.45em}
+  .slac__copy p{margin:0}
+  .slac__copy p:first-child{font-size:1.267em;line-height:1.5;font-weight:300}
+  .slac__copy p+p{line-height:1.7;color:#6B6B6B}
+  /* A real button, same outline-then-red-fill as the other CTAs. */
+  .slac__full{display:inline-flex;align-items:center;align-self:flex-start;flex:none;margin-top:auto;
+    min-height:3.7em;padding:0 1.85em;border:1px solid var(--svc-ink);border-radius:6px;
+    font-size:1em;font-weight:500;color:var(--svc-ink);text-decoration:none;
+    transition:background-color .18s ease,border-color .18s ease,color .18s ease}
+  .slac__full:hover,.slac__full:focus-visible{background:var(--svc-accent);border-color:var(--svc-accent);color:#FFFFFF}
+  .slac__media{min-width:0;height:100%;overflow-y:auto;overscroll-behavior:contain;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.25) transparent}
+  /* The main picture is sized to fit its pane, so all of it is on screen at once.
+     Both limits are set, so it keeps its shape instead of being cropped. */
+  .slac__hero{display:block;width:auto;height:auto;max-width:100%;
+    max-height:calc(100vh - 2 * var(--pad));max-height:calc(100dvh - 2 * var(--pad));visibility:hidden}
+  .slac.is-settled .slac__hero{visibility:visible}
+  .slac__rest{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+  .slac__rest img{display:block;width:100%;height:auto}
+  .slac__x{position:fixed;top:14px;right:14px;z-index:2;width:40px;height:40px;
+    border:0;border-radius:50%;background:rgba(255,255,255,.88);color:#000;
+    font-size:21px;line-height:1;cursor:pointer;box-shadow:0 1px 6px rgba(0,0,0,.14)}
+  .slac__x:hover{background:#fff;color:#E2382F}
+  .slac__flier{position:fixed;z-index:310;object-fit:cover;pointer-events:none;will-change:transform}
+  .slac__skel{height:12px;background:#EFEFEF;border-radius:2px}
+  /* Phones: photos in a scrolling pane on top, the text fixed underneath. */
+  @media (max-width:880px){
+    .slac__card{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,43%) minmax(0,1fr);row-gap:16px}
+    .slac__media{order:1}
+    .slac__info{order:2}
+    .slac__hero{max-height:40vh;max-height:40dvh}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .slac__scrim,.slac__card{transition-duration:.01ms}
+  }
+</style>
+
+<div class="slac" id="slac" role="dialog" aria-modal="true" aria-labelledby="slac-title" hidden>
+  <div class="slac__scrim" data-slac-close></div>
+  <div class="slac__stage" data-slac-close>
+    <article class="slac__card">
+      <button type="button" class="slac__x" data-slac-close aria-label="Close case study">&times;</button>
+      <div class="slac__info">
+        <p class="slac__eyebrow">Project</p>
+        <h2 class="slac__title" id="slac-title"></h2>
+        <dl class="slac__dl"></dl>
+        <div class="slac__copy"></div>
+        <a class="slac__full" href="#">Open the full page &rarr;</a>
+      </div>
+      <div class="slac__media">
+        <img class="slac__hero" alt="">
+        <div class="slac__rest"></div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<script>
+(function () {
+  var grid = document.getElementById('work');
+  var ov = document.getElementById('slac');
+  if (!grid || !ov || !window.fetch || !window.DOMParser) return;
+
+  var elTitle = ov.querySelector('.slac__title');
+  var elDl = ov.querySelector('.slac__dl');
+  var elCopy = ov.querySelector('.slac__copy');
+  var elFull = ov.querySelector('.slac__full');
+  var elHero = ov.querySelector('.slac__hero');
+  var elRest = ov.querySelector('.slac__rest');
+  var info = ov.querySelector('.slac__info');
+  var media = ov.querySelector('.slac__media');
+  var btnX = ov.querySelector('.slac__x');
+
+  var cache = {};
+  var origin = null;
+  var lastFocus = null;
+  var pushed = false;
+  var isOpen = false;
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var DUR = 460;
+  var EASE = 'cubic-bezier(.22,.61,.36,1)';
+
+  function lockScroll(on) {
+    var bar = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = on ? 'hidden' : '';
+    document.body.style.paddingRight = on && bar > 0 ? bar + 'px' : '';
+  }
+
+  // Grow a copy of the thumbnail into the hero slot, or shrink it back.
+  function flip(from, to, back, done) {
+    if (calm.matches || !from || !to || !to.width || !to.height ||
+        !from.width || !from.height || !elHero.animate) { done(); return; }
+    var fly = document.createElement('img');
+    fly.className = 'slac__flier';
+    fly.src = elHero.currentSrc || elHero.src;
+    fly.alt = '';
+    fly.style.left = to.left + 'px';
+    fly.style.top = to.top + 'px';
+    fly.style.width = to.width + 'px';
+    fly.style.height = to.height + 'px';
+    fly.style.transformOrigin = 'top left';
+    document.body.appendChild(fly);
+
+    var sx = from.width / to.width;
+    var sy = from.height / to.height;
+    var shrunk = 'translate(' + (from.left - to.left) + 'px,' + (from.top - to.top) + 'px) scale(' + sx + ',' + sy + ')';
+    var frames = back ? [{ transform: 'none' }, { transform: shrunk }]
+                      : [{ transform: shrunk }, { transform: 'none' }];
+
+    var finished = false;
+    function end() { if (finished) return; finished = true; if (fly.parentNode) fly.remove(); done(); }
+    var anim = fly.animate(frames, { duration: DUR, easing: EASE, fill: 'both' });
+    anim.onfinish = end;
+    setTimeout(end, DUR + 240);
+  }
+
+  // The text column never scrolls, so everything in it has to be on screen at
+  // once. Everything in it is sized in em, so shrinking this one font size
+  // shrinks the title, details, copy and button together until it fits.
+  function fitInfo() {
+    var size = 15;
+    info.style.fontSize = size + 'px';
+    while (info.scrollHeight > info.clientHeight + 1 && size > 10.5) {
+      size -= 0.5;
+      info.style.fontSize = size + 'px';
+    }
+  }
+
+  function skeleton() {
+    elTitle.textContent = '';
+    elDl.innerHTML = '';
+    elCopy.innerHTML = '<div class="slac__skel" style="width:88%"></div>' +
+                       '<div class="slac__skel" style="width:70%"></div>';
+    elRest.innerHTML = '';
+  }
+
+  function fill(doc, href) {
+    var h1 = doc.querySelector('h1');
+    elTitle.textContent = h1 ? h1.textContent.trim() : '';
+
+    var dl = doc.querySelector('section[aria-label="Project overview"] dl');
+    elDl.innerHTML = '';
+    if (dl) {
+      Array.prototype.forEach.call(dl.querySelectorAll('div'), function (row) {
+        var dt = row.querySelector('dt');
+        var dd = row.querySelector('dd');
+        if (!dt || !dd) return;
+        var wrap = document.createElement('div');
+        var a = document.createElement('dt');
+        var b = document.createElement('dd');
+        a.textContent = dt.textContent.trim();
+        b.textContent = dd.textContent.trim();
+        wrap.appendChild(a);
+        wrap.appendChild(b);
+        elDl.appendChild(wrap);
+      });
+    }
+
+    elCopy.innerHTML = '';
+    Array.prototype.forEach.call(
+      doc.querySelectorAll('section[aria-label="Project overview"] p'),
+      function (p) {
+        var q = document.createElement('p');
+        q.textContent = p.textContent.trim();
+        elCopy.appendChild(q);
+      }
+    );
+
+    elFull.href = href;
+
+    // Every other photo from the project page, stacked under the one that grew.
+    var heroFile = (elHero.getAttribute('src') || '').split('/').pop();
+    elRest.innerHTML = '';
+    Array.prototype.forEach.call(
+      doc.querySelectorAll('section[aria-label="Images"] img'),
+      function (im) {
+        var path = im.getAttribute('src') || '';
+        if (path.split('/').pop() === heroFile) return;
+        var copy = document.createElement('img');
+        copy.loading = 'lazy';
+        copy.decoding = 'async';
+        copy.src = path;
+        copy.alt = im.getAttribute('alt') || '';
+        elRest.appendChild(copy);
+      }
+    );
+  }
+
+  function open(link, thumb) {
+    var href = link.getAttribute('href');
+    origin = thumb;
+    lastFocus = document.activeElement;
+    var from = thumb.getBoundingClientRect();
+
+    skeleton();
+    // Reserve the right shape up front so the hero has a height on the very
+    // first frame — otherwise the grow animation measures zero.
+    if (thumb.naturalWidth && thumb.naturalHeight) {
+      elHero.style.aspectRatio = thumb.naturalWidth + ' / ' + thumb.naturalHeight;
+    }
+    elHero.src = thumb.currentSrc || thumb.src;   // already cached, so no flash
+    elHero.alt = thumb.alt || '';
+    elFull.href = href;
+    ov.hidden = false;
+    ov.classList.remove('is-settled');
+    lockScroll(true);
+    isOpen = true;
+    media.scrollTop = 0;
+
+    requestAnimationFrame(function () {
+      var to = elHero.getBoundingClientRect();
+      ov.classList.add('is-open');
+      flip(from, to, false, function () { ov.classList.add('is-settled'); });
+      btnX.focus();
+    });
+
+    if (window.history && history.pushState) {
+      try { history.pushState({ slac: 1 }, '', href); pushed = true; } catch (e) {}
+    }
+
+    var get = cache[href]
+      ? Promise.resolve(cache[href])
+      : fetch(href, { credentials: 'same-origin' })
+          .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+          .then(function (t) { cache[href] = t; return t; });
+
+    get.then(function (text) {
+      if (!isOpen) return;
+      fill(new DOMParser().parseFromString(text, 'text/html'), href);
+      fitInfo();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () { if (isOpen) fitInfo(); });
+      }
+    }).catch(function () {
+      window.location.href = href;   // can't read the page, so just go to it
+    });
+  }
+
+  function teardown() {
+    var to = elHero.getBoundingClientRect();
+    var from = origin ? origin.getBoundingClientRect() : null;
+    // Shrink back into the grid only if both ends are on screen. If the
+    // visitor scrolled the photos so the main one is off-screen, just fade.
+    var onscreen = from && from.bottom > 0 && from.top < window.innerHeight &&
+                   to.bottom > 0 && to.top < window.innerHeight;
+    ov.classList.remove('is-settled');
+    ov.classList.remove('is-open');
+    isOpen = false;
+    origin = null;
+    flip(onscreen ? from : null, to, true, function () {
+      ov.hidden = true;
+      lockScroll(false);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    });
+  }
+
+  function close() {
+    if (!isOpen) return;
+    if (pushed) { pushed = false; history.back(); return; }   // popstate finishes it
+    teardown();
+  }
+
+  grid.addEventListener('click', function (e) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    var link = e.target.closest ? e.target.closest('a[href$=".html"]') : null;
+    if (!link || !grid.contains(link)) return;
+    var thumb = link.querySelector('img');
+    if (!thumb) return;
+    e.preventDefault();
+    open(link, thumb);
+  });
+
+  ov.addEventListener('click', function (e) {
+    if (e.target.hasAttribute('data-slac-close')) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && isOpen) { e.stopPropagation(); close(); }
+  });
+
+  // Keep the text fitting if the window is resized while a case study is open.
+  window.addEventListener('resize', function () { if (isOpen) fitInfo(); });
+
+  // The text column doesn't scroll, so scrolling anywhere over it moves the photos.
+  ov.addEventListener('wheel', function (e) {
+    if (!isOpen || media.contains(e.target)) return;
+    media.scrollTop += e.deltaY;
+  }, { passive: true });
+
+  window.addEventListener('popstate', function () {
+    pushed = false;
+    if (isOpen) teardown();
+  });
 })();
 </script>
 </body>

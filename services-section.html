@@ -1,0 +1,222 @@
+<!--
+  Services section — standalone HTML + CSS.
+  All styles are scoped under .svc so they won't clash with the rest of the site.
+  Font: Inter (Google Fonts). Accent color: change --svc-accent.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+.svc {
+  --svc-accent: #2E5A46;
+  --svc-ink: #1F1F1C;
+  --svc-muted: #55554F;
+  --svc-subtle: #6B6B64;
+  --svc-line: #E6E5E0;
+  --svc-bg: #FAFAF8;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--svc-ink);
+  background: var(--svc-bg);
+  padding: 120px 24px 140px;
+}
+.svc *, .svc *::before, .svc *::after { box-sizing: border-box; }
+.svc__inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 120px; }
+
+.svc__eyebrow { margin: 0; font-size: 13px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--svc-accent); }
+
+/* Intro */
+.svc__intro { display: flex; flex-wrap: wrap; gap: 32px 80px; align-items: flex-end; justify-content: space-between; }
+.svc__intro-head { flex: 1 1 520px; display: flex; flex-direction: column; gap: 20px; }
+.svc__title { margin: 0; font-size: clamp(36px, 5vw, 52px); line-height: 1.08; font-weight: 500; letter-spacing: -.02em; }
+.svc__lede { margin: 0; flex: 1 1 320px; max-width: 400px; font-size: 18px; line-height: 1.6; color: var(--svc-muted); }
+
+/* Section headers */
+.svc__block { display: flex; flex-direction: column; gap: 40px; }
+.svc__block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--svc-ink); padding-bottom: 20px; }
+.svc__block-title { margin: 0; font-size: 28px; font-weight: 500; letter-spacing: -.01em; }
+.svc__block-meta { margin: 0; font-size: 15px; color: var(--svc-subtle); }
+
+/* Architecture cards */
+.svc__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.svc__card { background: #fff; border: 1px solid var(--svc-line); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 14px; min-height: 150px; }
+.svc__card-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.svc__card-name { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 19px; font-weight: 600; }
+.svc__card-name svg { color: var(--svc-accent); flex: none; }
+.svc__count { font-size: 13px; color: var(--svc-subtle); }
+.svc__card-items { margin: 0; font-size: 15px; line-height: 1.65; color: var(--svc-muted); }
+
+/* Phases */
+.svc__phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 56px; }
+.svc__phase { display: flex; flex-direction: column; gap: 18px; }
+.svc__phase-num { font-size: 14px; font-weight: 500; color: var(--svc-accent); }
+.svc__phase-name { margin: 0; font-size: 22px; font-weight: 500; }
+.svc__phase-lede { margin: 0; font-size: 15px; line-height: 1.6; color: var(--svc-muted); }
+.svc__list { margin: 8px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--svc-line); }
+.svc__list li { font-size: 15px; padding: 11px 0; border-bottom: 1px solid var(--svc-line); color: #33332F; }
+
+/* Existing facilities banner */
+.svc__banner { background: var(--svc-ink); color: var(--svc-bg); border-radius: 16px; padding: clamp(32px, 5vw, 56px); display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: center; justify-content: space-between; }
+.svc__banner-text { flex: 1 1 480px; display: flex; flex-direction: column; gap: 14px; }
+.svc__banner .svc__eyebrow { color: #B9CFC3; }
+.svc__banner-title { margin: 0; font-size: 32px; line-height: 1.2; font-weight: 500; letter-spacing: -.01em; }
+.svc__banner-lede { margin: 0; font-size: 17px; line-height: 1.6; color: #C9C9C2; }
+.svc__cta { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 24px; border-radius: 999px; background: var(--svc-bg); color: var(--svc-ink); font-size: 15px; font-weight: 500; text-decoration: none; transition: transform .15s ease; }
+.svc__cta:hover { transform: translateX(2px); }
+</style>
+
+<section class="svc" id="services" aria-labelledby="svc-title">
+  <div class="svc__inner">
+
+    <header class="svc__intro">
+      <div class="svc__intro-head">
+        <p class="svc__eyebrow">Services</p>
+        <h2 class="svc__title" id="svc-title">Architecture, approvals and delivery under one roof.</h2>
+      </div>
+      <p class="svc__lede">We take projects from the first feasibility study through permits and construction, across six building types.</p>
+    </header>
+
+    <!-- Architecture -->
+    <div class="svc__block">
+      <div class="svc__block-head">
+        <h3 class="svc__block-title">Architecture</h3>
+        <p class="svc__block-meta">6 sectors</p>
+      </div>
+      <div class="svc__cards">
+
+        <article class="svc__card">
+          <div class="svc__card-head">
+            <h4 class="svc__card-name">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg>
+              Housing
+            </h4>
+            <span class="svc__count">06</span>
+          </div>
+          <p class="svc__card-items">Multifamily · Mixed-use · Single-family residences · Small lot subdivisions · Townhomes · ADUs and pre-approved plans</p>
+        </article>
+
+        <article class="svc__card">
+          <div class="svc__card-head">
+            <h4 class="svc__card-name">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 4h15L21 9H3z"/><path d="M4 9v11h16V9"/><path d="M9.5 20v-6h5v6"/></svg>
+              Commercial
+            </h4>
+            <span class="svc__count">06</span>
+          </div>
+          <p class="svc__card-items">Shopping centers · Street retail · Entertainment · Office buildings · Coworking · Office renovations</p>
+        </article>
+
+        <article class="svc__card">
+          <div class="svc__card-head">
+            <h4 class="svc__card-name">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6v13"/><path d="M3 15h18v4"/><path d="M21 15v-2.5A3.5 3.5 0 0 0 17.5 9H11v6"/><circle cx="7" cy="11.5" r="1.8"/></svg>
+              Hospitality
+            </h4>
+            <span class="svc__count">03</span>
+          </div>
+          <p class="svc__card-items">Hotels · Hotel renovations · Restaurants</p>
+        </article>
+
+        <article class="svc__card">
+          <div class="svc__card-head">
+            <h4 class="svc__card-name">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M4 20v-9l5 3v-3l5 3v-3l5 3V4h2v16"/><path d="M8 17h1M12 17h1M16 17h1"/></svg>
+              Industrial
+            </h4>
+            <span class="svc__count">02</span>
+          </div>
+          <p class="svc__card-items">Industrial buildings · Showrooms</p>
+        </article>
+
+        <article class="svc__card">
+          <div class="svc__card-head">
+            <h4 class="svc__card-name">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg>
+              Healthcare
+            </h4>
+            <span class="svc__count">02</span>
+          </div>
+          <p class="svc__card-items">Medical office buildings · Medical centers</p>
+        </article>
+
+        <article class="svc__card">
+          <div class="svc__card-head">
+            <h4 class="svc__card-name">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5z"/><path d="M6 9v8M10 9v8M14 9v8M18 9v8"/><path d="M4 17h16M3 20h18"/></svg>
+              Institutional
+            </h4>
+            <span class="svc__count">02</span>
+          </div>
+          <p class="svc__card-items">Educational · Religious</p>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- Phases -->
+    <div class="svc__block">
+      <div class="svc__block-head">
+        <h3 class="svc__block-title">How we carry a project</h3>
+        <p class="svc__block-meta">3 phases</p>
+      </div>
+      <div class="svc__phases">
+
+        <div class="svc__phase">
+          <span class="svc__phase-num">01</span>
+          <h4 class="svc__phase-name">Planning &amp; Approvals</h4>
+          <p class="svc__phase-lede">Find out what you can build, then get it approved.</p>
+          <ul class="svc__list">
+            <li>Entitlement</li>
+            <li>Master planning</li>
+            <li>Feasibility studies</li>
+            <li>Programming and space planning</li>
+            <li>Conceptual and schematic design</li>
+            <li>Density bonus strategies</li>
+          </ul>
+        </div>
+
+        <div class="svc__phase">
+          <span class="svc__phase-num">02</span>
+          <h4 class="svc__phase-name">Delivery</h4>
+          <p class="svc__phase-lede">Drawings, permits and support through construction.</p>
+          <ul class="svc__list">
+            <li>Construction documents</li>
+            <li>Bidding assistance</li>
+            <li>Permit processing</li>
+            <li>Equipment layout and utilities</li>
+            <li>ADA accessibility</li>
+            <li>Construction administration</li>
+            <li>Design-build with our construction partner</li>
+          </ul>
+        </div>
+
+        <div class="svc__phase">
+          <span class="svc__phase-num">03</span>
+          <h4 class="svc__phase-name">Presentation &amp; Brand</h4>
+          <p class="svc__phase-lede">Visuals that win approvals, tenants and buyers.</p>
+          <ul class="svc__list">
+            <li>RFP / RFQ design presentations</li>
+            <li>3D modeling and animation</li>
+            <li>Branding</li>
+            <li>Environmental graphics</li>
+            <li>Sign programs</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Existing facilities -->
+    <div class="svc__banner">
+      <div class="svc__banner-text">
+        <p class="svc__eyebrow">Existing facilities</p>
+        <h3 class="svc__banner-title">Get more from the building you already have.</h3>
+        <p class="svc__banner-lede">We help owners and tenants add value and improve performance without starting over.</p>
+      </div>
+      <a class="svc__cta" href="#contact">
+        Talk to us about your space
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>

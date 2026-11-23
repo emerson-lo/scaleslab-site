@@ -9,19 +9,23 @@
 <meta property="og:title" content="Duarte Road Medical Building — Scales Lab Architects">
 <meta property="og:description" content="A three-story building on Duarte Road with retail and medical space and the lobby at street level, two floors of medical offices above, and parking below grade.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#FFFFFF}
+body{margin:0;background:#FFFFFF;font-family:'Helvetica Neue',Helvetica,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
 a{color:rgba(0,0,0,0.85)}a:hover{color:#000000}
+.sla-social a{transition:opacity .18s ease}
+.sla-social a:hover{text-decoration:none;opacity:.6}
 @media (max-width: 700px){
-  header, main, section, footer > div { padding-left: 20px !important; padding-right: 20px !important; }
+  header > div, main, section, footer > div, .sla-skyline-wrap { padding-left: 20px !important; padding-right: 20px !important; }
   #contact-form { grid-template-columns: 1fr !important; }
   #contact-form > * { grid-column: auto !important; }
   #contact > div > div:last-child { padding-top: 24px !important; }
   .sla-menu { padding: 24px 20px !important; }
-  header > div:last-child { gap: 14px !important; font-size: 14px !important; }
+  header nav[aria-label="Primary"] { gap: 14px !important; font-size: 14px !important; }
   header svg[width="120"] { width: 88px !important; height: auto !important; }
-  header:has(button[aria-label="Open menu"]) > div:last-child { display: none !important; }
-  header { align-items: center !important; }
+  header:has(button[aria-label="Open menu"]) nav[aria-label="Primary"] { display: none !important; }
   header .sla-menu-btn { display: flex !important; }
 }
 img { max-width: 100%; }
@@ -29,27 +33,57 @@ img { max-width: 100%; }
 </style>
 </head>
 <body>
-<div style="font-family: 'Helvetica Neue', Helvetica, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-weight: 400; color: rgba(0,0,0,0.85); background: #FFFFFF; min-height: 100vh">
-  <header style="max-width: 1360px; margin: 0 auto; padding: 28px 40px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
-    <a href="/" aria-label="Scales Lab Architects, home" style="text-decoration: none; display: flex"><svg width="120" height="59.4" viewBox="-6 -6 404 200" role="img" aria-label="Scales Lab Architects"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text x="196" y="182" text-anchor="middle" textLength="392" lengthAdjust="spacing" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="300" font-size="40" fill="#6B6B6B">scale(s) lab architects</text></svg></a>
-    <div style="display: flex; gap: 28px; font-size: 15px; line-height: 1; padding-bottom: 1px">
+<div style="font-weight: 400; color: rgba(0,0,0,0.85); background: #FFFFFF; min-height: 100vh">
+  <header style="position: sticky; top: 0; z-index: 9; background: #FFFFFF; border-bottom: 1px solid #E6E6E6">
+   <div style="max-width: 1360px; margin: 0 auto; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+    <div style="display: flex; align-items: center; gap: 24px">
+      <button type="button" class="sla-menu-btn" aria-label="Open menu" data-action="open-menu" style="width: 44px; height: 44px; border: 0; background: transparent; padding: 0; cursor: pointer; display: none; align-items: center; justify-content: center">
+        <svg width="26" height="18" viewBox="0 0 26 18" aria-hidden="true"><path d="M0 1h26M0 9h26M0 17h26" stroke="#000000" stroke-opacity="0.85" stroke-width="1.6" fill="none"/></svg>
+      </button>
+      <a href="/" aria-label="Scales Lab Architects, home" style="text-decoration: none; display: flex"><svg width="120" height="59.4" viewBox="-6 -6 404 200" role="img" aria-label="Scales Lab Architects"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text x="196" y="182" text-anchor="middle" textLength="392" lengthAdjust="spacing" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="300" font-size="40" fill="#6B6B6B">scale(s) lab architects</text></svg></a>
+    </div>
+    <nav aria-label="Primary" style="display: flex; align-items: center; gap: 28px; font-size: 15px; line-height: 1">
       <a href="/#services" style="text-decoration: none">Services</a>
       <a href="/#work" style="text-decoration: none">Work</a>
       <a href="/#about" style="text-decoration: none">About</a>
-      <a href="/#contact-form" style="text-decoration: none">Contact</a>
-    </div>
+      <a href="/#contact-form" data-action="close-menu" style="text-decoration: none">Contact</a>
+      <span class="sla-social" style="display: flex; align-items: center; gap: 22px">
+        <a href="https://www.instagram.com/scaleslab/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Instagram" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.linkedin.com/company/scale-s-lab-architects" target="_blank" rel="noopener" aria-label="Scales Lab Architects on LinkedIn" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Facebook" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      </span>
+    </nav>
+   </div>
   </header>
+
+  <div id="sla-menu" class="sla-menu" hidden role="dialog" aria-label="Site menu" style="position: fixed; inset: 0; overflow: auto; z-index: 10; background: rgba(34,34,34,0.94); color: #FFFFFF; padding: 28px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px">
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <svg width="64" height="22.9" viewBox="0 0 392 140" role="img" aria-label="SLA"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button type="button" aria-label="Close menu" data-action="close-menu" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center">
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 2l16 16M18 2L2 18" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="1.6"/></svg>
+        </button>
+      </div>
+      <nav aria-label="Main" style="display: flex; flex-direction: column; gap: 10px; font-size: 40px; line-height: 1.2">
+        <a href="/#work" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">Work</a>
+        <a href="/#services" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">Services</a>
+        <a href="/#about" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">About</a>
+        <a href="/#contact-form" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">Contact</a>
+      </nav>
+      <div style="display: flex; gap: 24px; font-size: 15px; color: rgba(255,255,255,0.7)">
+        <span>970 N. Broadway, Suite 107, Los Angeles</span><span>(213) 537-0910</span>
+      </div>
+    </div>
 
   <main style="max-width: 1360px; margin: 0 auto; padding: 24px 40px 120px; display: flex; flex-direction: column; gap: 48px">
     <a href="/#work" style="font-size: 15px; color: #6B6B6B; text-decoration: none; min-height: 44px; display: flex; align-items: center">← All work</a>
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 40px">
-      <h1 style="margin: 0; font-size: clamp(34px, 4vw, 52px); font-weight: 300; line-height: 1.1">Duarte Road Medical Building</h1>
+      <h1 style="margin: 0; font-family: 'Instrument Serif','Times New Roman',Times,serif; font-size: clamp(40px, 4.6vw, 60px); font-weight: 400; line-height: 1.1">Duarte Road Medical Building</h1>
     </div>
     <section aria-label="Images" style="display: flex; flex-direction: column; gap: 16px">
-      <img src="duarte-road-medical-building-corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building: Corner view along Duarte Road" style="display: block; width: 100%; height: auto">
+      <img src="images/duarte-road-medical-building/corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building: Corner view along Duarte Road" style="display: block; width: 100%; height: auto">
       <div style="columns: 2 320px; column-gap: 16px">
-        <img loading="lazy" decoding="async" src="duarte-road-medical-building-street-frontage-along-duarte-ro.jpg" alt="Duarte Road Medical Building: Street frontage along Duarte Road" style="display: block; width: 100%; height: auto; margin: 0 0 16px; break-inside: avoid">
-        <img loading="lazy" decoding="async" src="duarte-road-medical-building-rear-view-north-and-east-elevat.jpg" alt="Duarte Road Medical Building: Rear view, north and east elevations" style="display: block; width: 100%; height: auto; margin: 0 0 16px; break-inside: avoid">
+        <img loading="lazy" decoding="async" src="images/duarte-road-medical-building/street-frontage-along-duarte-road.jpg" alt="Duarte Road Medical Building: Street frontage along Duarte Road" style="display: block; width: 100%; height: auto; margin: 0 0 16px; break-inside: avoid">
+        <img loading="lazy" decoding="async" src="images/duarte-road-medical-building/rear-view-north-and-east-elevations.jpg" alt="Duarte Road Medical Building: Rear view, north and east elevations" style="display: block; width: 100%; height: auto; margin: 0 0 16px; break-inside: avoid">
       </div>
     </section>
 
@@ -72,6 +106,10 @@ img { max-width: 100%; }
     </nav>
   </main>
 
+  <div class="sla-skyline-wrap" style="max-width: 1360px; margin: 0 auto; padding: 0 40px">
+    <img loading="lazy" decoding="async" src="images/site/skyline-outline.png" alt="" aria-hidden="true" style="display: block; width: 100%; height: auto; margin-bottom: -1px">
+  </div>
+
   <footer style="border-top: 1px solid #E6E6E6">
     <div style="max-width: 1360px; margin: 0 auto; padding: 28px 40px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: 14px; color: #6B6B6B">
       <span style="display: flex; align-items: center; gap: 14px"><svg width="44" height="15.7" viewBox="0 0 392 140" role="img" aria-label="SLA"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -80,5 +118,22 @@ img { max-width: 100%; }
   </footer>
 </div>
 
+<script>
+(function () {
+  // Mobile menu, same behaviour as the homepage bar.
+  var menu = document.getElementById('sla-menu');
+  if (!menu) return;
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-action]');
+    if (!a) return;
+    var act = a.getAttribute('data-action');
+    if (act === 'open-menu') menu.hidden = false;
+    if (act === 'close-menu') menu.hidden = true;
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') menu.hidden = true;
+  });
+})();
+</script>
 </body>
 </html>
