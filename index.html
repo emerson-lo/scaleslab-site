@@ -11,7 +11,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#FFFFFF;font-family:'Helvetica Neue',Helvetica,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
 a{color:rgba(0,0,0,0.85)}a:hover{color:#000000}
@@ -44,6 +44,8 @@ input,select,textarea,button{font:inherit}
    Declared after .sla-contact so it wins the equal-specificity :hover tie. */
 .sla-social a{transition:opacity .18s ease}
 .sla-social a:hover{text-decoration:none;opacity:.6}
+/* Nav links in capitals, spaced like the Work, Services and About labels. */
+header nav[aria-label="Primary"] > a{text-transform:uppercase;letter-spacing:.12em;font-size:13px}
 
 /* Back-to-top: fixed bottom-right, revealed once the page has scrolled.
    Rounded square echoes the rounded joins of the SLA mark. */
@@ -64,7 +66,7 @@ input,select,textarea,button{font:inherit}
 /* Tokens live on :root so Work and About can use the same block classes
    without being inside .svc. --svc-line matches the site's existing hairline. */
 :root{
-  --font-display:'Instrument Serif','Times New Roman',Times,serif;
+  --font-display:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;
   --svc-accent:#E2382F;
   --svc-ink:#1F1F1C;
   --svc-muted:#55554F;
@@ -79,21 +81,28 @@ input,select,textarea,button{font:inherit}
 /* Stacked: eyebrow, then a full-width title, then the description beneath it. */
 .svc__intro{display:flex;flex-direction:column;gap:22px}
 .svc__intro-head{display:flex;flex-direction:column;gap:18px}
-.svc__title{margin:0;font-family:var(--font-display);font-size:clamp(38px,5.2vw,64px);line-height:1.04;font-weight:400;letter-spacing:-.01em;text-wrap:balance}
+.svc__title{margin:0;font-family:var(--font-display);font-size:clamp(34px,4.6vw,56px);line-height:1.06;font-weight:400;letter-spacing:-.03em;text-wrap:balance}
 .svc__lede{margin:0;font-size:19px;line-height:1.6;color:var(--svc-muted);text-wrap:pretty}
 .svc__block{display:flex;flex-direction:column;gap:40px}
 .svc__block-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px;border-bottom:1px solid var(--svc-line);padding-bottom:20px}
-.svc__block-title{margin:0;font-size:28px;font-weight:500;letter-spacing:-.01em}
+.svc__block-title{margin:0;font-family:var(--font-display);font-size:30px;font-weight:400;letter-spacing:-.03em}
 .svc__block-meta{margin:0;font-size:17px;color:var(--svc-subtle)}
 .svc__cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 @media (max-width: 1000px){ .svc__cards{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width: 620px){ .svc__cards{grid-template-columns:1fr} }
-.svc__card{background:#FFFFFF;border:1px solid var(--svc-line);padding:28px;display:flex;flex-direction:column;gap:14px;min-height:150px}
+.svc__card{background:#FFFFFF;border:2px solid var(--svc-line);padding:28px;display:flex;flex-direction:column;gap:14px;min-height:150px}
 .svc__card-head{display:flex;justify-content:space-between;align-items:center;gap:16px}
 .svc__card-name{display:flex;align-items:center;gap:10px;margin:0;font-size:19px;font-weight:500}
 
 .svc__card-items{margin:0;font-size:15px;line-height:1.65;color:var(--svc-muted)}
-.svc__dot{color:var(--svc-accent)}
+/* The chosen Work filter gets a red dot under its label, same red as the info cards' dots. */
+[data-filter]{position:relative;text-transform:uppercase;letter-spacing:.12em;font-size:14px}
+[data-filter]::after{content:"";position:absolute;left:-15px;top:50%;width:7px;height:7px;
+  margin-top:-3.5px;border-radius:50%;background:var(--svc-accent);opacity:0;transform:scale(.4);
+  transition:opacity .2s ease,transform .25s cubic-bezier(.22,.61,.36,1)}
+[data-filter][aria-pressed="true"]::after{opacity:1;transform:scale(1)}
+@media (prefers-reduced-motion:reduce){[data-filter]::after{transition:none}}
+.svc__dot{color:var(--svc-accent);font-size:2.1em;line-height:0;vertical-align:-.14em;margin:0 .1em;font-weight:700}
 /* Secondary half of a heading, set in grey against the darker first half. */
 .svc__quiet{color:var(--svc-subtle)}
 
@@ -106,7 +115,10 @@ input,select,textarea,button{font:inherit}
 .hero-claim{container-type:inline-size;max-width:1360px;margin:0 auto;padding:46px 40px 0;
   display:flex;align-items:center;justify-content:space-between;gap:40px}
 .hero-claim__line{margin:0;white-space:nowrap;font-family:var(--font-display);font-size:clamp(20px,3.5cqw,52px);
-  line-height:1.1;font-weight:400;letter-spacing:-.01em;color:var(--svc-ink)}
+  line-height:1.1;font-weight:400;letter-spacing:-.03em;color:var(--svc-ink)}
+/* Each half of the line fades from black to grey, left to right. */
+.hero-claim__line .blend{background:linear-gradient(90deg,var(--svc-ink) 0%,var(--svc-ink) 18%,var(--svc-subtle) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 /* The CTA uses the same button language as the Services and Send buttons:
    a 1px ink outline, 6px corners, and a fill to Scales Lab red on hover.
    A small red dot closes the label and swells on hover. */
@@ -114,20 +126,23 @@ input,select,textarea,button{font:inherit}
   padding:0 22px;border:1px solid var(--svc-ink);border-radius:6px;color:var(--svc-ink);
   font-size:15px;font-weight:500;letter-spacing:.01em;text-decoration:none;white-space:nowrap;
   transition:background-color .18s ease,border-color .18s ease,color .18s ease}
-.hero-claim__dot{display:block;width:7px;height:7px;border-radius:50%;background:var(--svc-accent);
-  transition:transform .25s cubic-bezier(.22,.61,.36,1),background-color .18s ease}
+.hero-claim__arrow{display:flex;color:var(--svc-accent);
+  transition:transform .25s cubic-bezier(.22,.61,.36,1),color .18s ease}
 .hero-claim__link:hover,.hero-claim__link:focus-visible{background:var(--svc-accent);
   border-color:var(--svc-accent);color:#FFFFFF}
-.hero-claim__link:hover .hero-claim__dot,
-.hero-claim__link:focus-visible .hero-claim__dot{background:#FFFFFF;transform:scale(1.5)}
+.hero-claim__link:hover .hero-claim__arrow,
+.hero-claim__link:focus-visible .hero-claim__arrow{color:#FFFFFF;transform:translateY(3px)}
+/* Links to #services, #work and the rest glide instead of jumping. */
+html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){
-  .hero-claim__dot{transition:background-color .18s ease}
-  .hero-claim__link:hover .hero-claim__dot,
-  .hero-claim__link:focus-visible .hero-claim__dot{transform:none}
+  html{scroll-behavior:auto}
+  .hero-claim__arrow{transition:color .18s ease}
+  .hero-claim__link:hover .hero-claim__arrow,
+  .hero-claim__link:focus-visible .hero-claim__arrow{transform:none}
 }
 @media (max-width:860px){
   .hero-claim{flex-wrap:wrap;gap:10px 24px;padding-top:30px}
-  .hero-claim__line{white-space:normal;font-size:clamp(28px,7vw,40px);text-wrap:balance}
+  .hero-claim__line{white-space:normal;font-size:clamp(24px,6.2vw,34px);text-wrap:balance}
 }
 .svc__phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px}
 .svc__phase{display:flex;flex-direction:column;gap:18px}
@@ -138,13 +153,13 @@ input,select,textarea,button{font:inherit}
 .svc__list li{font-size:15px;padding:11px 0;border-bottom:1px solid var(--svc-line);color:#33332F}
 .svc__facwrap{display:flex;flex-direction:column;gap:28px}
 /* Outlined rather than filled, so it sits on the page's white background. */
-.svc__banner{background:transparent;color:var(--svc-ink);border:1px solid var(--svc-line);padding:clamp(32px,5vw,56px);display:flex;flex-wrap:wrap;gap:32px 64px;align-items:center;justify-content:space-between}
+.svc__banner{background:transparent;color:var(--svc-ink);border:2px solid var(--svc-line);padding:clamp(32px,5vw,56px);display:flex;flex-wrap:wrap;gap:32px 64px;align-items:center;justify-content:space-between}
 .svc__banner-text{flex:1 1 480px;display:flex;flex-direction:column;gap:14px}
-.svc__banner-title{margin:0;font-family:var(--font-display);font-size:clamp(34px,3.6vw,46px);line-height:1.1;font-weight:400;letter-spacing:-.01em}
+.svc__banner-title{margin:0;font-family:var(--font-display);font-size:clamp(30px,3.2vw,40px);line-height:1.12;font-weight:400;letter-spacing:-.03em}
 .svc__banner-lede{margin:0;font-size:17px;line-height:1.6;color:var(--svc-muted)}
 .svc__cta{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 26px;border:1px solid var(--svc-ink);border-radius:6px;background:transparent;color:var(--svc-ink);font:inherit;font-size:15px;font-weight:500;text-decoration:none;cursor:pointer;transition:background-color .18s ease,border-color .18s ease,color .18s ease}
 .svc__cta:hover,.svc__cta:focus-visible{background:var(--svc-accent);border-color:var(--svc-accent);color:#FFFFFF}
-.svc__fac{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;background:#FFFFFF;border:1px solid var(--svc-line);padding:clamp(24px,3vw,36px)}
+.svc__fac{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;background:#FFFFFF;border:2px solid var(--svc-line);padding:clamp(24px,3vw,36px)}
 .svc__fac-name{margin:0;font-size:18px;font-weight:500}
 .svc__fac-note{margin:0;font-size:14px;line-height:1.6;color:var(--svc-subtle);font-style:italic}
 .svc__fac-items{margin:0;font-size:15px;line-height:1.65;color:var(--svc-muted)}
@@ -162,7 +177,7 @@ input,select,textarea,button{font:inherit}
 .about__col{display:flex;flex-direction:column;gap:32px}
 .about__blk{display:flex;flex-direction:column;gap:18px}
 .about__blk + .about__blk{border-top:1px solid var(--svc-line);padding-top:32px}
-.about__title{margin:0;font-family:var(--font-display);font-size:clamp(32px,3.7vw,46px);line-height:1.1;font-weight:400;letter-spacing:-.01em;text-wrap:balance}
+.about__title{margin:0;font-family:var(--font-display);font-size:clamp(28px,3.3vw,42px);line-height:1.12;font-weight:400;letter-spacing:-.03em;text-wrap:balance}
 .about__lead{margin:0;font-size:19px;line-height:1.6;color:#33332F}
 .about__text{margin:0;font-size:17px;line-height:1.65;color:var(--svc-muted)}
 .about__facts{margin:0;display:flex;flex-wrap:wrap;gap:24px 64px}
@@ -186,18 +201,17 @@ input,select,textarea,button{font:inherit}
 #work a[data-type] img,
 .about__bento img{
   box-shadow:0 1px 2px rgba(0,0,0,.08),0 6px 18px rgba(0,0,0,.09);
-  transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s cubic-bezier(.22,.61,.36,1);
+  transition:transform .3s cubic-bezier(.22,.61,.36,1);
 }
 @media (hover:hover){
   #work a[data-type]:hover img,
   #work a[data-type]:focus-visible img,
   .about__bento img:hover{
     transform:translateY(-4px);
-    box-shadow:0 2px 4px rgba(0,0,0,.10),0 14px 32px rgba(0,0,0,.16);
   }
 }
 @media (prefers-reduced-motion:reduce){
-  #work a[data-type] img,.about__bento img{transition:box-shadow .01ms}
+  #work a[data-type] img,.about__bento img{transition:none}
   #work a[data-type]:hover img,#work a[data-type]:focus-visible img,.about__bento img:hover{transform:none}
 }
 @media (max-width: 700px){
@@ -218,6 +232,7 @@ input,select,textarea,button{font:inherit}
 @keyframes slafade{0%{opacity:0;visibility:visible}2.857%{opacity:1}6.667%{opacity:1}9.524%{opacity:0;visibility:hidden}100%{opacity:0;visibility:hidden}}
 @media (max-width: 700px){
   header > div, main, section, footer > div { padding-left: 20px !important; padding-right: 20px !important; }
+  #contact > .sla-skyline { width: calc(100% + 40px); max-width: none; margin-left: -20px; }
   #contact-form { grid-template-columns: 1fr !important; }
   #contact-form > * { grid-column: auto !important; }
   #contact > div { grid-template-columns: 1fr !important; gap: 48px !important; padding: 64px 20px 0 !important; }
@@ -246,12 +261,12 @@ img { max-width: 100%; }
       </button>
       <a href="#top" aria-label="Scales Lab Architects, home" style="text-decoration: none; display: flex"><svg width="120" height="59.4" viewBox="-6 -6 404 200" role="img" aria-label="Scales Lab Architects"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text x="196" y="182" text-anchor="middle" textLength="392" lengthAdjust="spacing" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="300" font-size="40" fill="#6B6B6B">scale(s) lab architects</text></svg></a>
     </div>
-    <nav aria-label="Primary" style="display: flex; align-items: center; gap: 28px; font-size: 15px; line-height: 1">
+    <nav aria-label="Primary" style="display: flex; align-items: center; gap: clamp(20px, 3.4vw, 44px); font-size: 15px; line-height: 1">
       <a href="#services" style="text-decoration: none">Services</a>
       <a href="#work" style="text-decoration: none">Work</a>
       <a href="#about" style="text-decoration: none">About</a>
       <a href="#contact-form" data-action="close-menu" style="text-decoration: none">Contact</a>
-      <span class="sla-social" style="display: flex; align-items: center; gap: 22px">
+      <span class="sla-social" style="display: flex; align-items: center; gap: 26px">
         <a href="https://www.instagram.com/scaleslab/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Instagram" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
         <a href="https://www.linkedin.com/company/scale-s-lab-architects" target="_blank" rel="noopener" aria-label="Scales Lab Architects on LinkedIn" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
         <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Facebook" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
@@ -285,18 +300,14 @@ img { max-width: 100%; }
       <a href="pico-fairfax-mixed-use.html" aria-label="Pico Fairfax Mixed-use, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="0"><img src="images/pico-fairfax-mixed-use/corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
       <a href="arcadia-medical-offices.html" aria-label="Arcadia Medical Offices, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="1"><img loading="lazy" decoding="async" src="images/arcadia-medical-offices/west-elevation-at-dusk.jpg" alt="Arcadia Medical Offices, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
       <a href="block-az.html" aria-label="Block AZ, Azusa" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="2"><img loading="lazy" decoding="async" src="images/block-az/corner-plaza-on-azusa-avenue.jpg" alt="Block AZ, Azusa" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="holiday-inn.html" aria-label="Holiday Inn, Mobile, Alabama" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="3"><img loading="lazy" decoding="async" src="images/holiday-inn/reception-lobby.jpg" alt="Holiday Inn, Mobile, Alabama" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="d-g-mixed-use.html" aria-label="D &amp; G Mixed-use" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="4"><img loading="lazy" decoding="async" src="images/d-g-mixed-use/corner-view-at-the-intersection.jpg" alt="D &amp; G Mixed-use" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="logos-evangelical-seminary-building-a.html" aria-label="Logos Evangelical Seminary, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="5"><img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-a/at-dusk.jpg" alt="Logos Evangelical Seminary, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="duarte-road-medical-building.html" aria-label="Duarte Road Medical Building, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="6"><img loading="lazy" decoding="async" src="images/duarte-road-medical-building/corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="petersen-international.html" aria-label="Petersen International, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="7"><img loading="lazy" decoding="async" src="images/petersen-international/conference-room.jpg" alt="Petersen International, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="new-terrace.html" aria-label="New Terrace, roof deck" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="8"><img loading="lazy" decoding="async" src="images/new-terrace/rooftop-terrace.jpg" alt="New Terrace, roof deck" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="prospect-villa.html" aria-label="Prospect Villa, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="9"><img loading="lazy" decoding="async" src="images/prospect-villa/aerial-view-with-terraced-residences.jpg" alt="Prospect Villa, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="strathmore-place.html" aria-label="Strathmore Place, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="10"><img loading="lazy" decoding="async" src="images/strathmore-place/street-view.jpg" alt="Strathmore Place, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="arroyo-verde-shopping-center.html" aria-label="Arroyo Verde Shopping Center, Oceanside" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="11"><img loading="lazy" decoding="async" src="images/arroyo-verde-shopping-center/pedestrian-plaza-and-storefronts.jpg" alt="Arroyo Verde Shopping Center, Oceanside" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="furniture-showroom.html" aria-label="Furniture Showroom, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="12"><img loading="lazy" decoding="async" src="images/furniture-showroom/showroom-with-orange-counter.jpg" alt="Furniture Showroom, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="logos-evangelical-seminary-building-d.html" aria-label="Logos Evangelical Seminary, Building D, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="13"><img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-d/entry-corner-at-dusk.jpg" alt="Logos Evangelical Seminary, Building D, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
-      <a href="rye-canyon-medical-center.html" aria-label="Rye Canyon Medical Center, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="14"><img loading="lazy" decoding="async" src="images/rye-canyon-medical-center/main-facade.jpg" alt="Rye Canyon Medical Center, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="d-g-mixed-use.html" aria-label="D &amp; G Mixed-use" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="3"><img loading="lazy" decoding="async" src="images/d-g-mixed-use/corner-view-at-the-intersection.jpg" alt="D &amp; G Mixed-use" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="duarte-road-medical-building.html" aria-label="Duarte Road Medical Building, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="4"><img loading="lazy" decoding="async" src="images/duarte-road-medical-building/corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="prospect-villa.html" aria-label="Prospect Villa, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="5"><img loading="lazy" decoding="async" src="images/prospect-villa/aerial-view-with-terraced-residences.jpg" alt="Prospect Villa, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="strathmore-place.html" aria-label="Strathmore Place, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="6"><img loading="lazy" decoding="async" src="images/strathmore-place/street-view.jpg" alt="Strathmore Place, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="arroyo-verde-shopping-center.html" aria-label="Arroyo Verde Shopping Center, Oceanside" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="7"><img loading="lazy" decoding="async" src="images/arroyo-verde-shopping-center/pedestrian-plaza-and-storefronts.jpg" alt="Arroyo Verde Shopping Center, Oceanside" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="furniture-showroom.html" aria-label="Furniture Showroom, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="8"><img loading="lazy" decoding="async" src="images/furniture-showroom/showroom-with-orange-counter.jpg" alt="Furniture Showroom, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="logos-evangelical-seminary-building-d.html" aria-label="Logos Evangelical Seminary, Building D, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="9"><img loading="lazy" decoding="async" src="images/logos-evangelical-seminary-building-d/entry-corner-at-dusk.jpg" alt="Logos Evangelical Seminary, Building D, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+      <a href="rye-canyon-medical-center.html" aria-label="Rye Canyon Medical Center, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="10"><img loading="lazy" decoding="async" src="images/rye-canyon-medical-center/main-facade.jpg" alt="Rye Canyon Medical Center, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
       <button type="button" aria-label="Previous project" data-action="prev" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); width: 56px; height: 56px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center">
         <svg width="16" height="32" viewBox="0 0 16 32" aria-hidden="true"><path d="M15 1L1 16l14 15" stroke="#FFFFFF" stroke-width="1.6" fill="none"/></svg>
       </button>
@@ -308,15 +319,15 @@ img { max-width: 100%; }
 
   <!-- HERO CLAIM: what the practice is, stated before anything else -->
   <section class="hero-claim" aria-label="What Scales Lab Architects does">
-    <h1 class="hero-claim__line">Architecture, approvals, and delivery <span class="svc__quiet">under one roof.</span></h1>
-    <a class="hero-claim__link" href="#services">How we work<span class="hero-claim__dot" aria-hidden="true"></span></a>
+    <h1 class="hero-claim__line"><span class="blend">Design together,</span> <span class="blend">Build for growth.</span></h1>
+    <a class="hero-claim__link" href="#services">How we work<span class="hero-claim__arrow" aria-hidden="true"><svg width="14" height="16" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.5v12.5M1.8 8.8 7 14l5.2-5.2"/></svg></span></a>
   </section>
 
   <!-- WORK: masonry columns; each image at its own proportions, uncropped -->
   <section id="work" style="max-width: 1360px; margin: 0 auto; padding: 96px 40px 140px; display: flex; flex-direction: column; gap: 40px">
     <div class="svc__block-head">
       <h2 class="svc__eyebrow">Work</h2>
-      <div role="group" aria-label="Filter projects by type" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 22px; font-size: 17px">
+      <div role="group" aria-label="Filter projects by type" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px clamp(26px, 3.2vw, 44px); font-size: 17px">
                 <button type="button" data-filter="All" aria-pressed="true" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">All</button>
         <button type="button" data-filter="Housing" aria-pressed="false" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">Housing</button>
         <button type="button" data-filter="Commercial" aria-pressed="false" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">Commercial</button>
@@ -399,7 +410,6 @@ img { max-width: 100%; }
       <div class="svc__block">
         <div class="svc__block-head">
           <h3 class="svc__block-title">Architecture</h3>
-          <p class="svc__block-meta">6 sectors</p>
         </div>
         <div class="svc__cards">
 
@@ -464,7 +474,6 @@ img { max-width: 100%; }
       <div class="svc__block">
         <div class="svc__block-head">
           <h3 class="svc__block-title">The Process</h3>
-          <p class="svc__block-meta">3 phases</p>
         </div>
         <div class="svc__phases">
 
@@ -610,8 +619,8 @@ img { max-width: 100%; }
         <div style="grid-column: span 2; display: flex; justify-content: flex-start; padding-top: 8px"><button type="submit" style="min-height: 48px; padding: 0 36px; border: 1px solid rgba(0,0,0,0.85); background: transparent; color: rgba(0,0,0,0.85); font-size: 15px; cursor: pointer">Send</button></div>
           </form>
       </div>
-      <img class="sla-skyline" loading="lazy" decoding="async" src="images/site/skyline-outline.png" alt="" aria-hidden="true" style="display: block; grid-column: 1 / -1; justify-self: center; width: 48%; height: auto; margin-top: -16px; margin-bottom: -1px">
     </div>
+    <img class="sla-skyline" loading="lazy" decoding="async" src="images/site/skyline-outline.png" alt="" aria-hidden="true" style="display: block; width: 100%; height: auto; margin-bottom: -1px">
   </section>
 
   <footer style="border-top: 1px solid #E6E6E6">
@@ -637,6 +646,16 @@ img { max-width: 100%; }
       s.animation = 'slafade ' + (n * 7) + 's ease-in-out ' + d + 's infinite both';
     }
   }
+  // Fade timing in seconds (in at 3, fully shown until 7, gone by 10), turned into
+  // percentages of the whole loop so it stays right whatever the slide count is.
+  var kf = document.createElement('style');
+  (function () {
+    var T = n * 7;
+    function pc(sec) { return (sec / T * 100).toFixed(3) + '%'; }
+    kf.textContent = '@keyframes slafade{0%{opacity:0;visibility:visible}' + pc(3) + '{opacity:1}' + pc(7) +
+      '{opacity:1}' + pc(10) + '{opacity:0;visibility:hidden}100%{opacity:0;visibility:hidden}}';
+    document.head.appendChild(kf);
+  })();
   place();
   // About photos: three exterior/detail shots, changing once a day
   var aboutPool = [{"src": "images/arcadia-medical-offices/west-elevation.jpg", "alt": "Arcadia Medical Offices, west elevation"}, {"src": "images/rye-canyon-medical-center/facade-detail.jpg", "alt": "Rye Canyon Medical Center, facade detail"}, {"src": "images/pico-fairfax-mixed-use/west-elevation.jpg", "alt": "Pico Fairfax Mixed-use, west elevation"}, {"src": "images/logos-evangelical-seminary-building-d/roof-terrace-and-glass-stair-tower.jpg", "alt": "Logos Evangelical Seminary, Building D, roof terrace and glass stair tower"}, {"src": "images/duarte-road-medical-building/rear-view-north-and-east-elevations.jpg", "alt": "Duarte Road Medical Building, north and east elevations"}, {"src": "images/strathmore-place/corner-view.jpg", "alt": "Strathmore Place, corner view"}, {"src": "images/prospect-villa/corner-view.jpg", "alt": "Prospect Villa, corner view"}, {"src": "images/new-terrace/corner-view.jpg", "alt": "New Terrace, corner view"}, {"src": "images/d-g-mixed-use/corner-view-from-across-the-street.jpg", "alt": "D & G Mixed-use, corner view"}, {"src": "images/cooffice/lighting-detail.jpg", "alt": "CoOffice, lighting detail"}, {"src": "images/robinson-3x3/stacked-homes-with-private-balconies-and-roof-decks.jpg", "alt": "Robinson 3\u00d73, stacked homes with balconies and roof decks"}, {"src": "images/prospect-villa/corner-storefronts.jpg", "alt": "Prospect Villa, corner storefronts"}, {"src": "images/rye-canyon-medical-center/entry-canopy.jpg", "alt": "Rye Canyon Medical Center, entry canopy"}, {"src": "images/pico-fairfax-mixed-use/south-elevation.jpg", "alt": "Pico Fairfax Mixed-use, south elevation"}, {"src": "images/logos-evangelical-seminary-building-d/elevated-view-with-terrace-and-exterior-stair.jpg", "alt": "Logos Evangelical Seminary, Building D, terrace and exterior stair"}, {"src": "images/arcadia-medical-offices/wood-cladding-detail.jpg", "alt": "Arcadia Medical Offices, wood cladding detail"}, {"src": "images/arcadia-medical-offices/northeast-balcony.jpg", "alt": "Arcadia Medical Offices, northeast balcony"}, {"src": "images/arcadia-medical-offices/east-elevation-at-dusk.jpg", "alt": "Arcadia Medical Offices, east elevation at dusk"}];
@@ -660,21 +679,90 @@ img { max-width: 100%; }
     for (var i = items.length - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)); var tmp = items[i]; items[i] = items[j]; items[j] = tmp; }
     items.forEach(function (el) { grid.appendChild(el); });
   })();
-  // Work filters
+  // Work filters. Picking a type fades out what is showing, then fades the
+  // matching projects in where they belong. Nothing moves across the screen.
   var buttons = document.querySelectorAll('[data-filter]');
-  var tiles = document.querySelectorAll('#work [data-type]');
-  function filter(f) {
+  var tiles = Array.prototype.slice.call(document.querySelectorAll('#work [data-type]'));
+  var workGrid = tiles.length ? tiles[0].parentNode : null;
+  var workCalm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var WORK_EASE = 'cubic-bezier(.22,.61,.36,1)';
+  var filterRun = 0, filterTimer = 0;
+  function wanted(f, t) {
+    return f === 'All' ? !t.hasAttribute('data-hide-all') : t.getAttribute('data-type') === f;
+  }
+  function isShown(t) { return t.style.display !== 'none'; }
+  function paintButtons(f) {
     buttons.forEach(function (b) {
       var on = b.getAttribute('data-filter') === f;
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
       b.style.color = on ? '#000000' : '#6B6B6B';
-      b.style.textDecoration = on ? 'underline' : 'none';
-      b.style.textUnderlineOffset = '6px';
     });
-    tiles.forEach(function (t) { t.style.display = (f === 'All' ? !t.hasAttribute('data-hide-all') : t.getAttribute('data-type') === f) ? 'block' : 'none'; });
   }
-  buttons.forEach(function (b) { b.addEventListener('click', function () { filter(b.getAttribute('data-filter')); }); });
-  filter('All');
+  function applyNow(f) {
+    tiles.forEach(function (t) { t.style.display = wanted(f, t) ? 'block' : 'none'; });
+  }
+  function settle() {
+    clearTimeout(filterTimer);
+    tiles.forEach(function (t) { t.getAnimations().forEach(function (a) { a.cancel(); }); });
+    if (workGrid) { workGrid.style.transition = ''; workGrid.style.minHeight = ''; }
+  }
+  function filter(f, animate) {
+    paintButtons(f);
+    var run = ++filterRun;
+    settle();
+    if (!animate || workCalm.matches || !workGrid || !tiles[0].animate) { applyNow(f); return; }
+
+    var leaving = tiles.filter(isShown);
+    var entering = tiles.filter(function (t) { return wanted(f, t); });
+    var fresh = entering.filter(function (t) { return !isShown(t); });
+
+    // Entering pictures have not loaded yet (lazy images in hidden tiles never
+    // start), so load them now and wait, or the grid would jump as they arrive.
+    var loads = fresh.map(function (t) {
+      var img = t.querySelector('img');
+      if (!img || img.complete) return Promise.resolve();
+      img.loading = 'eager';
+      return new Promise(function (res) { img.addEventListener('load', res, { once: true }); img.addEventListener('error', res, { once: true }); });
+    });
+    var fadeOut = new Promise(function (res) {
+      if (!leaving.length) { res(); return; }
+      var done = 0;
+      leaving.forEach(function (t) {
+        var a = t.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease', fill: 'forwards' });
+        a.onfinish = function () { if (++done === leaving.length) res(); };
+      });
+    });
+    var wait = new Promise(function (res) { setTimeout(res, 900); });
+
+    Promise.race([Promise.all(loads.concat([fadeOut])), wait.then(function () { return fadeOut; })]).then(function () {
+      if (run !== filterRun) return;
+      var oldH = workGrid.offsetHeight;
+
+      leaving.forEach(function (t) { t.getAnimations().forEach(function (a) { a.cancel(); }); });
+      applyNow(f);
+      var newH = workGrid.offsetHeight;
+
+      entering.forEach(function (t, i) {
+        t.animate([{ opacity: 0 }, { opacity: 1 }],
+                  { duration: 420, delay: Math.min(i * 35, 320), easing: 'ease-out', fill: 'backwards' });
+      });
+
+      // Let the page below settle to its new position instead of jumping.
+      if (newH < oldH) {
+        workGrid.style.minHeight = oldH + 'px';
+        workGrid.offsetHeight;
+        workGrid.style.transition = 'min-height .52s ' + WORK_EASE;
+        workGrid.style.minHeight = newH + 'px';
+      }
+      filterTimer = setTimeout(function () {
+        if (run !== filterRun) return;
+        workGrid.style.transition = '';
+        workGrid.style.minHeight = '';
+      }, 700);
+    });
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { filter(b.getAttribute('data-filter'), true); }); });
+  filter('All', false);
   // Menu + arrows
   var menu = document.getElementById('sla-menu');
   document.addEventListener('click', function (e) {
@@ -746,27 +834,34 @@ img { max-width: 100%; }
 <style>
   .slac{position:fixed;inset:0;z-index:300}
   .slac[hidden]{display:none}
-  .slac{--pad:clamp(16px,2.6vw,40px)}
+  .slac{--padh:clamp(14px,4.5vw,72px);--padv:clamp(14px,5vh,48px);--ipad:clamp(18px,2.2vw,34px)}
   /* No panel: the text and the picture sit straight on the blurred page.
      The scrim is whiter than before so the text stays easy to read. */
-  .slac__scrim{position:absolute;inset:0;background:rgba(255,255,255,.84);
-    -webkit-backdrop-filter:blur(26px) saturate(115%);backdrop-filter:blur(26px) saturate(115%);
-    opacity:0;transition:opacity .4s ease}
+  /* A plain dim, no live blur: blurring the page behind costs a repaint every frame. */
+  .slac__scrim{position:absolute;inset:0;background:rgba(20,20,20,.5);
+    opacity:0;transition:opacity .3s ease;will-change:opacity}
+  /* While a case study is open, stop the slideshow behind it from animating. */
+  html.slac-lock [data-slide]{animation-play-state:paused !important}
   .slac.is-open .slac__scrim{opacity:1}
   /* Two fixed panes inside a window-sized frame: the text on the left never moves,
      and only the photo column on the right scrolls. */
-  .slac__stage{position:absolute;inset:0;padding:var(--pad);overflow:hidden}
-  .slac__card{position:relative;width:min(1360px,100%);height:calc(100vh - 2 * var(--pad));
-    height:calc(100dvh - 2 * var(--pad));margin:0 auto;display:grid;
+  .slac__stage{position:absolute;inset:0;padding:var(--padv) var(--padh);overflow:hidden}
+  .slac__card{position:relative;box-sizing:border-box;width:min(1360px,100%);height:calc(100vh - 2 * var(--padv));
+    height:calc(100dvh - 2 * var(--padv));margin:0 auto;display:grid;padding:var(--ipad);
+    background:#FFFFFF;border-radius:4px;box-shadow:0 12px 48px rgba(0,0,0,.28);
     grid-template-columns:minmax(260px,360px) minmax(0,1fr);column-gap:clamp(24px,3.4vw,52px);
-    align-items:stretch;opacity:0;transition:opacity .3s ease}
+    align-items:stretch;opacity:0;transition:opacity .3s ease;will-change:opacity}
   .slac.is-open .slac__card{opacity:1}
   /* Everything in the text column is sized in em from this one number, so the
      script can shrink the whole column together until it fits without scrolling. */
-  .slac__info{font-size:15px;min-width:0;height:100%;overflow:auto;display:flex;
+  .slac__info{font-size:15px;min-width:0;height:100%;box-sizing:border-box;--drop:clamp(16px,7vh,80px);overflow:hidden;display:flex;
     flex-direction:column;gap:1.45em}
-  .slac__eyebrow{margin:0;font-size:.733em;letter-spacing:.14em;text-transform:uppercase;color:#6B6B6B}
-  .slac__title{margin:0;font-family:var(--font-display);font-size:2.3em;font-weight:400;line-height:1.1}
+  .slac__logo{display:block;flex:none;width:96px;height:auto}
+  .slac__info.is-compact{gap:.8em}
+  .slac__info.is-compact .slac__eyebrow{display:none}
+  .slac__info.is-compact .slac__dl>div{padding:.4em 0}
+  .slac__eyebrow{margin:var(--drop) 0 0;font-size:.733em;letter-spacing:.14em;text-transform:uppercase;color:#6B6B6B}
+  .slac__title{margin:0;font-family:var(--font-display);font-size:2em;font-weight:400;line-height:1.1;letter-spacing:-.03em}
   .slac__dl{margin:0;display:flex;flex-direction:column}
   /* A hairline above every row, and one closing the list. */
   .slac__dl>div{display:flex;flex-direction:column;gap:.2em;padding:.85em 0;border-top:1px solid var(--svc-line)}
@@ -779,20 +874,20 @@ img { max-width: 100%; }
   .slac__copy p+p{line-height:1.7;color:#6B6B6B}
   /* A real button, same outline-then-red-fill as the other CTAs. */
   .slac__full{display:inline-flex;align-items:center;align-self:flex-start;flex:none;margin-top:auto;
-    min-height:3.7em;padding:0 1.85em;border:1px solid var(--svc-ink);border-radius:6px;
-    font-size:1em;font-weight:500;color:var(--svc-ink);text-decoration:none;
+    min-height:56px;padding:0 28px;border:1px solid var(--svc-ink);border-radius:6px;
+    font-size:15px;font-weight:500;color:var(--svc-ink);text-decoration:none;
     transition:background-color .18s ease,border-color .18s ease,color .18s ease}
   .slac__full:hover,.slac__full:focus-visible{background:var(--svc-accent);border-color:var(--svc-accent);color:#FFFFFF}
-  .slac__media{min-width:0;height:100%;overflow-y:auto;overscroll-behavior:contain;
+  .slac__media{min-width:0;height:100%;overflow-y:auto;overscroll-behavior:contain;will-change:scroll-position;
     scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.25) transparent}
   /* The main picture is sized to fit its pane, so all of it is on screen at once.
      Both limits are set, so it keeps its shape instead of being cropped. */
   .slac__hero{display:block;width:auto;height:auto;max-width:100%;
-    max-height:calc(100vh - 2 * var(--pad));max-height:calc(100dvh - 2 * var(--pad));visibility:hidden}
+    max-height:calc(100vh - 2 * var(--padv) - 2 * var(--ipad));max-height:calc(100dvh - 2 * var(--padv) - 2 * var(--ipad));visibility:hidden}
   .slac.is-settled .slac__hero{visibility:visible}
   .slac__rest{display:flex;flex-direction:column;gap:12px;margin-top:12px}
   .slac__rest img{display:block;width:100%;height:auto}
-  .slac__x{position:fixed;top:14px;right:14px;z-index:2;width:40px;height:40px;
+  .slac__x{position:absolute;top:calc(var(--ipad) + 14px);right:calc(var(--ipad) + 30px);z-index:2;width:40px;height:40px;
     border:0;border-radius:50%;background:rgba(255,255,255,.88);color:#000;
     font-size:21px;line-height:1;cursor:pointer;box-shadow:0 1px 6px rgba(0,0,0,.14)}
   .slac__x:hover{background:#fff;color:#E2382F}
@@ -816,11 +911,12 @@ img { max-width: 100%; }
     <article class="slac__card">
       <button type="button" class="slac__x" data-slac-close aria-label="Close case study">&times;</button>
       <div class="slac__info">
+        <svg class="slac__logo" viewBox="0 0 392 140" role="img" aria-label="Scales Lab Architects"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <p class="slac__eyebrow">Project</p>
         <h2 class="slac__title" id="slac-title"></h2>
         <dl class="slac__dl"></dl>
         <div class="slac__copy"></div>
-        <a class="slac__full" href="#">Open the full page &rarr;</a>
+        <a class="slac__full" href="#">Open the full page</a>
       </div>
       <div class="slac__media">
         <img class="slac__hero" alt="">
@@ -859,6 +955,7 @@ img { max-width: 100%; }
     var bar = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = on ? 'hidden' : '';
     document.body.style.paddingRight = on && bar > 0 ? bar + 'px' : '';
+    document.documentElement.classList.toggle('slac-lock', on);
   }
 
   // Grow a copy of the thumbnail into the hero slot, or shrink it back.
@@ -892,13 +989,47 @@ img { max-width: 100%; }
   // The text column never scrolls, so everything in it has to be on screen at
   // once. Everything in it is sized in em, so shrinking this one font size
   // shrinks the title, details, copy and button together until it fits.
+  // The text column must end exactly where the photos end: the bottom of the
+  // "Open the full page" button sits on the bottom of the photo pane, never below.
   function fitInfo() {
     var size = 15;
+    var paras = Array.prototype.slice.call(elCopy.querySelectorAll('p'));
+    // Start from the full text every time (a resize may need more of it back).
+    info.classList.remove('is-compact');
+    elCopy.style.display = '';
+    paras.forEach(function (p) {
+      p.style.display = ''; p.style.overflow = '';
+      p.style.removeProperty('-webkit-line-clamp'); p.style.removeProperty('-webkit-box-orient');
+    });
+    info.style.removeProperty('--drop');
     info.style.fontSize = size + 'px';
-    while (info.scrollHeight > info.clientHeight + 1 && size > 10.5) {
-      size -= 0.5;
-      info.style.fontSize = size + 'px';
+    // Measured from the button itself, to the half pixel, so rounding can't hide an overflow.
+    function over() { return elFull.getBoundingClientRect().bottom - info.getBoundingClientRect().bottom; }
+    function tooTall() { return over() > 0.5 || info.scrollHeight > info.clientHeight; }
+
+    // 1. Text-heavy case studies give up the gap above the text first, so they sit higher.
+    if (tooTall()) {
+      var drop = parseFloat(getComputedStyle(ov.querySelector('.slac__eyebrow')).marginTop) || 0;
+      info.style.setProperty('--drop', Math.max(0, drop - Math.ceil(Math.max(over(), info.scrollHeight - info.clientHeight))) + 'px');
     }
+    // 2. Then the type shrinks a little, never below 12px.
+    while (tooTall() && size > 12) { size -= 0.5; info.style.fontSize = size + 'px'; }
+    // 3. Then the description gets shorter: extra paragraphs go, then the main one is trimmed.
+    for (var i = paras.length - 1; i > 0 && tooTall(); i--) paras[i].style.display = 'none';
+    var first = paras[0];
+    if (first && tooTall()) {
+      var lh = parseFloat(getComputedStyle(first).lineHeight) || size * 1.9;
+      var lines = Math.round(first.offsetHeight / lh);
+      first.style.display = '-webkit-box';
+      first.style.overflow = 'hidden';
+      first.style.setProperty('-webkit-box-orient', 'vertical');
+      while (lines > 1 && tooTall()) { lines -= 1; first.style.setProperty('-webkit-line-clamp', String(lines)); }
+    }
+    // 4. Short windows: drop the description, tighten the details, hide the small label.
+    if (tooTall()) elCopy.style.display = 'none';
+    if (tooTall()) info.classList.add('is-compact');
+    // 5. Last resort on very short windows: smaller type still.
+    while (tooTall() && size > 9) { size -= 0.5; info.style.fontSize = size + 'px'; }
   }
 
   function skeleton() {
@@ -947,7 +1078,7 @@ img { max-width: 100%; }
     var heroFile = (elHero.getAttribute('src') || '').split('/').pop();
     elRest.innerHTML = '';
     Array.prototype.forEach.call(
-      doc.querySelectorAll('section[aria-label="Images"] img'),
+      doc.querySelectorAll('section[aria-label="Project"] img, section[aria-label="More images"] img'),
       function (im) {
         var path = im.getAttribute('src') || '';
         if (path.split('/').pop() === heroFile) return;
@@ -1056,11 +1187,6 @@ img { max-width: 100%; }
   // Keep the text fitting if the window is resized while a case study is open.
   window.addEventListener('resize', function () { if (isOpen) fitInfo(); });
 
-  // The text column doesn't scroll, so scrolling anywhere over it moves the photos.
-  ov.addEventListener('wheel', function (e) {
-    if (!isOpen || media.contains(e.target)) return;
-    media.scrollTop += e.deltaY;
-  }, { passive: true });
 
   window.addEventListener('popstate', function () {
     pushed = false;
