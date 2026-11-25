@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-<link rel="canonical" href="https://www.scaleslab.com/block-az.html">
+<link rel="canonical" href="https://www.scaleslab.com/projects/new-terrace/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Block AZ — Scales Lab Architects</title>
-<meta name="description" content="A four-story, 117-unit community at Azusa Avenue and Foothill Boulevard, within walking distance of the Metro A Line, weaving courtyards, offices, shops and restaurants into a walkable, transit-oriented district.">
-<meta property="og:title" content="Block AZ — Scales Lab Architects">
-<meta property="og:description" content="A four-story, 117-unit community at Azusa Avenue and Foothill Boulevard, within walking distance of the Metro A Line, weaving courtyards, offices, shops and restaurants into a walkable, transit-oriented district.">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>New Terrace — Scales Lab Architects</title>
+<meta name="description" content="A lifestyle destination: garden-style apartments, efficient parking structures and a walkable street front of shops and restaurants with open, permeable storefronts.">
+<meta property="og:title" content="New Terrace — Scales Lab Architects">
+<meta property="og:description" content="A lifestyle destination: garden-style apartments, efficient parking structures and a walkable street front of shops and restaurants with open, permeable storefronts.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
@@ -51,10 +51,20 @@ header nav[aria-label="Primary"] > a{text-transform:uppercase;letter-spacing:.12
   opacity:0;visibility:hidden;transform:translateY(8px);
   transition:opacity .25s ease,transform .25s ease,visibility .25s ease}
 .sla-top.is-visible{opacity:1;visibility:visible;transform:none}
-.sla-top span{display:block;width:26px;height:26px;border:1.6px solid #E2382F;border-radius:6px;transition:background-color .18s ease}
+.sla-top span{display:block;width:26px;height:26px;border:1.6px solid #E2382F;border-radius:0;transition:background-color .18s ease}
 .sla-top:hover{color:#E2382F}
 .sla-top:hover span{background:#E2382F}
 @media (max-width: 700px){ .sla-top{right:18px;bottom:18px} }
+/* Bottom edge: the name and year sit at the left; the skyline fills the rest of the row and is cut off at the left. */
+.sla-baseline{display:flex;align-items:flex-end}
+.sla-baseline__text{flex:none;margin:0;padding:0 28px 8px 40px;font-size:14px;color:#6B6B6B;white-space:nowrap}
+.sla-baseline__art{flex:1;min-width:0;overflow:hidden;display:flex;justify-content:flex-end}
+.sla-baseline__art img{flex:none;display:block;width:100vw;max-width:none;height:auto;margin-bottom:-1px}
+@media (max-width: 700px){
+  .sla-baseline{flex-direction:column;align-items:stretch}
+  .sla-baseline__text{padding:0 20px 12px}
+  .sla-baseline__art img{width:100%;max-width:100%}
+}
 img { max-width: 100%; }
 [hidden] { display: none !important; }
 </style>
@@ -105,46 +115,41 @@ img { max-width: 100%; }
     <div class="proj-top">
       <a href="/#work" aria-label="Back to all work" style="color: #6B6B6B; text-decoration: none; min-height: 44px; min-width: 44px; display: flex; align-items: center"><svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8H2M8 1.8 1.8 8 8 14.2"/></svg></a>
       <section aria-label="Project" style="display: flex; flex-direction: column; gap: 28px">
-        <img src="images/block-az/aerial-view-with-plaza-and-parking-structure.jpg" alt="Block AZ: Aerial view with plaza and parking structure" decoding="async" style="display: block; width: 100%; height: auto; max-height: 82vh; object-fit: cover">
-        <h1 style="margin: 0; font-family: 'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif; font-size: clamp(34px, 4vw, 52px); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1">Block AZ</h1>
+        <img src="../../images/new-terrace/street-view.jpg" alt="New Terrace: Street view" decoding="async" style="display: block; width: 100%; height: auto">
+        <h1 style="margin: 0; font-family: 'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif; font-size: clamp(34px, 4vw, 52px); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1">New Terrace</h1>
       </section>
     </div>
 
     <section aria-label="Project overview" style="display: flex; flex-wrap: wrap; gap: 48px 80px; padding: 24px 0 40px">
       <dl style="flex: 1 1 280px; min-width: 0; margin: 0; display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 18px; font-size: 15px; align-self: flex-start">
-        <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #E6E6E6; padding-top: 12px"><dt style="color: #6B6B6B">Location</dt><dd style="margin: 0; text-align: right">Azusa, California</dd></div>
-        <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #E6E6E6; padding-top: 12px"><dt style="color: #6B6B6B">Type</dt><dd style="margin: 0; text-align: right">Mixed-use, Transit Oriented Development (TOD)</dd></div>
-        <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #E6E6E6; padding-top: 12px"><dt style="color: #6B6B6B">Size</dt><dd style="margin: 0; text-align: right">4 stories · 117 units</dd></div>
-        <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #E6E6E6; border-bottom: 1px solid #E6E6E6; padding: 12px 0"><dt style="color: #6B6B6B">Status</dt><dd style="margin: 0; text-align: right">Concept</dd></div>
+        <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #E6E6E6; padding-top: 12px"><dt style="color: #6B6B6B">Location</dt><dd style="margin: 0; text-align: right">Undisclosed</dd></div>
+        <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #E6E6E6; padding-top: 12px"><dt style="color: #6B6B6B">Type</dt><dd style="margin: 0; text-align: right">Mixed-use (multifamily and commercial)</dd></div>
+        <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #E6E6E6; padding-top: 12px"><dt style="color: #6B6B6B">Size</dt><dd style="margin: 0; text-align: right">500,000 SF · 378 units</dd></div>
+        <div style="display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #E6E6E6; border-bottom: 1px solid #E6E6E6; padding: 12px 0"><dt style="color: #6B6B6B">Status</dt><dd style="margin: 0; text-align: right">Concept design</dd></div>
       </dl>
       <div style="flex: 2 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
-        <p style="margin: 0; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.45; font-weight: 300">A four-story, 117-unit community at Azusa Avenue and Foothill Boulevard, within walking distance of the Metro A Line, weaving courtyards, offices, shops and restaurants into a walkable, transit-oriented district.</p>
-        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #6B6B6B">At the corner, a public plaza with a fountain and outdoor dining opens the block to the street and gives the neighborhood a place to gather. Shops and restaurants line both frontages beneath homes arranged around landscaped courtyards, while parking is consolidated in a structure at the center of the block, keeping the sidewalks continuous and active. The design takes cues from Foothill Boulevard’s Route 66 heritage, pairing warm brick and wood with a contemporary, human-scaled streetscape.</p>
+        <p style="margin: 0; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.45; font-weight: 300">A mixed-use development of garden-style apartments, efficient parking structures and a walkable street front of shops and restaurants with open, permeable storefronts.</p>
+        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #6B6B6B">The plan wraps 378 homes around landscaped courtyards and places parking in compact structures, which leaves the street edge to people. At ground level, storefronts open onto wide sidewalks and outdoor dining. A shared roof deck under a sculpted canopy gives residents a place to gather, with views across the valley.</p>
       </div>
     </section>
 
     <section aria-label="More images" class="bento">
-      <img src="images/block-az/corner-plaza-on-azusa-avenue.jpg" alt="Block AZ: Corner plaza on Azusa Avenue" class="w8 h2" loading="lazy" decoding="async">
-      <img src="images/block-az/plaza-fountain-and-cafes-at-street-level.jpg" alt="Block AZ: Plaza fountain and cafés at street level" class="w4" loading="lazy" decoding="async">
-      <img src="images/block-az/street-frontage-with-shops.jpg" alt="Block AZ: Street frontage with shops" class="w4" loading="lazy" decoding="async">
+      <img src="../../images/new-terrace/corner-view.jpg" alt="New Terrace: Corner view" class="w8 h2" loading="lazy" decoding="async">
+      <img src="../../images/new-terrace/courtyard.jpg" alt="New Terrace: Courtyard" class="w4" loading="lazy" decoding="async">
+      <img src="../../images/new-terrace/rooftop-terrace.jpg" alt="New Terrace: Rooftop terrace" class="w4" loading="lazy" decoding="async">
     </section>
 
     <nav aria-label="More projects" style="display: flex; justify-content: space-between; gap: 24px; border-top: 1px solid #E6E6E6; padding-top: 24px; font-size: 15px">
-      <a href="new-terrace.html" style="text-decoration: none; min-height: 44px; display: flex; flex-direction: column; gap: 4px"><span style="color: #6B6B6B">← Previous</span><span style="font-size: 20px">New Terrace</span></a>
-      <a href="petersen-international.html" style="text-decoration: none; min-height: 44px; display: flex; flex-direction: column; gap: 4px; text-align: right"><span style="color: #6B6B6B">Next →</span><span style="font-size: 20px">Petersen International</span></a>
+      <a href="../d-g-mixed-use/" style="text-decoration: none; min-height: 44px; display: flex; flex-direction: column; gap: 4px"><span style="color: #6B6B6B">← Previous</span><span style="font-size: 20px">D &amp; G Mixed-use</span></a>
+      <a href="../block-az/" style="text-decoration: none; min-height: 44px; display: flex; flex-direction: column; gap: 4px; text-align: right"><span style="color: #6B6B6B">Next →</span><span style="font-size: 20px">Block AZ</span></a>
     </nav>
   </main>
 
-  <div class="sla-skyline-wrap" style="max-width: 1360px; margin: 0 auto; padding: 0 40px">
-    <img loading="lazy" decoding="async" src="images/site/skyline-outline.png" alt="" aria-hidden="true" style="display: block; width: 100%; height: auto; margin-bottom: -1px">
+  <div class="sla-baseline">
+    <p class="sla-baseline__text">scale(s) lab architects © 2026</p>
+    <div class="sla-baseline__art"><img class="sla-skyline" loading="lazy" decoding="async" src="../../images/site/la-skyline.svg" alt="" aria-hidden="true"></div>
   </div>
 
-  <footer style="border-top: 1px solid #E6E6E6">
-    <div style="max-width: 1360px; margin: 0 auto; padding: 28px 40px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: 14px; color: #6B6B6B">
-      <span style="display: flex; align-items: center; gap: 14px"><svg width="44" height="15.7" viewBox="0 0 392 140" role="img" aria-label="SLA"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <span>© 2026</span>
-    </div>
-  </footer>
 </div>
 
 <script>
@@ -170,11 +175,11 @@ img { max-width: 100%; }
   // Back-to-top button, same behaviour as the homepage.
   var toTop = document.querySelector('.sla-top');
   if (!toTop) return;
-  var stopAt = document.querySelector('.sla-skyline-wrap') || document.querySelector('footer');
+  var stopAt = document.querySelector('.sla-skyline') || document.querySelector('footer');
   var mobile = window.matchMedia('(max-width: 700px)');
   function sync() {
     toTop.classList.toggle('is-visible', window.pageYOffset > 200);
-    // Ride up so the label stops above the skyline instead of scrolling over it.
+    // Ride up so the label stops just above the skyline instead of scrolling over it.
     var rest = mobile.matches ? 18 : 30;
     if (stopAt) {
       var lift = window.innerHeight - stopAt.getBoundingClientRect().top + 14;
