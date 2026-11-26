@@ -107,7 +107,8 @@ header nav[aria-label="Primary"] > a{text-transform:uppercase;letter-spacing:.12
   transition:opacity .2s ease,transform .25s cubic-bezier(.22,.61,.36,1)}
 [data-filter][aria-pressed="true"]::after{opacity:1;transform:scale(1)}
 @media (prefers-reduced-motion:reduce){[data-filter]::after{transition:none}}
-.svc__dot{color:var(--svc-accent);font-size:2.1em;line-height:0;vertical-align:-.14em;margin:0 .1em;font-weight:700}
+/* A small round marker; the "·" stays in the markup for screen readers and copy-paste but is not drawn. */
+.svc__dot{display:inline-block;width:4px;height:4px;margin:0 .45em;border-radius:50%;background:var(--svc-accent);font-size:0;line-height:0;vertical-align:middle;position:relative;top:-1px}
 /* Secondary half of a heading, set in grey against the darker first half. */
 .svc__quiet{color:var(--svc-subtle)}
 
@@ -230,7 +231,7 @@ html{scroll-behavior:smooth}
    treatment so its header matches the services section. */
 .about{padding:112px 40px 140px}
 .about *,.about *::before,.about *::after{box-sizing:border-box}
-.about__inner{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px 80px;align-items:start}
+.about__inner{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px 80px;align-items:center}
 /* Left: text blocks stacked, each separated from the last by a hairline. */
 .about__col{display:flex;flex-direction:column;gap:32px}
 .about__blk{display:flex;flex-direction:column;gap:18px}
@@ -238,10 +239,6 @@ html{scroll-behavior:smooth}
 .about__title{margin:0;font-family:var(--font-display);font-size:clamp(28px,3.3vw,42px);line-height:1.12;font-weight:400;letter-spacing:-.03em;text-wrap:balance}
 .about__lead{margin:0;font-size:19px;line-height:1.6;color:#33332F}
 .about__text{margin:0;font-size:17px;line-height:1.65;color:var(--svc-muted)}
-.about__facts{margin:0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px 64px}
-.about__fact{display:flex;flex-direction:column;gap:10px}
-.about__fact dt{font-size:13px;color:var(--svc-subtle)}
-.about__fact dd{margin:0;font-size:clamp(22px,2.4vw,28px);font-weight:500;letter-spacing:-.01em}
 /* Right: bento grid — one wide tile over two squares. Heights are explicit
    because object-fit only crops against a constrained height, and these
    photos rotate daily from a pool with mixed aspect ratios. */
@@ -355,6 +352,22 @@ img { max-width: 100%; }
 .sla-menu__social{display:flex;gap:8px;margin:8px 0 0 -10px}
 .sla-menu__social a{display:flex;align-items:center;justify-content:center;width:44px;height:44px}
 
+/* Phone menu: fades in with its links rising in turn; closes faster than it opens. */
+.sla-menu{opacity:0;transition:opacity 160ms ease-out}
+.sla-menu.is-open{opacity:1;transition-duration:240ms}
+.sla-menu > div:first-child,.sla-menu__nav a,.sla-menu__foot{opacity:0;transform:translateY(10px);
+  transition:opacity 140ms ease-out,transform 160ms ease-out}
+.sla-menu.is-open > div:first-child,.sla-menu.is-open .sla-menu__nav a,.sla-menu.is-open .sla-menu__foot{opacity:1;transform:none;
+  transition:opacity 260ms ease-out,transform 420ms var(--ease-out)}
+.sla-menu.is-open .sla-menu__nav a:nth-child(1){transition-delay:40ms}
+.sla-menu.is-open .sla-menu__nav a:nth-child(2){transition-delay:75ms}
+.sla-menu.is-open .sla-menu__nav a:nth-child(3){transition-delay:110ms}
+.sla-menu.is-open .sla-menu__nav a:nth-child(4){transition-delay:145ms}
+.sla-menu.is-open .sla-menu__foot{transition-delay:180ms}
+@media (prefers-reduced-motion:reduce){
+  .sla-menu > div:first-child,.sla-menu__nav a,.sla-menu__foot{transform:none !important;transition-delay:0ms !important}
+}
+
 /* Touch screens have no hover: project names stay on the tiles, and the glass drops the costly refraction. */
 @media (hover:none),(max-width:700px){
   .lg{-webkit-backdrop-filter:blur(10px) saturate(1.6);backdrop-filter:blur(10px) saturate(1.6)}
@@ -376,30 +389,37 @@ img { max-width: 100%; }
   .sla-menu{padding:10px 20px 24px !important;gap:24px !important}
   .sla-menu > div:first-child{min-height:44px;margin-right:-10px}
 
-  /* Hero: headline, then full-width glass controls within thumb reach. */
+  /* Hero: the headline beside the slide arrows, How we work across the bottom. */
   .sla-slide img{object-position:var(--focus,50%) 50%}
-  .hero-claim{left:20px;right:20px;bottom:24px;gap:18px}
-  .hero-claim__line{font-size:clamp(36px,10.8vw,48px)}
-  .hero-glass{align-items:stretch;gap:10px}
-  .hero-claim__link{justify-content:space-between;min-height:52px;padding:0 18px}
-  .gh-card{align-self:flex-end}
+  .hero-claim{left:20px;right:20px;bottom:24px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:16px 12px}
+  .hero-glass{display:contents}
+  .hero-claim__line{grid-column:1;grid-row:1;font-size:clamp(28px,8.4vw,40px)}
+  .gh-card{grid-column:2;grid-row:1;align-self:end}
   .gh-card__nav button{width:44px;height:44px}
+  .hero-claim__link{grid-column:1 / -1;grid-row:2;justify-content:space-between;min-height:52px;padding:0 18px}
 
-  /* Work: filters in one swipeable row. */
-  #work{padding-top:56px !important;padding-bottom:64px !important;gap:20px !important}
-  .svc__block-head [role="group"]{flex-wrap:nowrap !important;align-items:center !important;gap:30px !important;overflow-x:auto;
-    margin:0 -20px;padding:0 20px 0 35px;scrollbar-width:none;
-    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
-  .svc__block-head [role="group"]::-webkit-scrollbar{display:none}
-  .svc__block-head [role="group"]::after{content:"";flex:0 0 1px;height:1px}
-  [data-filter]{flex:none;min-width:44px;min-height:48px !important}
+  /* Work: all six types visible at once (3 x 2), photos in two columns. */
+  #work{padding-top:48px !important;padding-bottom:48px !important;gap:16px !important}
+  .svc__block-head{padding-bottom:8px}
+  .svc__block-head [role="group"]{display:grid !important;grid-template-columns:repeat(3,auto);justify-content:space-between;
+    width:100%;gap:0 4px !important}
+  [data-filter]{min-height:44px !important;padding-left:11px !important;font-size:clamp(10px,2.95vw,12px);letter-spacing:.04em;text-align:left;white-space:nowrap}
+  [data-filter]::after{left:0}
+  #work > div[style*="columns"]{columns:2 !important;column-gap:8px !important}
+  #work a[data-type]{margin-bottom:8px !important}
+  .sla-cap{left:6px;bottom:6px;max-width:calc(100% - 12px);padding:6px 8px;gap:2px}
+  .sla-cap b{font-size:13px;line-height:1.2}
+  .sla-cap i{font-size:8.5px;letter-spacing:.1em}
 
-  /* Services: tighter cards, process lists fold. */
-  .svc{padding-top:64px;padding-bottom:64px}
-  .svc__inner{gap:56px}
-  .svc__card{min-height:0;padding:20px;gap:8px}
+  /* Services: compact cards, process lists fold. */
+  .svc{padding-top:48px;padding-bottom:48px}
+  .svc__inner{gap:40px}
+  .svc__cards{gap:8px}
+  .svc__card{min-height:0;padding:14px 16px;gap:4px}
+  .svc__card-name{font-size:16px}
+  .svc__card-items{font-size:14px;line-height:1.55}
   .svc__phases{gap:0}
-  .svc__phase{gap:8px;padding:20px 0;border-top:1px solid var(--svc-line)}
+  .svc__phase{gap:6px;padding:14px 0;border-top:1px solid var(--svc-line)}
   .svc__phase:last-child{border-bottom:1px solid var(--svc-line)}
   .svc__acc{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;pointer-events:auto;cursor:pointer}
   .svc__acc::after{content:"+";font-size:26px;font-weight:300;color:var(--svc-accent)}
@@ -407,26 +427,35 @@ img { max-width: 100%; }
   .svc__phase.has-acc:not(.is-open) .svc__list{display:none}
   .svc__cta{width:100%;justify-content:center;min-height:52px}
 
-  .about__facts{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  /* About: shorter photo strip. */
+  .about{padding-top:48px;padding-bottom:48px}
+  .about__inner{gap:32px}
+  .about__bento{gap:8px}
+  .about__bento img:nth-child(1){height:200px}
+  .about__bento img:nth-child(2),.about__bento img:nth-child(3){height:140px}
 
-  /* Contact: the form first, then tap-friendly details, then the artwork. */
+  /* Contact: the form, then the silhouette beside the details with a dividing line, as on desktop. */
   #contact{padding-left:0 !important;padding-right:0 !important}
-  #contact > div:first-child{padding-top:56px !important}
-  #contact > div:first-child > div:first-child{order:2;gap:16px !important}
+  #contact > div:first-child{padding-top:48px !important;gap:32px !important}
+  #contact-form{gap:16px !important}
+  #contact-form textarea{min-height:96px}
   #contact-form button[type="submit"]{width:100%;min-height:52px !important}
-  .sla-contact{order:1;flex-direction:column !important;gap:8px !important}
+  #contact > div:first-child > div:first-child{order:2;flex-direction:row !important;align-items:center;gap:0 !important}
+  .sla-silhouette{order:0;flex:0 0 36%;width:36% !important;max-width:160px;margin:0;padding-right:16px;box-sizing:border-box}
+  .sla-contact{order:1;flex:1;min-width:0;flex-direction:column !important;gap:2px !important;
+    padding-left:16px;border-left:1px solid #E6E6E6;font-size:14px !important;line-height:1.45 !important}
   .sla-contact > div:first-child{gap:0 !important}
-  .sla-contact > div:first-child > a{min-height:48px;align-items:center !important}
-  .sla-contact .sla-social{flex-direction:row !important;justify-content:flex-start !important;gap:8px !important;
+  .sla-contact > div:first-child > a{min-height:44px;align-items:center !important}
+  .sla-contact .sla-social{flex-direction:row !important;justify-content:flex-start !important;gap:2px !important;
     margin-left:-10px;padding:0 !important;border-left:0 !important}
   .sla-contact .sla-social a{width:44px;height:44px;align-items:center;justify-content:center}
-  .sla-silhouette{order:2;max-width:240px;margin:8px auto 0}
 
-  /* Skyline: show the middle third around the SLA, so the drawing stays readable. */
-  #contact .sla-baseline{margin-top:32px !important;overflow:hidden}
+  /* Skyline: the middle third around the SLA; name and TOP button scaled down. */
+  #contact .sla-baseline{margin-top:24px !important;overflow:hidden}
   .sla-baseline img{width:300%;max-width:none;margin-left:-101%;margin-bottom:-2.07%}
-
-  .sla-top{right:10px;padding:8px 9px}
+  .sla-copyright{padding-top:8px;padding-bottom:14px;font-size:9px;letter-spacing:.16em;text-indent:.16em}
+  .sla-top{right:8px;padding:8px 12px;gap:5px;font-size:9px;letter-spacing:.12em}
+  .sla-top span{width:20px;height:20px;border-radius:5px}
 }
 /* Phones: a gentler zoom, since a tall screen already shows less of each building. */
 @media (max-width:700px) and (prefers-reduced-motion:no-preference){
@@ -861,13 +890,6 @@ img { max-width: 100%; }
         <div class="about__blk">
           <p class="about__lead">We don’t start from a set aesthetic; we start from research and collaboration, and work toward solutions that are both pragmatic and elegant. Our clients are our partners: together we shape the program, the design direction and the plan for growth.</p>
         </div>
-        <div class="about__blk">
-          <dl class="about__facts">
-            <div class="about__fact"><dt>Founded</dt><dd>2015</dd></div>
-            <div class="about__fact"><dt>Based in</dt><dd>Los Angeles</dd></div>
-            <div class="about__fact"><dt>Approach</dt><dd>Research-led</dd></div>
-          </dl>
-        </div>
       </div>
 
       <div class="about__bento">
@@ -1114,10 +1136,20 @@ img { max-width: 100%; }
   }
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
   // Phone menu: hold the page still while it is open, and move focus in and back out.
+  var menuOpen = false, menuTimer = null;
   function setMenu(open) {
-    if (!menu || menu.hidden === !open) return;
+    if (!menu || menuOpen === open) return;
+    menuOpen = open;
     var opener = document.querySelector('.sla-menu-btn');
-    menu.hidden = !open;
+    clearTimeout(menuTimer);
+    if (open) {
+      menu.hidden = false;
+      void menu.offsetWidth;            // start the fade from the closed state
+      menu.classList.add('is-open');
+    } else {
+      menu.classList.remove('is-open');
+      menuTimer = setTimeout(function () { if (!menuOpen) menu.hidden = true; }, 200);
+    }
     document.body.style.overflow = open ? 'hidden' : '';
     if (opener) opener.setAttribute('aria-expanded', open ? 'true' : 'false');
     var to = open ? menu.querySelector('[data-action="close-menu"]') : opener;
@@ -1154,15 +1186,6 @@ img { max-width: 100%; }
     sync();
     onPhoneChange(sync);
   })();
-  // Phones: the chosen Work filter slides to the middle of its row.
-  Array.prototype.forEach.call(document.querySelectorAll('[data-filter]'), function (b) {
-    b.addEventListener('click', function () {
-      var row = b.parentNode;
-      if (!phone.matches || !row.scrollBy) return;
-      var r = row.getBoundingClientRect(), c = b.getBoundingClientRect();
-      row.scrollBy({ left: c.left + c.width / 2 - (r.left + r.width / 2), behavior: 'smooth' });
-    });
-  });
   // Formspree: send in the background, then show our own thank-you page
   var form = document.getElementById('contact-form');
   if (form && /formspree[.]io/.test(form.action)) {
