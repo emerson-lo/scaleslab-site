@@ -450,12 +450,22 @@ img { max-width: 100%; }
     margin-left:-10px;padding:0 !important;border-left:0 !important}
   .sla-contact .sla-social a{width:44px;height:44px;align-items:center;justify-content:center}
 
-  /* Skyline: the middle third around the SLA; name and TOP button scaled down. */
+  /* The Services intro sits in a <header>, so the generic phone padding for header > div pushed it in. */
+  .svc__intro > div{padding-left:0 !important;padding-right:0 !important}
+
+  /* Body text under each heading: one step smaller. */
+  .svc__lede,.about__lead{font-size:16px;line-height:1.55}
+  .svc__banner-lede,.about__text{font-size:15px;line-height:1.55}
+  .svc__phase-lede{font-size:14px}
+  .svc__card-items{font-size:13px}
+
+  /* No back-to-top button on phones. */
+  .sla-top{display:none !important}
+
+  /* Skyline: the middle third around the SLA; name scaled down. */
   #contact .sla-baseline{margin-top:24px !important;overflow:hidden}
   .sla-baseline img{width:300%;max-width:none;margin-left:-101%;margin-bottom:-2.07%}
   .sla-copyright{padding-top:8px;padding-bottom:14px;font-size:9px;letter-spacing:.16em;text-indent:.16em}
-  .sla-top{right:8px;padding:8px 12px;gap:5px;font-size:9px;letter-spacing:.12em}
-  .sla-top span{width:20px;height:20px;border-radius:5px}
 }
 /* Phones: a gentler zoom, since a tall screen already shows less of each building. */
 @media (max-width:700px) and (prefers-reduced-motion:no-preference){
@@ -498,7 +508,7 @@ img { max-width: 100%; }
   <!-- MENU OVERLAY: same dark translucent overlay as the current site -->
   <div id="sla-menu" class="sla-menu" hidden role="dialog" aria-label="Site menu" style="position: fixed; inset: 0; overflow: auto; z-index: 10; background: rgba(28,28,28,0.74); color: #FFFFFF; padding: 28px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px">
       <div style="display: flex; justify-content: space-between; align-items: center">
-        <svg width="64" height="22.9" viewBox="0 0 392 140" role="img" aria-label="SLA"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="64" height="22.9" viewBox="0 0 392 140" role="img" aria-label="SLA"><path d="M3 103 L20 129 Q24 135 32 135 L105 135 Q125 135 125 115 L125 85 Q125 65 105 65 L25 65 Q5 65 5 45 L5 25 Q5 5 25 5 L118 5 Q138 5 138 25 L138 112 Q138 135 162 135 L226 135 Q246 135 251 115 L275 22 Q279 5 297 5 L342 5 Q358 5 362 20 L388 135 L322 135 Q314 135 309 128 L297 108" fill="none" stroke="#E2382F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <button type="button" aria-label="Close menu" data-action="close-menu" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center">
           <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 2l16 16M18 2L2 18" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="1.6"/></svg>
         </button>
