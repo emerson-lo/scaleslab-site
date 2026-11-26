@@ -10,6 +10,7 @@
 <meta property="og:description" content="Scales Lab Architects is a design studio in Los Angeles working on housing, mixed-use, commercial, hospitality, healthcare and institutional projects.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script>document.documentElement.classList.add("sla-js")</script>
+<noscript><style>.sla-slide[data-slide="0"]{opacity:1;visibility:visible;transform:none}</style></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
@@ -114,9 +115,20 @@ header nav[aria-label="Primary"] > a{text-transform:uppercase;letter-spacing:.12
    header covers the top strip of each photo instead of the photo being shortened.
    --bar-h is the header's height, measured by script (96px until then). */
 .sla-hero{height:100vh;height:100svh;margin-top:calc(-1 * var(--bar-h,96px))}
-/* Darkens the bottom of the photo so the white headline and the glass read on bright photos. */
+/* SLIDES: stacked, crossfading, each zooming slowly out from 1.14 while it is the active one.
+   The script only toggles .is-active. visibility waits for the fade-out, so hidden slides are not painted. */
+.sla-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transform:scale(1.14);
+  transition:opacity 1.8s ease,transform 9s linear,visibility 0s linear 1.8s}
+.sla-slide.is-active{opacity:1;visibility:visible;transform:scale(1);
+  transition:opacity 1.8s ease,transform 9s linear,visibility 0s}
+.sla-slide img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+@media (prefers-reduced-motion:reduce){
+  .sla-slide{transform:none;transition:opacity .4s ease,visibility 0s linear .4s}
+  .sla-slide.is-active{transform:none;transition:opacity .4s ease,visibility 0s}
+}
+/* Darkens the photo, most at the bottom, so the white headline and the glass controls stay readable. */
 .sla-hero__scrim{position:absolute;inset:0;z-index:4;pointer-events:none;
-  background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.22) 30%,rgba(0,0,0,0) 56%)}
+  background:linear-gradient(180deg,rgba(14,15,22,0.10) 0%,rgba(14,15,22,0.28) 55%,rgba(14,15,22,0.72) 100%)}
 /* HERO CLAIM along the bottom of the photo: the page's h1 on the left,
    the How we work button and the project card in liquid glass on the right. */
 .hero-claim{position:absolute;left:clamp(20px,3vw,40px);right:clamp(20px,3vw,40px);bottom:clamp(20px,3vw,40px);z-index:5;
@@ -154,9 +166,13 @@ header nav[aria-label="Primary"] > a{text-transform:uppercase;letter-spacing:.12
 .sla-menu{-webkit-backdrop-filter:blur(24px) saturate(1.5);backdrop-filter:blur(24px) saturate(1.5)}
 /* Bottom edge: the whole skyline drawing (la-skyline.svg), uncropped, from the left edge of the window to the right. */
 .sla-baseline{line-height:0}
-.sla-baseline img{display:block;width:100%;max-width:none;height:auto;margin-bottom:-1px}
-/* Name and year, under the contact details. */
-.sla-copyright{margin:0;font-size:14px;color:#6B6B6B}
+/* The drawing has 30 of its 4400 units blank under the ground line; the negative margin removes that,
+   so the name below sits the same distance from the line at every window width. */
+.sla-baseline img{display:block;width:100%;max-width:none;height:auto;margin-bottom:-.69%}
+/* Name and year, alone on their line, under the SLA and nudged slightly right of its middle (the left padding
+   sets the shift: half of it). The text-indent balances the letter spacing after the last character. */
+.sla-copyright{margin:0;padding:12px 0 22px 2.4%;text-align:center;font-size:11px;line-height:1.4;
+  letter-spacing:.18em;text-indent:.18em;text-transform:uppercase;color:#737373}
 /* The CTA is liquid glass (.lg) over the photos. The glass brightens on hover and the red arrow dips. */
 .hero-claim__link{flex:none;display:inline-flex;align-items:center;gap:12px;min-height:46px;
   padding:0 22px;border:0;font-size:15px;font-weight:500;letter-spacing:.01em;text-decoration:none;white-space:nowrap}
@@ -293,7 +309,6 @@ html{scroll-behavior:smooth}
 }
 
 
-@keyframes slafade{0%{opacity:0;visibility:visible}2.857%{opacity:1}6.667%{opacity:1}9.524%{opacity:0;visibility:hidden}100%{opacity:0;visibility:hidden}}
 @media (max-width: 700px){
   header > div, main, section, footer > div { padding-left: 20px !important; padding-right: 20px !important; }
   #contact .sla-baseline { margin-top: 56px !important; }
@@ -313,14 +328,8 @@ img { max-width: 100%; }
 /* Sticky header: keep in-page anchor targets clear of the bar. */
 #top,#work,#services,#about,#contact{scroll-margin-top:104px}
 
-/* Hero caption: liquid-glass card (.lg) under the How we work button, with the project name, city, count and arrows. */
-.gh-card{display:flex;align-items:center;gap:22px;padding:12px 12px 12px 20px}
-.gh-card__text{display:flex;flex-direction:column;gap:4px;min-width:0;
-  transition:opacity .22s cubic-bezier(.23,1,.32,1),transform .22s cubic-bezier(.23,1,.32,1),filter .22s cubic-bezier(.23,1,.32,1)}
-.gh-card__text.is-out{opacity:0;transform:translateY(-4px);filter:blur(2px);transition-duration:.14s}
-.gh-card__name{font-size:19px;line-height:1.2;letter-spacing:-.01em;white-space:nowrap}
-.gh-card__city{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78)}
-.gh-card__count{font-size:12px;letter-spacing:.08em;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums}
+/* Slide arrows: a small liquid-glass box (.lg) above the How we work button. */
+.gh-card{display:flex;padding:8px}
 .gh-card__nav{display:flex;gap:6px}
 .gh-card__nav button{width:40px;height:40px;border:0;border-radius:0;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;
   display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);
@@ -328,13 +337,106 @@ img { max-width: 100%; }
 .gh-card__nav button:active{transform:scale(.97)}
 @media (hover:hover) and (pointer:fine){.gh-card__nav button:hover{background:rgba(255,255,255,.24)}}
 @media (prefers-reduced-motion:reduce){
-  .gh-card__text,.gh-card__text.is-out{transform:none;filter:none}
   .gh-card__nav button:active{transform:none}
 }
+
+/* ===================== TOUCH AND PHONES =====================
+   Last in the sheet so these win over the desktop rules above. */
+.sla-hero{touch-action:pan-y pinch-zoom}
+.sla-slide img{-webkit-user-drag:none;user-select:none}
+.svc__acc{display:block;width:100%;margin:0;padding:0;border:0;background:none;font:inherit;letter-spacing:inherit;color:inherit;text-align:left;pointer-events:none}
+
+/* Phone menu (the button only shows on phones). */
+.sla-menu__nav{display:flex;flex-direction:column}
+.sla-menu__nav a{display:flex;align-items:center;min-height:64px;font-size:32px;letter-spacing:-.02em;color:#FFFFFF;
+  text-decoration:none;border-bottom:1px solid rgba(255,255,255,.16)}
+.sla-menu__foot{margin-top:auto;display:flex;flex-direction:column;font-size:15px;line-height:1.5;color:rgba(255,255,255,.82)}
+.sla-menu__foot > a{display:flex;align-items:center;min-height:48px;color:inherit;text-decoration:none}
+.sla-menu__social{display:flex;gap:8px;margin:8px 0 0 -10px}
+.sla-menu__social a{display:flex;align-items:center;justify-content:center;width:44px;height:44px}
+
+/* Touch screens have no hover: project names stay on the tiles, and the glass drops the costly refraction. */
+@media (hover:none),(max-width:700px){
+  .lg{-webkit-backdrop-filter:blur(10px) saturate(1.6);backdrop-filter:blur(10px) saturate(1.6)}
+  .sla-cap{left:8px;bottom:8px;max-width:calc(100% - 16px);padding:9px 12px;gap:3px;opacity:1;transform:none}
+  .sla-cap b{font-size:17px}
+  .sla-cap i{font-size:10px}
+  .sla-cap.lg{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(18,18,18,.6)}
+}
+
 @media (max-width:700px){
-  .gh-card{gap:12px;padding:8px 8px 8px 14px;max-width:100%}
-  .gh-card__name{font-size:14px;white-space:normal}.gh-card__count{display:none}
-  .gh-card__nav button{width:34px;height:34px}
+  #top,#work,#services,#about,#contact{scroll-margin-top:64px}
+  #contact-form{scroll-margin-top:80px !important}
+
+  /* 64px app bar: logo left, menu button right. */
+  .sla-bar > div{padding:10px 10px 10px 20px !important}
+  .sla-bar > div > div{width:100%;flex-direction:row-reverse;justify-content:space-between}
+  .sla-bar svg[width="120"]{width:76px !important}
+  .sla-bar a[aria-label="Scales Lab Architects, home"]{min-height:44px;align-items:center}
+  .sla-menu{padding:10px 20px 24px !important;gap:24px !important}
+  .sla-menu > div:first-child{min-height:44px;margin-right:-10px}
+
+  /* Hero: headline, then full-width glass controls within thumb reach. */
+  .sla-slide img{object-position:var(--focus,50%) 50%}
+  .hero-claim{left:20px;right:20px;bottom:24px;gap:18px}
+  .hero-claim__line{font-size:clamp(36px,10.8vw,48px)}
+  .hero-glass{align-items:stretch;gap:10px}
+  .hero-claim__link{justify-content:space-between;min-height:52px;padding:0 18px}
+  .gh-card{align-self:flex-end}
+  .gh-card__nav button{width:44px;height:44px}
+
+  /* Work: filters in one swipeable row. */
+  #work{padding-top:56px !important;padding-bottom:64px !important;gap:20px !important}
+  .svc__block-head [role="group"]{flex-wrap:nowrap !important;align-items:center !important;gap:30px !important;overflow-x:auto;
+    margin:0 -20px;padding:0 20px 0 35px;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+  .svc__block-head [role="group"]::-webkit-scrollbar{display:none}
+  .svc__block-head [role="group"]::after{content:"";flex:0 0 1px;height:1px}
+  [data-filter]{flex:none;min-width:44px;min-height:48px !important}
+
+  /* Services: tighter cards, process lists fold. */
+  .svc{padding-top:64px;padding-bottom:64px}
+  .svc__inner{gap:56px}
+  .svc__card{min-height:0;padding:20px;gap:8px}
+  .svc__phases{gap:0}
+  .svc__phase{gap:8px;padding:20px 0;border-top:1px solid var(--svc-line)}
+  .svc__phase:last-child{border-bottom:1px solid var(--svc-line)}
+  .svc__acc{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;pointer-events:auto;cursor:pointer}
+  .svc__acc::after{content:"+";font-size:26px;font-weight:300;color:var(--svc-accent)}
+  .svc__phase.is-open .svc__acc::after{content:"\2212"}
+  .svc__phase.has-acc:not(.is-open) .svc__list{display:none}
+  .svc__cta{width:100%;justify-content:center;min-height:52px}
+
+  .about__facts{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+  /* Contact: the form first, then tap-friendly details, then the artwork. */
+  #contact{padding-left:0 !important;padding-right:0 !important}
+  #contact > div:first-child{padding-top:56px !important}
+  #contact > div:first-child > div:first-child{order:2;gap:16px !important}
+  #contact-form button[type="submit"]{width:100%;min-height:52px !important}
+  .sla-contact{order:1;flex-direction:column !important;gap:8px !important}
+  .sla-contact > div:first-child{gap:0 !important}
+  .sla-contact > div:first-child > a{min-height:48px;align-items:center !important}
+  .sla-contact .sla-social{flex-direction:row !important;justify-content:flex-start !important;gap:8px !important;
+    margin-left:-10px;padding:0 !important;border-left:0 !important}
+  .sla-contact .sla-social a{width:44px;height:44px;align-items:center;justify-content:center}
+  .sla-silhouette{order:2;max-width:240px;margin:8px auto 0}
+
+  /* Skyline: show the middle third around the SLA, so the drawing stays readable. */
+  #contact .sla-baseline{margin-top:32px !important;overflow:hidden}
+  .sla-baseline img{width:300%;max-width:none;margin-left:-101%;margin-bottom:-2.07%}
+
+  .sla-top{right:10px;padding:8px 9px}
+}
+/* Phones: a gentler zoom, since a tall screen already shows less of each building. */
+@media (max-width:700px) and (prefers-reduced-motion:no-preference){
+  .sla-slide:not(.is-active){transform:scale(1.06)}
+}
+/* Phone held sideways: headline and glass share the bottom edge. */
+@media (orientation:landscape) and (max-height:520px){
+  .hero-claim{flex-direction:row;align-items:flex-end;justify-content:space-between}
+  .hero-claim__line{font-size:34px}
+  .hero-glass{align-items:flex-end}
 }
 </style>
 </head>
@@ -372,51 +474,148 @@ img { max-width: 100%; }
           <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 2l16 16M18 2L2 18" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="1.6"/></svg>
         </button>
       </div>
-      <nav aria-label="Main" style="display: flex; flex-direction: column; gap: 10px; font-size: 40px; line-height: 1.2">
-        <a href="#work" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">Work</a>
-        <a href="#services" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">Services</a>
-        <a href="#about" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">About</a>
-        <a href="#contact-form" data-action="close-menu" style="color: rgba(255,255,255,0.85); text-decoration: none">Contact</a>
+      <nav aria-label="Main" class="sla-menu__nav">
+        <a href="#services" data-action="close-menu">Services</a>
+        <a href="#work" data-action="close-menu">Work</a>
+        <a href="#about" data-action="close-menu">About</a>
+        <a href="#contact-form" data-action="close-menu">Contact</a>
       </nav>
-      <div style="display: flex; gap: 24px; font-size: 15px; color: rgba(255,255,255,0.7)">
-        <span>970 N. Broadway, Suite 107, Los Angeles</span><span>(213) 537-0910</span>
+      <div class="sla-menu__foot">
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=970+N+Broadway+Suite+107+Los+Angeles+CA+90012" target="_blank" rel="noopener">970 N. Broadway, Suite 107<br>Los Angeles, CA 90012</a>
+        <a href="tel:+12135370910">(213) 537-0910</a>
+        <a href="mailto:info@scaleslab.com">info@scaleslab.com</a>
+        <div class="sla-menu__social">
+          <a href="https://www.instagram.com/scaleslab/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Instagram" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.linkedin.com/company/scale-s-lab-architects" target="_blank" rel="noopener" aria-label="Scales Lab Architects on LinkedIn" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Facebook" style="display: flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
       </div>
     </div>
 
   <!-- SLIDESHOW: the site's signature -->
-  <section id="top" aria-label="Featured projects, rotating every 7 seconds" style="margin: 0; padding: 0">
-    <div class="sla-hero" style="position: relative; background: #E6E6E5; overflow: hidden">
-      <div role="group" aria-roledescription="slide" aria-label="Pico Fairfax Mixed-use, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="0"><img src="images/hero/pico-fairfax-mixed-use-corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="Arcadia Medical Offices, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="1"><img loading="lazy" decoding="async" src="images/hero/arcadia-medical-offices-west-elevation-at-dusk.jpg" alt="Arcadia Medical Offices, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="Block AZ, Azusa" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="2"><img loading="lazy" decoding="async" src="images/hero/block-az-corner-plaza-on-azusa-avenue.jpg" alt="Block AZ, Azusa" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="D &amp; G Mixed-use" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="3"><img loading="lazy" decoding="async" src="images/hero/d-g-mixed-use-corner-view-at-the-intersection.jpg" alt="D &amp; G Mixed-use" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="Duarte Road Medical Building, Arcadia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="4"><img loading="lazy" decoding="async" src="images/hero/duarte-road-medical-building-corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building, Arcadia" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="Prospect Villa, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="5"><img loading="lazy" decoding="async" src="images/hero/prospect-villa-aerial-view-with-terraced-residences.jpg" alt="Prospect Villa, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="Strathmore Place, Rosemead" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="6"><img loading="lazy" decoding="async" src="images/hero/strathmore-place-street-view.jpg" alt="Strathmore Place, Rosemead" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="Arroyo Verde Shopping Center, Oceanside" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="7"><img loading="lazy" decoding="async" src="images/hero/arroyo-verde-shopping-center-pedestrian-plaza-and-storefronts.jpg" alt="Arroyo Verde Shopping Center, Oceanside" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="Furniture Showroom, Los Angeles" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="8"><img loading="lazy" decoding="async" src="images/hero/furniture-showroom-showroom-with-orange-counter.jpg" alt="Furniture Showroom, Los Angeles" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="Logos Evangelical Seminary, Building D, El Monte" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="9"><img loading="lazy" decoding="async" src="images/hero/logos-evangelical-seminary-building-d-entry-corner-at-dusk.jpg" alt="Logos Evangelical Seminary, Building D, El Monte" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
-      <div role="group" aria-roledescription="slide" aria-label="Rye Canyon Medical Center, Valencia" style="position: absolute; inset: 0; display: block; opacity: 0; animation: slafade 105s ease-in-out infinite both; animation-delay: 0s" data-slide="10"><img loading="lazy" decoding="async" src="images/hero/rye-canyon-medical-center-main-facade.jpg" alt="Rye Canyon Medical Center, Valencia" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
+  <section id="top" aria-label="Featured projects, rotating every 6 seconds" style="margin: 0; padding: 0">
+    <div class="sla-hero" style="position: relative; background: #0E0F16; overflow: hidden">
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Pico Fairfax Mixed-use, Los Angeles" data-slide="0" style="--focus:50%"><img data-src="images/hero/pico-fairfax-mixed-use-corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use, Los Angeles" decoding="async"><noscript><img src="images/hero/pico-fairfax-mixed-use-corner-view-at-dusk.jpg" alt="Pico Fairfax Mixed-use, Los Angeles"></noscript></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Arcadia Medical Offices, Arcadia" data-slide="1" style="--focus:43%"><img data-src="images/hero/arcadia-medical-offices-west-elevation-at-dusk.jpg" alt="Arcadia Medical Offices, Arcadia" decoding="async"></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Block AZ, Azusa" data-slide="2" style="--focus:29%"><img data-src="images/hero/block-az-corner-plaza-on-azusa-avenue.jpg" alt="Block AZ, Azusa" decoding="async"></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="D &amp; G Mixed-use" data-slide="3" style="--focus:29%"><img data-src="images/hero/d-g-mixed-use-corner-view-at-the-intersection.jpg" alt="D &amp; G Mixed-use" decoding="async"></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Duarte Road Medical Building, Arcadia" data-slide="4" style="--focus:66%"><img data-src="images/hero/duarte-road-medical-building-corner-view-along-duarte-road.jpg" alt="Duarte Road Medical Building, Arcadia" decoding="async"></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Prospect Villa, Rosemead" data-slide="5" style="--focus:57%"><img data-src="images/hero/prospect-villa-aerial-view-with-terraced-residences.jpg" alt="Prospect Villa, Rosemead" decoding="async"></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Strathmore Place, Rosemead" data-slide="6" style="--focus:50%"><img data-src="images/hero/strathmore-place-street-view.jpg" alt="Strathmore Place, Rosemead" decoding="async"></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Arroyo Verde Shopping Center, Oceanside" data-slide="7" style="--focus:12%"><img data-src="images/hero/arroyo-verde-shopping-center-pedestrian-plaza-and-storefronts.jpg" alt="Arroyo Verde Shopping Center, Oceanside" decoding="async"></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Furniture Showroom, Los Angeles" data-slide="8" style="--focus:26%"><img data-src="images/hero/furniture-showroom-showroom-with-orange-counter.jpg" alt="Furniture Showroom, Los Angeles" decoding="async"></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Logos Evangelical Seminary, Building D, El Monte" data-slide="9" style="--focus:43%"><img data-src="images/hero/logos-evangelical-seminary-building-d-entry-corner-at-dusk.jpg" alt="Logos Evangelical Seminary, Building D, El Monte" decoding="async"></div>
+      <div class="sla-slide" role="group" aria-roledescription="slide" aria-label="Rye Canyon Medical Center, Valencia" data-slide="10" style="--focus:57%"><img data-src="images/hero/rye-canyon-medical-center-main-facade.jpg" alt="Rye Canyon Medical Center, Valencia" decoding="async"></div>
       <div class="sla-hero__scrim" aria-hidden="true"></div>
       <!-- HERO CLAIM: what the practice is, stated before anything else. Headline left, glass right. -->
       <div class="hero-claim">
         <h1 class="hero-claim__line"><span class="blend">Design together,</span> <span class="blend">Build for growth.</span></h1>
         <div class="hero-glass">
-        <a class="hero-claim__link lg" href="#services">How we work<span class="hero-claim__arrow" aria-hidden="true"><svg width="14" height="16" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.5v12.5M1.8 8.8 7 14l5.2-5.2"/></svg></span></a>
-        <div class="gh-card lg" role="group" aria-label="Current project">
-          <div class="gh-card__text"><span class="gh-card__name"></span><span class="gh-card__city"></span></div>
-          <span class="gh-card__count" aria-hidden="true"></span>
+        <div class="gh-card lg" role="group" aria-label="Slideshow controls">
           <div class="gh-card__nav">
             <button type="button" aria-label="Previous project" data-action="prev"><svg width="9" height="16" viewBox="0 0 9 16" aria-hidden="true"><path d="M8 1L1 8l7 7" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <button type="button" aria-label="Next project" data-action="next"><svg width="9" height="16" viewBox="0 0 9 16" aria-hidden="true"><path d="M1 1l7 7-7 7" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           </div>
         </div>
+        <a class="hero-claim__link lg" href="#services">How we work<span class="hero-claim__arrow" aria-hidden="true"><svg width="14" height="16" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.5v12.5M1.8 8.8 7 14l5.2-5.2"/></svg></span></a>
         </div>
       </div>
     </div>
   </section>
   <!-- Refraction for the liquid glass (Chromium only; see .lg). -->
   <svg width="0" height="0" style="position: absolute" aria-hidden="true"><defs><filter id="gh-liquid" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="2" seed="4" result="n"/><feGaussianBlur in="n" stdDeviation="3" result="nb"/><feDisplacementMap in="SourceGraphic" in2="nb" scale="34" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
+<script>
+// Hero slideshow. CSS does the motion (.sla-slide / .is-active); this picks the active slide
+// and loads the photos. It sits here so the first photo starts loading early.
+(function () {
+  var hero = document.querySelector('.sla-hero');
+  if (!hero) return;
+  // The hero slides up behind the sticky header by exactly the header's height.
+  var bar = document.querySelector('.sla-bar');
+  function setBar() { if (bar) document.documentElement.style.setProperty('--bar-h', bar.offsetHeight + 'px'); }
+  setBar();
+  window.addEventListener('resize', setBar);
+
+  var DELAY = 6000;
+  var slides = hero.querySelectorAll('.sla-slide');
+  var total = slides.length;
+  if (!total) return;
+  var current = -1;                                   // slide on screen
+  var wanted = Math.floor(Math.random() * total);     // slide asked for; each visit starts somewhere new
+  var timer = null;
+
+  function wrap(i) { return (i % total + total) % total; }
+
+  // Photos carry data-src, so only slides about to be seen are downloaded.
+  // Resolves once the photo can be painted, so a fade never starts on an empty slide.
+  function ready(i) {
+    var img = slides[i].querySelector('img');
+    if (!img.getAttribute('src')) img.src = img.getAttribute('data-src');
+    if (img.decode) return img.decode().catch(function () {});
+    return new Promise(function (done) { if (img.complete) done(); else img.onload = img.onerror = done; });
+  }
+
+  function activate(i) {
+    var first = current < 0;
+    if (first) {
+      // The opening photo appears at once and only zooms.
+      slides[i].style.transition = 'transform 9s linear';
+      void slides[i].offsetWidth;
+    } else {
+      slides[current].style.transition = '';
+      slides[current].classList.remove('is-active');
+    }
+    slides[i].classList.add('is-active');
+    current = i;
+    ready(wrap(i + 1));   // preload what comes next
+    ready(wrap(i - 1));   // and what "previous" would show
+  }
+
+  function stop() { clearInterval(timer); timer = null; }
+  function restart() { stop(); if (!document.hidden) timer = setInterval(tick, DELAY); }
+
+  function go(i) {
+    var target = wrap(i);
+    wanted = target;
+    restart();                      // a click always buys a full six seconds
+    if (target === current) return;
+    ready(target).then(function () {
+      if (target !== wanted || target === current) return;   // a later click replaced this one
+      activate(target);
+      restart();
+    });
+  }
+
+  function tick() {
+    // Hold while a case study covers the page, or while a photo is still loading.
+    if (document.documentElement.classList.contains('slac-lock') || wanted !== current) return;
+    go(current + 1);
+  }
+
+  // Swipe sideways to change slides (touch anywhere on the photo; mouse drag at phone widths too).
+  var swipe = null;
+  hero.addEventListener('pointerdown', function (e) {
+    var small = window.matchMedia('(max-width: 700px)').matches;
+    if (!e.isPrimary || (e.pointerType === 'mouse' && !small) || e.target.closest('a,button')) return;
+    swipe = { x: e.clientX, y: e.clientY, t: Date.now() };
+  });
+  hero.addEventListener('pointercancel', function () { swipe = null; });
+  window.addEventListener('pointerup', function (e) {
+    if (!swipe || !e.isPrimary) return;
+    var dx = e.clientX - swipe.x, dy = e.clientY - swipe.y;
+    var speed = Math.abs(dx) / Math.max(1, Date.now() - swipe.t);   // a quick flick counts, however short
+    swipe = null;
+    if (Math.abs(dx) < Math.abs(dy) * 1.2) return;
+    if (Math.abs(dx) > 56 || (Math.abs(dx) > 20 && speed > 0.3)) go(wanted + (dx < 0 ? 1 : -1));
+  });
+  hero.querySelector('[data-action="prev"]').addEventListener('click', function () { go(wanted - 1); });
+  hero.querySelector('[data-action="next"]').addEventListener('click', function () { go(wanted + 1); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else restart(); });
+  window.addEventListener('pagehide', stop);        // the closest a plain page has to "unmount"
+  window.addEventListener('pageshow', restart);
+  go(wanted);
+})();
+</script>
 
   <!-- WORK: masonry columns; each image at its own proportions, uncropped -->
   <section id="work" style="max-width: 1360px; margin: 0 auto; padding: 96px 40px 140px; display: flex; flex-direction: column; gap: 40px">
@@ -688,7 +887,7 @@ img { max-width: 100%; }
         <address class="sla-contact" style="font-style: normal; text-align: left; font-size: 15px; line-height: 1.7; color: #6B6B6B; display: flex; align-items: stretch; gap: 26px">
          <div style="display: flex; flex-direction: column; gap: 12px">
           <a href="https://www.google.com/maps/search/?api=1&amp;query=970+N+Broadway+Suite+107+Los+Angeles+CA+90012" target="_blank" rel="noopener" aria-label="970 N. Broadway, Suite 107, Los Angeles, CA 90012 — view on Google Maps" style="display: flex; align-items: flex-start; gap: 10px; color: rgba(0,0,0,0.85)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 5px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>970 N. Broadway, Suite 107<br>Los Angeles, CA 90012</span></a>
-          <a href="tel:+12135370910" aria-label="Call (213) 537-0910" style="display: flex; align-items: center; gap: 10px; color: rgba(0,0,0,0.85)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(213) 537-0910</a>
+          <a href="tel:+13236883318" aria-label="Call (323) 688-3318" style="display: flex; align-items: center; gap: 10px; color: rgba(0,0,0,0.85)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(323) 688-3318</a>
           <a href="mailto:info@scaleslab.com" aria-label="Email info@scaleslab.com" style="display: flex; align-items: center; gap: 10px; color: rgba(0,0,0,0.85)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@scaleslab.com</a>
          </div>
          <div class="sla-social" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 26px; padding-left: 26px; border-left: 1px solid #E6E6E6">
@@ -697,7 +896,6 @@ img { max-width: 100%; }
             <a href="https://www.facebook.com/pages/biz/los-angeles/Scales-Lab-Architects-174329813318030/" target="_blank" rel="noopener" aria-label="Scales Lab Architects on Facebook" style="display: flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E2382F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
          </div>
         </address>
-        <p class="sla-copyright">scale(s) lab architects © 2026</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 40px">
         <div style="display: flex; flex-direction: column; gap: 14px">
@@ -708,7 +906,7 @@ img { max-width: 100%; }
             <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Name<input type="text" name="name" required autocomplete="name"></label>
             <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Email<input type="email" name="email" required autocomplete="email"></label>
             <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">I am a<select name="role"><option value="" disabled selected>Select one</option><option>Property owner / landlord</option><option>Developer</option><option>Business owner / tenant</option><option>Healthcare provider</option><option>Institution / nonprofit</option><option>Homeowner</option><option>Other</option></select></label>
-            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Site address or city<input type="text" name="site"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B">Site address or city<input type="text" name="site" autocomplete="street-address"></label>
             <label style="display: flex; flex-direction: column; gap: 6px; color: #6B6B6B; grid-column: span 2">About the project<textarea name="message" required rows="3"></textarea></label>
             <p hidden><label>Leave this empty<input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
         <input type="hidden" name="_subject" value="New inquiry from scaleslab.com">
@@ -717,7 +915,8 @@ img { max-width: 100%; }
       </div>
     </div>
     <div class="sla-baseline" style="margin-top: 96px">
-      <img class="sla-skyline" loading="lazy" decoding="async" src="images/site/la-skyline.svg" alt="" aria-hidden="true">
+      <img class="sla-skyline" loading="lazy" decoding="async" src="images/site/la-skyline.svg" width="4400" height="190" alt="" aria-hidden="true">
+      <p class="sla-copyright">scale(s) lab architects © 2026</p>
     </div>
   </section>
 
@@ -726,29 +925,6 @@ img { max-width: 100%; }
 </div>
 <script>
 (function () {
-  // Slideshow: 7 s per slide, CSS cross-fade; random start; arrows step one slide.
-  var slides = document.querySelectorAll('[data-slide]');
-  var n = slides.length, k = Math.floor(Math.random() * n), shift = 0;
-  function place() {
-    for (var i = 0; i < slides.length; i++) {
-      var j = +slides[i].getAttribute('data-slide');
-      var d = (((j - k) * 7 - 3 - shift) % (n * 7) + n * 7) % (n * 7) - n * 7;
-      var s = slides[i].style;
-      s.animation = 'none'; void slides[i].offsetWidth;
-      s.animation = 'slafade ' + (n * 7) + 's ease-in-out ' + d + 's infinite both';
-    }
-  }
-  // Fade timing in seconds (in at 3, fully shown until 7, gone by 10), turned into
-  // percentages of the whole loop so it stays right whatever the slide count is.
-  var kf = document.createElement('style');
-  (function () {
-    var T = n * 7;
-    function pc(sec) { return (sec / T * 100).toFixed(3) + '%'; }
-    kf.textContent = '@keyframes slafade{0%{opacity:0;visibility:visible}' + pc(3) + '{opacity:1}' + pc(7) +
-      '{opacity:1}' + pc(10) + '{opacity:0;visibility:hidden}100%{opacity:0;visibility:hidden}}';
-    document.head.appendChild(kf);
-  })();
-  place();
   // About photos: three exterior/detail shots, changing once a day
   var aboutPool = [{"src": "images/arcadia-medical-offices/west-elevation.jpg", "alt": "Arcadia Medical Offices, west elevation"}, {"src": "images/rye-canyon-medical-center/facade-detail.jpg", "alt": "Rye Canyon Medical Center, facade detail"}, {"src": "images/pico-fairfax-mixed-use/west-elevation.jpg", "alt": "Pico Fairfax Mixed-use, west elevation"}, {"src": "images/logos-evangelical-seminary-building-d/roof-terrace-and-glass-stair-tower.jpg", "alt": "Logos Evangelical Seminary, Building D, roof terrace and glass stair tower"}, {"src": "images/duarte-road-medical-building/rear-view-north-and-east-elevations.jpg", "alt": "Duarte Road Medical Building, north and east elevations"}, {"src": "images/strathmore-place/corner-view.jpg", "alt": "Strathmore Place, corner view"}, {"src": "images/prospect-villa/corner-view.jpg", "alt": "Prospect Villa, corner view"}, {"src": "images/new-terrace/corner-view.jpg", "alt": "New Terrace, corner view"}, {"src": "images/d-g-mixed-use/corner-view-from-across-the-street.jpg", "alt": "D & G Mixed-use, corner view"}, {"src": "images/cooffice/lighting-detail.jpg", "alt": "CoOffice, lighting detail"}, {"src": "images/robinson-3x3/stacked-homes-with-private-balconies-and-roof-decks.jpg", "alt": "Robinson 3\u00d73, stacked homes with balconies and roof decks"}, {"src": "images/prospect-villa/corner-storefronts.jpg", "alt": "Prospect Villa, corner storefronts"}, {"src": "images/rye-canyon-medical-center/entry-canopy.jpg", "alt": "Rye Canyon Medical Center, entry canopy"}, {"src": "images/pico-fairfax-mixed-use/south-elevation.jpg", "alt": "Pico Fairfax Mixed-use, south elevation"}, {"src": "images/logos-evangelical-seminary-building-d/elevated-view-with-terrace-and-exterior-stair.jpg", "alt": "Logos Evangelical Seminary, Building D, terrace and exterior stair"}, {"src": "images/arcadia-medical-offices/wood-cladding-detail.jpg", "alt": "Arcadia Medical Offices, wood cladding detail"}, {"src": "images/arcadia-medical-offices/northeast-balcony.jpg", "alt": "Arcadia Medical Offices, northeast balcony"}, {"src": "images/arcadia-medical-offices/east-elevation-at-dusk.jpg", "alt": "Arcadia Medical Offices, east elevation at dusk"}];
   if (aboutPool.length) {
@@ -899,8 +1075,8 @@ img { max-width: 100%; }
     var a = e.target.closest('[data-action]');
     if (!a) return;
     var act = a.getAttribute('data-action');
-    if (act === 'open-menu') menu.hidden = false;
-    if (act === 'close-menu') menu.hidden = true;
+    if (act === 'open-menu') setMenu(true);
+    if (act === 'close-menu') setMenu(false);
     if (act === 'toggle-fac') {
       var box = document.getElementById('existing-facilities');
       box.hidden = !box.hidden;
@@ -912,18 +1088,20 @@ img { max-width: 100%; }
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     }
-    if (act === 'prev') { shift -= 7; place(); }
-    if (act === 'next') { shift += 7; place(); }
   });
   // Back-to-top: show it only once the page has been scrolled.
   var toTop = document.querySelector('.sla-top');
   if (toTop) {
     var stopAt = document.querySelector('.sla-skyline') || document.querySelector('footer');
+    var lastY = window.pageYOffset, goingUp = false;
     var syncTop = function () {
-      toTop.classList.toggle('is-visible', window.pageYOffset > 200);
+      var y = window.pageYOffset;
+      if (Math.abs(y - lastY) > 4) { goingUp = y < lastY; lastY = y; }
+      var small = window.matchMedia('(max-width: 700px)').matches;
+      toTop.classList.toggle('is-visible', y > 200 && (!small || goingUp));
       // Ride up so the "TOP" label stops just above the skyline instead of
       // scrolling over it.
-      var rest = window.matchMedia('(max-width: 700px)').matches ? 18 : 30;
+      var rest = small ? 12 : 30;
       if (stopAt) {
         var lift = window.innerHeight - stopAt.getBoundingClientRect().top + 14;
         if (lift > rest) rest = lift;
@@ -934,7 +1112,57 @@ img { max-width: 100%; }
     window.addEventListener('resize', syncTop, { passive: true });
     syncTop();
   }
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menu.hidden = true; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  // Phone menu: hold the page still while it is open, and move focus in and back out.
+  function setMenu(open) {
+    if (!menu || menu.hidden === !open) return;
+    var opener = document.querySelector('.sla-menu-btn');
+    menu.hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (opener) opener.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var to = open ? menu.querySelector('[data-action="close-menu"]') : opener;
+    if (to) to.focus({ preventScroll: true });
+  }
+  var phone = window.matchMedia('(max-width: 700px)');
+  function onPhoneChange(fn) { if (phone.addEventListener) phone.addEventListener('change', fn); else phone.addListener(fn); }
+  onPhoneChange(function () { if (!phone.matches) setMenu(false); });
+  // Phones: the three process lists fold away under their headings.
+  (function () {
+    var phases = Array.prototype.slice.call(document.querySelectorAll('.svc__phase'));
+    function sync() {
+      phases.forEach(function (ph) {
+        var b = ph.querySelector('.svc__acc');
+        if (phone.matches) { b.removeAttribute('tabindex'); b.setAttribute('aria-expanded', ph.classList.contains('is-open') ? 'true' : 'false'); }
+        else { b.tabIndex = -1; b.removeAttribute('aria-expanded'); }
+      });
+    }
+    phases.forEach(function (ph, i) {
+      var h = ph.querySelector('.svc__phase-name');
+      var list = ph.querySelector('.svc__list');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'svc__acc';
+      b.textContent = h.textContent;
+      h.textContent = '';
+      h.appendChild(b);
+      list.id = 'svc-list-' + (i + 1);
+      b.setAttribute('aria-controls', list.id);
+      ph.classList.add('has-acc');
+      if (i === 0) ph.classList.add('is-open');
+      b.addEventListener('click', function () { if (phone.matches) { ph.classList.toggle('is-open'); sync(); } });
+    });
+    sync();
+    onPhoneChange(sync);
+  })();
+  // Phones: the chosen Work filter slides to the middle of its row.
+  Array.prototype.forEach.call(document.querySelectorAll('[data-filter]'), function (b) {
+    b.addEventListener('click', function () {
+      var row = b.parentNode;
+      if (!phone.matches || !row.scrollBy) return;
+      var r = row.getBoundingClientRect(), c = b.getBoundingClientRect();
+      row.scrollBy({ left: c.left + c.width / 2 - (r.left + r.width / 2), behavior: 'smooth' });
+    });
+  });
   // Formspree: send in the background, then show our own thank-you page
   var form = document.getElementById('contact-form');
   if (form && /formspree[.]io/.test(form.action)) {
@@ -972,8 +1200,6 @@ img { max-width: 100%; }
   /* A plain dim, no live blur: blurring the page behind costs a repaint every frame. */
   .slac__scrim{position:absolute;inset:0;background:rgba(20,20,20,.5);
     opacity:0;transition:opacity 250ms ease-out;will-change:opacity}
-  /* While a case study is open, stop the slideshow behind it from animating. */
-  html.slac-lock [data-slide]{animation-play-state:paused !important}
   .slac.is-open .slac__scrim{opacity:1}
   /* Two fixed panes inside a window-sized frame: the text on the left never moves,
      and only the photo column on the right scrolls. */
@@ -1028,6 +1254,22 @@ img { max-width: 100%; }
     .slac__media{order:1}
     .slac__info{order:2}
     .slac__hero{max-height:40vh;max-height:40dvh}
+  }
+  /* Phones: a full-screen sheet that scrolls as one page: main photo, text, then the other photos. */
+  @media (max-width:700px){
+    .slac__stage{padding:0}
+    .slac__card{display:flex;flex-direction:column;width:100%;height:100vh;height:100dvh;padding:0;border-radius:0;
+      overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+    .slac__media{display:contents}
+    .slac__hero{order:1;flex:none;width:100%;max-height:none;border-radius:0}
+    .slac__info,.slac__info.is-compact{order:2;flex:none;height:auto;overflow:visible;padding:24px 20px 4px;gap:20px;font-size:16px}
+    .slac__logo{display:none}
+    .slac__eyebrow{margin:0}
+    .slac__title{font-size:1.875em}
+    .slac__copy{margin-top:4px}
+    .slac__copy p:first-child{font-size:1.125em}
+    .slac__rest{order:3;flex:none;margin:0;padding:24px 12px 48px;gap:10px}
+    .slac__x{position:fixed;top:12px;right:12px;width:44px;height:44px;z-index:3}
   }
   @media (prefers-reduced-motion:reduce){
     .slac__scrim,.slac__card{transition-duration:.01ms}
@@ -1122,6 +1364,7 @@ img { max-width: 100%; }
   function fitInfo() {
     var size = 15;
     var paras = Array.prototype.slice.call(elCopy.querySelectorAll('p'));
+    var sheet = window.matchMedia('(max-width: 700px)').matches;
     // Start from the full text every time (a resize may need more of it back).
     info.classList.remove('is-compact');
     elCopy.style.display = '';
@@ -1130,6 +1373,7 @@ img { max-width: 100%; }
       p.style.removeProperty('-webkit-line-clamp'); p.style.removeProperty('-webkit-box-orient');
     });
     info.style.removeProperty('--drop');
+    if (sheet) { info.style.fontSize = ''; return; }   // phones scroll, so the whole text shows
     info.style.fontSize = size + 'px';
     // Measured from the lowest visible block, to the half pixel, so rounding can't hide an overflow.
     function over() {
@@ -1247,6 +1491,7 @@ img { max-width: 100%; }
     lockScroll(true);
     isOpen = true;
     media.scrollTop = 0;
+    ov.querySelector('.slac__card').scrollTop = 0;
 
     requestAnimationFrame(function () {
       var to = elHero.getBoundingClientRect();
@@ -1332,50 +1577,6 @@ img { max-width: 100%; }
     pushed = false;
     if (isOpen) teardown();
   });
-})();
-</script>
-<script>
-// Hero card: show the name, city and position of whichever slide is most visible.
-(function () {
-  var hero = document.querySelector('.sla-hero');
-  if (!hero) return;
-  // The hero slides up behind the sticky header by exactly the header's height.
-  var bar = document.querySelector('.sla-bar');
-  function setBar() { if (bar) document.documentElement.style.setProperty('--bar-h', bar.offsetHeight + 'px'); }
-  setBar();
-  window.addEventListener('resize', setBar);
-  var slides = hero.querySelectorAll('[data-slide]');
-  var text = hero.querySelector('.gh-card__text');
-  var nameEl = hero.querySelector('.gh-card__name');
-  var cityEl = hero.querySelector('.gh-card__city');
-  var countEl = hero.querySelector('.gh-card__count');
-  var shown = -1, total = slides.length;
-  function pad(n) { return (n < 10 ? '0' : '') + n; }
-  function tick() {
-    var best = -1, bestOp = -1;
-    for (var i = 0; i < slides.length; i++) {
-      var op = parseFloat(getComputedStyle(slides[i]).opacity);
-      if (op > bestOp) { bestOp = op; best = i; }
-    }
-    if (best === shown || bestOp < 0.5) return;
-    var first = shown < 0;
-    shown = best;
-    var label = slides[best].getAttribute('aria-label') || '';
-    var cut = label.lastIndexOf(', ');
-    var name = cut > 0 ? label.slice(0, cut) : label;
-    var city = cut > 0 ? label.slice(cut + 2) : '';
-    var idx = +slides[best].getAttribute('data-slide') + 1;
-    function write() {
-      nameEl.textContent = name; cityEl.textContent = city;
-      countEl.textContent = pad(idx) + ' / ' + pad(total);
-      text.classList.remove('is-out');
-    }
-    if (first) { write(); return; }
-    text.classList.add('is-out');
-    setTimeout(write, 140);
-  }
-  tick();
-  setInterval(tick, 250);
 })();
 </script>
 </body>
